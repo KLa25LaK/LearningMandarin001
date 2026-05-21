@@ -56,22 +56,29 @@ body:has(.page:target:not(#home)) #home{display:none}
 
 /* —— Accueil —— */
 header.top{
-  text-align:center;padding:1.85rem 1.35rem 1.45rem;margin-bottom:1rem;
+  padding:1.35rem 1.2rem 1.4rem;margin-bottom:1rem;
   background:linear-gradient(145deg,#fff8fc,#fff0f8 40%,#f5f0ff 70%,#f0f9ff);
   border-radius:var(--radius);box-shadow:var(--shadow);
   border:3px solid #fff;position:relative;
 }
 header.top::before{content:"✿";position:absolute;top:.65rem;left:1rem;font-size:1.1rem;opacity:.5}
 header.top::after{content:"★";position:absolute;top:.75rem;right:1.1rem;font-size:1rem;color:var(--lemon-deep);opacity:.7}
-header.top h1{
-  font-size:2rem;font-weight:700;letter-spacing:.02em;
-  color:var(--pink-deep);text-shadow:0 2px 0 rgba(255,255,255,.9);
+.home-title-row{
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+  background:rgba(255,255,255,.65);border-radius:12px;padding:.95rem 1rem;
 }
-header.top .zh-block{background:rgba(255,255,255,.65);border-radius:12px;padding:.65rem;margin-top:.85rem;justify-content:center}
+.home-title-zh{display:flex;align-items:center;gap:.5rem;flex:1;min-width:0}
+.home-title-zh .zh-line{font-size:clamp(1.35rem,5.2vw,1.75rem)}
+.home-title-zh .pinyin{font-size:clamp(.78rem,2.5vw,.92rem);margin-top:.1rem}
+.home-title-fr{display:flex;align-items:center;gap:.45rem;flex-shrink:0}
+.home-title-fr h1{
+  margin:0;font-size:clamp(1.2rem,4.5vw,1.65rem);font-weight:700;letter-spacing:.02em;
+  color:var(--pink-deep);text-shadow:0 2px 0 rgba(255,255,255,.9);line-height:1.2;
+}
 
 a.course-card{
-  text-decoration:none;color:inherit;display:block;
-  padding:1.25rem 1.35rem;margin-bottom:.95rem;border-radius:var(--radius);
+  text-decoration:none;color:inherit;display:flex;align-items:center;
+  padding:clamp(1.35rem,4.5vh,1.85rem) 1.25rem;margin-bottom:1rem;min-height:clamp(4.5rem,14vh,6.5rem);border-radius:var(--radius);
   box-shadow:var(--shadow);transition:transform .25s cubic-bezier(.34,1.4,.64,1),box-shadow .2s;
   border:3px solid #fff;position:relative;overflow:hidden;
 }
@@ -81,11 +88,18 @@ a.course-card.card-t1::before{background:linear-gradient(180deg,var(--pink),var(
 a.course-card.card-t2{background:linear-gradient(135deg,#fff,#f0f9ff);box-shadow:0 8px 24px rgba(56,189,248,.2)}
 a.course-card.card-t2::before{background:linear-gradient(180deg,var(--sky),var(--lav))}
 a.course-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 8px 0 rgba(210,170,230,.2),0 16px 36px rgba(255,180,210,.22)}
-a.course-card h2{font-size:1.1rem;margin-bottom:.2rem;font-family:var(--font-fr);color:var(--lav-deep);font-weight:700}
-.course-card .zh-title{color:var(--pink-deep);font-weight:700;display:block;margin-top:.2rem;font-size:1.05rem}
-.course-card .pinyin{font-size:.82rem;color:var(--muted);display:block;margin-top:.15rem}
-.course-card p{color:var(--muted);font-size:.85rem;margin-top:.35rem}
-.course-card .arrow{float:right;font-size:1.4rem;background:linear-gradient(135deg,var(--pink),var(--lav));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.course-card-row{display:flex;flex:1;align-items:center;justify-content:space-between;gap:.75rem;padding-right:1.75rem;min-width:0}
+.course-card-zh,.course-card-fr{display:flex;align-items:center;gap:.45rem;min-width:0}
+.course-card-zh{flex:1}
+.course-card-fr{flex-shrink:0}
+.course-card .zh-title{margin:0;color:var(--pink-deep);font-weight:700;font-size:clamp(1.2rem,4.8vw,1.5rem);line-height:1.25}
+.course-card-fr h2{margin:0;font-size:clamp(1.1rem,4.2vw,1.4rem);line-height:1.25;font-family:var(--font-fr);color:var(--lav-deep);font-weight:700}
+.course-card .btn-speak{position:relative;z-index:2;flex-shrink:0}
+.course-card .arrow{
+  position:absolute;right:1rem;top:50%;transform:translateY(-50%);
+  font-size:1.4rem;background:linear-gradient(135deg,var(--pink),var(--lav));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
 
 /* —— En-tête de page (titre thème) —— */
 .page-hero{
@@ -95,6 +109,11 @@ a.course-card h2{font-size:1.1rem;margin-bottom:.2rem;font-family:var(--font-fr)
 }
 #theme2 .page-hero{background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(224,242,254,.55));border-color:rgba(56,189,248,.3)}
 .page-hero .zh-line{font-size:1.25rem;color:var(--ink)}
+.page-hero-row{display:flex;align-items:center;justify-content:space-between;gap:.65rem}
+.page-hero-row>.zh-block,.page-hero-row>.fr-block{margin-bottom:0;flex:1;min-width:0}
+.page-hero-row>.fr-block{flex:0 1 auto;flex-shrink:0;justify-content:flex-end}
+.page-hero-row h2{margin:0;font-size:clamp(1rem,3.8vw,1.35rem);color:var(--lav-deep);font-weight:700;line-height:1.25}
+
 
 .badge{display:inline-block;font-size:.72rem;font-weight:700;padding:.25rem .6rem;border-radius:999px}
 .badge-review{background:linear-gradient(90deg,var(--lav-soft),var(--sky-soft));color:var(--lav-deep);border:1px solid var(--lav)}
@@ -118,6 +137,23 @@ a.course-card h2{font-size:1.1rem;margin-bottom:.2rem;font-family:var(--font-fr)
 .explain-practice .zh-block:last-child,.explain-practice .fr-block:last-child{margin-bottom:0}
 
 .fr-block,.zh-block{display:flex;align-items:flex-start;gap:.55rem;margin-bottom:.45rem;padding:.5rem .65rem;border-radius:10px}
+.pattern-box .phrase-row{
+  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+  margin-bottom:.3rem;padding:.35rem .65rem;
+  border-radius:10px;background:rgba(255,255,255,.55);
+  border:1px solid rgba(167,139,250,.15);
+}
+.pattern-box .phrase-row:last-child{margin-bottom:0}
+.pattern-box .phrase-row .zh-block,.pattern-box .phrase-row .fr-block{
+  margin-bottom:0;flex-shrink:0;padding:.3rem .5rem;
+}
+.pattern-box .phrase-row .zh-block{flex:1;min-width:0}
+.pattern-box .phrase-row .fr-block{flex:0 1 auto;max-width:46%;min-width:0}
+.pattern-box .phrase-row .zh-line{font-size:clamp(1.05rem,4.2vw,1.3rem)}
+.pattern-box .phrase-row .fr-line{font-size:clamp(.98rem,3.6vw,1.18rem);line-height:1.3}
+.pattern-box .phrase-row .pinyin{font-size:clamp(.82rem,2.6vw,.95rem)}
+.struct-plus{color:var(--lav-deep);font-weight:800;margin:0 .15em;font-family:var(--font-fr)}
+
 .fr-block:last-child,.zh-block:last-child{margin-bottom:0}
 .fr-block{background:var(--fr-bg)}
 .zh-block{background:var(--zh-bg)}
@@ -210,8 +246,9 @@ a.course-card h2{font-size:1.1rem;margin-bottom:.2rem;font-family:var(--font-fr)
 
 .pattern-box{
   background:linear-gradient(135deg,#fff5f9,#e0f2fe);
-  border:2px solid var(--lav);border-radius:var(--radius);padding:1.15rem;margin:1rem 0;box-shadow:var(--shadow);
+  border:2px solid var(--lav);border-radius:var(--radius);padding:.65rem .8rem;margin:.75rem 0;box-shadow:var(--shadow);
 }
+.pattern-box>p{margin:0 0 .28rem;font-weight:600}
 .part-place{color:var(--sky-deep);font-weight:600}
 .part-action{color:var(--pink-deep);font-weight:600}
 
@@ -242,6 +279,79 @@ details.review .inner{padding:0 1.1rem 1.15rem;border-top:2px solid var(--lav-so
   border:2px solid var(--lav-soft);background:#fff;font-family:inherit;
 }
 .builder .result{margin-top:1rem;padding:1rem;background:linear-gradient(135deg,var(--peach),var(--lav-soft));border-radius:12px}
+.builder-711 .builder-row{margin-bottom:.85rem}
+.builder-711 .builder-row:last-of-type{margin-bottom:.35rem}
+.builder-prefix{margin:0 0 .3rem;font-size:clamp(1.05rem,4vw,1.2rem);font-weight:700;color:var(--pink-deep)}
+.builder-711 select{margin-top:0}
+#picked-result .phrase{margin-bottom:0}
+/* —— COCO boissons —— */
+.coco-panel{
+  background:linear-gradient(145deg,#fffaf5,#fff0f5);
+  border:2px solid rgba(251,146,60,.35);border-radius:var(--radius);
+  padding:clamp(.85rem,3vw,1.15rem);margin:1.1rem 0 1rem;box-shadow:var(--shadow);
+}
+.coco-formula{
+  margin:0 0 .85rem;font-size:clamp(1.05rem,4.2vw,1.25rem);font-weight:700;color:var(--ink);
+  text-align:center;line-height:1.45;
+}
+.coco-formula .coco-brand{
+  display:inline-block;padding:.12rem .55rem;border-radius:8px;
+  background:linear-gradient(135deg,#fb923c,#f97316);color:#fff;font-family:var(--font-fr);
+  letter-spacing:.04em;
+}
+.coco-formula .coco-plus{color:var(--lav-deep);margin:0 .2em}
+.coco-pick-name{color:var(--pink-deep);min-width:2em;display:inline-block}
+.coco-hint{font-size:.78rem;color:var(--muted);text-align:center;margin:-.45rem 0 .75rem}
+.coco-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,158px),1fr));
+  gap:.65rem;margin-bottom:.85rem;
+}
+.coco-card{
+  display:flex;flex-direction:column;align-items:stretch;
+  padding:0;border:3px solid #fff;border-radius:14px;background:#fff;
+  cursor:pointer;text-align:left;box-shadow:0 4px 14px rgba(251,146,60,.12);
+  transition:transform .2s cubic-bezier(.34,1.4,.64,1),border-color .2s,box-shadow .2s;
+  font:inherit;color:inherit;
+}
+.coco-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(251,146,60,.2)}
+.coco-card.is-selected{border-color:var(--pink);box-shadow:0 0 0 2px var(--pink-soft),0 8px 22px rgba(244,114,182,.25)}
+.coco-card-media{position:relative;border-radius:11px 11px 0 0;overflow:hidden;aspect-ratio:4/3;background:#f5f3ff}
+.coco-card-media img{width:100%;height:100%;object-fit:cover;display:block}
+.coco-zoom{
+  position:absolute;right:.35rem;bottom:.35rem;
+  width:2rem;height:2rem;border-radius:50%;border:2px solid #fff;
+  background:rgba(30,20,40,.55);color:#fff;font-size:.95rem;line-height:1;
+  display:flex;align-items:center;justify-content:center;pointer-events:none;
+}
+.coco-card-body{padding:.5rem .55rem .6rem}
+.coco-card-zh{font-weight:700;font-size:.95rem;color:var(--ink);line-height:1.25;display:block}
+.coco-card-fr{font-size:.72rem;color:var(--lav-deep);font-family:var(--font-fr);line-height:1.3;margin-top:.2rem;display:block}
+#coco-result{margin-top:0}
+#coco-result:empty{display:none}
+#coco-result .phrase{margin-bottom:0}
+.img-lightbox{
+  position:fixed;inset:0;z-index:10050;background:rgba(15,10,25,.88);
+  display:flex;align-items:center;justify-content:center;padding:1.25rem;
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.img-lightbox.is-open{opacity:1;visibility:visible}
+
+.img-lightbox-close{
+  position:absolute;top:max(.75rem,env(safe-area-inset-top));right:max(.75rem,env(safe-area-inset-right));
+  width:2.75rem;height:2.75rem;border-radius:50%;border:3px solid #fff;
+  background:rgba(255,255,255,.15);color:#fff;font-size:1.5rem;cursor:pointer;line-height:1;
+}
+.img-lightbox-inner{max-width:min(96vw,520px);text-align:center}
+.img-lightbox img{max-width:100%;max-height:min(52vh,360px);border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.45);object-fit:contain;display:block;margin:0 auto}
+.img-lightbox-desc{margin-top:.85rem;text-align:left;max-width:520px}
+.img-lightbox-desc .zh-block,.img-lightbox-desc .fr-block{margin-bottom:.45rem;padding:.55rem .7rem;border-radius:10px}
+.img-lightbox-desc .zh-block{background:rgba(184,245,232,.92);color:var(--ink)}
+.img-lightbox-desc .fr-block{background:rgba(232,222,255,.92);color:var(--fr-ink);font-family:var(--font-fr)}
+.img-lightbox-desc .lb-title{font-weight:700;font-size:.88rem;margin-bottom:.25rem;display:block}
+.img-lightbox-desc .lb-body{font-size:.92rem;line-height:1.45}
+.coco-formula .coco-buy{color:var(--pink-deep);font-weight:800}
+
+
 
 footer.foot{
   text-align:center;font-size:.8rem;color:var(--muted);margin-top:2rem;
@@ -316,6 +426,53 @@ body:has(#theme1-practice:target) #theme1{display:none}
 body:has(#theme1:target) #theme1-games-learn,
 body:has(#theme1:target) #theme1-instruments-learn,
 body:has(#theme1:target) #theme1-practice{display:none}
+
+/* 主題一選單：均分高度、間距一致 */
+#theme1.theme1-hub:target{
+  display:flex;
+  flex-direction:column;
+  min-height:calc(100dvh - 4.5rem);
+  gap:clamp(.6rem,1.8vh,.85rem);
+  padding:0 0 .35rem;
+  box-sizing:border-box;
+}
+#theme1.theme1-hub .page-hero{
+  flex:0 0 auto;
+  margin:0;
+  padding:.75rem 1rem;
+}
+#theme1.theme1-hub .page-hero .zh-line{font-size:clamp(1.15rem,4.2vw,1.45rem)}
+#theme1.theme1-hub .page-hero .pinyin{font-size:clamp(.88rem,2.8vw,1.05rem)}
+#theme1.theme1-hub>.sub-card{
+  flex:1 1 0;
+  min-height:clamp(4.25rem,16vh,7rem);
+  margin:0;
+  padding:clamp(1rem,4.5vh,1.9rem) clamp(3.25rem,10vw,3.75rem) clamp(1rem,4.5vh,1.9rem) 1.15rem;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+}
+#theme1.theme1-hub .sub-card h2{
+  font-size:clamp(1.55rem,6.5vw,2.45rem);
+  margin:0;
+  line-height:1.25;
+  width:100%;
+}
+#theme1.theme1-hub .sub-card .arrow{
+  position:absolute;
+  right:clamp(.75rem,3vw,1.1rem);
+  top:50%;
+  transform:translateY(-50%);
+  float:none;
+  margin:0;
+  font-size:clamp(1.35rem,4vw,1.75rem);
+  line-height:1;
+}
+@media(max-width:560px){
+  #theme1.theme1-hub:target{min-height:calc(100dvh - 5rem)}
+}
+
 
 
 .learn-board{display:grid;grid-template-columns:minmax(0,42%) minmax(0,58%);gap:.75rem;margin:0 0 1rem}
@@ -503,46 +660,60 @@ body:has(#theme1:target) #theme1-practice{display:none}
 
 <section id="home" class="page">
 <header class="top">
-  <h1>Cours du jour</h1>
-  <div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="今日課程" title="聽">🔊</button><div><span class="zh-line zh">今日課程</span><span class="pinyin">Jīnrì kèchéng</span></div></div>
+  <div class="home-title-row">
+    <div class="home-title-zh">
+      <button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="今日課程" title="聽">🔊</button>
+      <div><span class="zh-line zh">今日課程</span><span class="pinyin">Jīnrì kèchéng</span></div>
+    </div>
+    <div class="home-title-fr">
+      <h1>Cours du jour</h1>
+      <button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="Cours du jour" title="Écouter">🔊</button>
+    </div>
+  </div>
 </header>
 <a class="course-card card-t1" href="#theme1">
   <span class="arrow">→</span>
-  <h2>Thème 1 — Le piège de « play »</h2>
-  <span class="zh-title">主題一：play 與中文動詞</span>
-  <span class="pinyin">Zhǔtí yī：play yǔ Zhōngwén dòngcí</span>
-  <p>15 exemples · audio 中文 &amp; français</p>
+  <div class="course-card-row">
+    <div class="course-card-zh">
+      <button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="主題一：動詞＋名詞" title="聽">🔊</button>
+      <span class="zh-title zh">主題一：動詞＋名詞</span>
+    </div>
+    <div class="course-card-fr">
+      <h2>Thème 1</h2>
+      <button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="Thème 1" title="Écouter">🔊</button>
+    </div>
+  </div>
 </a>
 <a class="course-card card-t2" href="#theme2">
   <span class="arrow">→</span>
-  <h2>Thème 2 — Où vas-tu ?</h2>
-  <span class="zh-title">主題二：你要去哪裡？</span>
-  <span class="pinyin">Zhǔtí èr：Nǐ yào qù nǎlǐ?</span>
-  <p>7-11 et 50嵐</p>
+  <div class="course-card-row">
+    <div class="course-card-zh">
+      <button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="主題二：你要去哪裡？" title="聽">🔊</button>
+      <span class="zh-title zh">主題二：你要去哪裡？</span>
+    </div>
+    <div class="course-card-fr">
+      <h2>Thème 2 — Où vas-tu ?</h2>
+      <button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="Thème 2 — Où vas-tu ?" title="Écouter">🔊</button>
+    </div>
+  </div>
 </a>
 <footer class="foot">🔊 綠色按鈕 = 中文 · 紫色按鈕 = 法文</footer>
 </section>
 
 
-<section id="theme1" class="page">
+<section id="theme1" class="page theme1-hub">
 <div class="page-hero"><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="主題一：play 與中文動詞">🔊</button><div><span class="zh-line zh">主題一：play 與中文動詞</span><span class="pinyin">Zhǔtí yī：play yǔ Zhōngwén dòngcí</span></div></div></div>
 <a class="sub-card sub-games" href="#theme1-games-learn">
   <span class="arrow">→</span>
   <h2>Jeux · 遊戲</h2>
-  <span class="zh-title">jouer au — 3 組配對</span>
-  <span class="pinyin">Dǎ、tī、xià</span>
 </a>
 <a class="sub-card sub-instruments" href="#theme1-instruments-learn">
   <span class="arrow">→</span>
   <h2>Instruments · 樂器</h2>
-  <span class="zh-title">jouer du — 4 組配對</span>
-  <span class="pinyin">Tán、lā、chuī、dǎ</span>
 </a>
 <a class="sub-card sub-practice" href="#theme1-practice">
   <span class="arrow">→</span>
   <h2>Pratique · 練習</h2>
-  <span class="zh-title">回家練習 · 7 組</span>
-  <span class="pinyin">Huíjiā liànxí · qī zǔ</span>
 </a>
 </section>
 
@@ -700,32 +871,67 @@ body:has(#theme1:target) #theme1-practice{display:none}
 </section>
 
 <section id="theme2" class="page">
-<div class="page-hero"><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="主題二：你要去哪裡？" title="聽">🔊</button><div><span class="zh-line zh">主題二：你要去哪裡？</span><span class="pinyin">Zhǔtí èr：Nǐ yào qù nǎlǐ?</span></div></div></div>
+<div class="page-hero page-hero-row"><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="主題二：你要去哪裡？" title="聽">🔊</button><div><span class="zh-line zh">主題二：你要去哪裡？</span><span class="pinyin">Zhǔtí èr：Nǐ yào qù nǎlǐ?</span></div></div><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="Thème 2 — Où vas-tu ?" title="Écouter">🔊</button><h2>Thème 2 — Où vas-tu ?</h2></div></div>
 <div class="pattern-box">
-  <p style="font-weight:600;margin-bottom:.5rem">Structure</p>
-  <div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="Où vas-tu ?" title="Écouter">🔊</button><span class="fr-line">Où vas-tu ?</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="你要去哪裡？" title="聽">🔊</button><div><span class="zh-line zh">你要去哪裡？</span><span class="pinyin">Nǐ yào qù nǎlǐ?</span></div></div></div>
-  <div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去 地方 做什麼。" title="聽">🔊</button><div><span class="zh-line zh">我要去 地方 做什麼。</span><span class="pinyin">Wǒ yào qù dìfang zuò shénme.</span></div></div>
+  <p>Structure</p>
+  <div class="phrase-row">
+    <div class="zh-block"><div><span class="zh-line zh">你要去哪裡？</span><span class="pinyin">Nǐ yào qù nǎlǐ?</span></div></div>
+    <div class="fr-block"><span class="fr-line">Où vas-tu ?</span></div>
+  </div>
+  <div class="phrase-row">
+    <div class="zh-block"><div><span class="zh-line zh">我要去 <span class="struct-plus">+</span> 地方 <span class="struct-plus">+</span> 做什麼。</span><span class="pinyin">Wǒ yào qù <span class="struct-plus">+</span> dìfang <span class="struct-plus">+</span> zuò shénme.</span></div></div>
+    <div class="fr-block"><span class="fr-line">Je vais à <span class="struct-plus">+</span> [lieu] <span class="struct-plus">+</span> faire [quoi].</span></div>
+  </div>
 </div>
-<p class="section-title">Phrases clés<span class="pinyin zh">Kètáng bìliàn</span></p>
-<div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="Où vas-tu ?" title="Écouter">🔊</button><span class="fr-line">Où vas-tu ?</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="你要去哪裡？" title="聽">🔊</button><div><span class="zh-line zh">你要去哪裡？</span><span class="pinyin">Nǐ yào qù nǎlǐ?</span></div></div></div>
-<div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="Je vais à 7-11 acheter de l'eau." title="Écouter">🔊</button><span class="fr-line">Je vais à 7-11 acheter de l'eau.</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去7-11買水。" title="聽">🔊</button><div><span class="zh-line zh">我要去7-11買水。</span><span class="pinyin">Wǒ yào qù 7-11 mǎi shuǐ.</span></div></div></div>
-<div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="Je vais à 7-11 payer la facture de téléphone." title="Écouter">🔊</button><span class="fr-line">Je vais à 7-11 payer la facture de téléphone.</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去7-11繳電話費。" title="聽">🔊</button><div><span class="zh-line zh">我要去7-11繳電話費。</span><span class="pinyin">Wǒ yào qù 7-11 jiǎo diànhuà fèi.</span></div></div></div>
-<div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="Je vais à 50 Lan acheter un bubble tea." title="Écouter">🔊</button><span class="fr-line">Je vais à 50 Lan acheter un bubble tea.</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去50嵐買珍珠奶茶。" title="聽">🔊</button><div><span class="zh-line zh">我要去50嵐買珍珠奶茶。</span><span class="pinyin">Wǒ yào qù 50 Lán mǎi zhēnzhū nǎichá.</span></div></div></div>
 <p class="section-title">Choisis une phrase<span class="pinyin zh">Xuǎn yī jù</span></p>
-<div class="builder">
-  <label>Phrase</label>
-  <select id="phrase-pick"><option value="">—</option><option value="我要去7-11買水。">我要去7-11買水。</option><option value="我要去7-11買東西。">我要去7-11買東西。</option><option value="我要去7-11繳電話費。">我要去7-11繳電話費。</option><option value="我要去7-11繳水費。">我要去7-11繳水費。</option><option value="我要去7-11取包裹。">我要去7-11取包裹。</option><option value="我要去7-11印文件。">我要去7-11印文件。</option><option value="我要去7-11買便當。">我要去7-11買便當。</option><option value="我要去50嵐買珍珠奶茶。">我要去50嵐買珍珠奶茶。</option><option value="我要去50嵐買手搖飲。">我要去50嵐買手搖飲。</option><option value="我要去50嵐買綠茶。">我要去50嵐買綠茶。</option></select>
+<div class="builder builder-711">
+  <div class="builder-row">
+    <p class="builder-prefix zh">我要去7-11買</p>
+    <select id="pick-buy"><option value="">—</option><option value="水" data-zh="我要去7-11買水。" data-fr="Je vais à 7-11 acheter de l'eau." data-py="Wǒ yào qù 7-11 mǎi shuǐ.">水 · acheter de l'eau</option><option value="東西" data-zh="我要去7-11買東西。" data-fr="Je vais à 7-11 faire des courses." data-py="Wǒ yào qù 7-11 mǎi dōngxi.">東西 · faire des courses</option><option value="便當" data-zh="我要去7-11買便當。" data-fr="Je vais à 7-11 acheter un bento." data-py="Wǒ yào qù 7-11 mǎi biàndāng.">便當 · acheter un bento</option><option value="零食" data-zh="我要去7-11買零食。" data-fr="Je vais à 7-11 acheter des snacks." data-py="Wǒ yào qù 7-11 mǎi língshí.">零食 · acheter des snacks</option><option value="飲料" data-zh="我要去7-11買飲料。" data-fr="Je vais à 7-11 acheter des boissons." data-py="Wǒ yào qù 7-11 mǎi yǐnliào.">飲料 · acheter des boissons</option><option value="咖啡" data-zh="我要去7-11買咖啡。" data-fr="Je vais à 7-11 acheter un café." data-py="Wǒ yào qù 7-11 mǎi kāfēi.">咖啡 · acheter un café</option><option value="電影票" data-zh="我要去7-11買電影票。" data-fr="Je vais à 7-11 acheter des billets de cinéma." data-py="Wǒ yào qù 7-11 mǎi diànyǐng piào.">電影票 · acheter des billets de cinéma</option><option value="票" data-zh="我要去7-11買票。" data-fr="Je vais à 7-11 acheter des billets." data-py="Wǒ yào qù 7-11 mǎi piào.">票 · acheter des billets</option><option value="悠遊卡" data-zh="我要去7-11買悠遊卡。" data-fr="Je vais à 7-11 acheter une carte EasyCard." data-py="Wǒ yào qù 7-11 mǎi yōuyóu kǎ.">悠遊卡 · acheter une carte EasyCard</option><option value="衛生紙" data-zh="我要去7-11買衛生紙。" data-fr="Je vais à 7-11 acheter du papier toilette." data-py="Wǒ yào qù 7-11 mǎi wèishēngzhǐ.">衛生紙 · acheter du papier toilette</option><option value="關東煮" data-zh="我要去7-11買關東煮。" data-fr="Je vais à 7-11 acheter de l'oden." data-py="Wǒ yào qù 7-11 mǎi guāndōngzhǔ.">關東煮 · acheter de l'oden</option><option value="霜淇淋" data-zh="我要去7-11買霜淇淋。" data-fr="Je vais à 7-11 acheter une glace." data-py="Wǒ yào qù 7-11 mǎi shuāngqílín.">霜淇淋 · acheter une glace</option></select>
+  </div>
+  <div class="builder-row">
+    <p class="builder-prefix zh">我要去7-11繳</p>
+    <select id="pick-pay"><option value="">—</option><option value="電話費" data-zh="我要去7-11繳電話費。" data-fr="Je vais à 7-11 payer la facture de téléphone." data-py="Wǒ yào qù 7-11 jiǎo diànhuà fèi.">電話費 · payer la facture de téléphone</option><option value="水費" data-zh="我要去7-11繳水費。" data-fr="Je vais à 7-11 payer la facture d'eau." data-py="Wǒ yào qù 7-11 jiǎo shuǐ fèi.">水費 · payer la facture d'eau</option><option value="電費" data-zh="我要去7-11繳電費。" data-fr="Je vais à 7-11 payer la facture d'électricité." data-py="Wǒ yào qù 7-11 jiǎo diànfèi.">電費 · payer la facture d'électricité</option><option value="瓦斯費" data-zh="我要去7-11繳瓦斯費。" data-fr="Je vais à 7-11 payer la facture de gaz." data-py="Wǒ yào qù 7-11 jiǎo wǎsī fèi.">瓦斯費 · payer la facture de gaz</option><option value="健保費" data-zh="我要去7-11繳健保費。" data-fr="Je vais à 7-11 payer l'assurance maladie." data-py="Wǒ yào qù 7-11 jiǎo jiànbǎo fèi.">健保費 · payer l'assurance maladie</option><option value="信用卡費" data-zh="我要去7-11繳信用卡費。" data-fr="Je vais à 7-11 payer la carte de crédit." data-py="Wǒ yào qù 7-11 jiǎo xìnyòngkǎ fèi.">信用卡費 · payer la carte de crédit</option><option value="學費" data-zh="我要去7-11繳學費。" data-fr="Je vais à 7-11 payer les frais de scolarité." data-py="Wǒ yào qù 7-11 jiǎo xuéfèi.">學費 · payer les frais de scolarité</option><option value="補習班費" data-zh="我要去7-11繳補習班費。" data-fr="Je vais à 7-11 payer les cours particuliers." data-py="Wǒ yào qù 7-11 jiǎo bǔxíbān fèi.">補習班費 · payer les cours particuliers</option><option value="罰單" data-zh="我要去7-11繳罰單。" data-fr="Je vais à 7-11 payer une amende." data-py="Wǒ yào qù 7-11 jiǎo fádān.">罰單 · payer une amende</option><option value="停車費" data-zh="我要去7-11繳停車費。" data-fr="Je vais à 7-11 payer le stationnement." data-py="Wǒ yào qù 7-11 jiǎo tíngchē fèi.">停車費 · payer le stationnement</option><option value="稅" data-zh="我要去7-11繳稅。" data-fr="Je vais à 7-11 payer des impôts." data-py="Wǒ yào qù 7-11 jiǎo shuì.">稅 · payer des impôts</option></select>
+  </div>
+  <div class="builder-row">
+    <p class="builder-prefix zh">我要去7-11</p>
+    <select id="pick-svc"><option value="">—</option><option value="寄包裹" data-zh="我要去7-11寄包裹。" data-fr="Je vais à 7-11 envoyer un colis." data-py="Wǒ yào qù 7-11 jì bāoguǒ.">寄包裹 · envoyer un colis</option><option value="取包裹" data-zh="我要去7-11取包裹。" data-fr="Je vais à 7-11 retirer un colis." data-py="Wǒ yào qù 7-11 qǔ bāoguǒ.">取包裹 · retirer un colis</option><option value="影印" data-zh="我要去7-11影印。" data-fr="Je vais à 7-11 faire une photocopie." data-py="Wǒ yào qù 7-11 yǐngyìn.">影印 · faire une photocopie</option><option value="列印照片" data-zh="我要去7-11列印照片。" data-fr="Je vais à 7-11 imprimer des photos." data-py="Wǒ yào qù 7-11 lièyìn zhàopiàn.">列印照片 · imprimer des photos</option><option value="上廁所" data-zh="我要去7-11上廁所。" data-fr="Je vais au 7-11 utiliser les toilettes." data-py="Wǒ yào qù 7-11 shàng cèsuǒ.">上廁所 · utiliser les toilettes</option><option value="提款" data-zh="我要去7-11提款。" data-fr="Je vais au 7-11 retirer de l'argent." data-py="Wǒ yào qù 7-11 tí kuǎn.">提款 · retirer de l'argent</option></select>
+  </div>
   <div class="result" id="picked-result"></div>
 </div>
-<details class="review"><summary><span class="badge badge-review">Révision</span> 7-11</summary><div class="inner">
-<div class="explain"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="7-11 à Taïwan : ouvert 24h/24, courses, factures, colis…" title="Écouter">🔊</button><span class="fr-line">7-11 à Taïwan : ouvert 24h/24, courses, factures, colis…</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="台灣 7-11：二十四小時，繳費、取包裹、影印。" title="聽">🔊</button><div><span class="zh-line zh">台灣 7-11：二十四小時，繳費、取包裹、影印。</span><span class="pinyin">Táiwān 7-11：èrshísì xiǎoshí，jiǎofèi、qǔ bāoguǒ.</span></div></div></div>
-<div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="acheter de l'eau" title="Écouter">🔊</button><span class="fr-line">acheter de l'eau</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去7-11買水。" title="聽">🔊</button><div><span class="zh-line zh">我要去7-11買水。</span><span class="pinyin">Wǒ yào qù 7-11 mǎi shuǐ.</span></div></div></div><div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="faire des courses" title="Écouter">🔊</button><span class="fr-line">faire des courses</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去7-11買東西。" title="聽">🔊</button><div><span class="zh-line zh">我要去7-11買東西。</span><span class="pinyin">Wǒ yào qù 7-11 mǎi dōngxi.</span></div></div></div><div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="payer la facture de téléphone" title="Écouter">🔊</button><span class="fr-line">payer la facture de téléphone</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去7-11繳電話費。" title="聽">🔊</button><div><span class="zh-line zh">我要去7-11繳電話費。</span><span class="pinyin">Wǒ yào qù 7-11 jiǎo diànhuà fèi.</span></div></div></div><div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="payer la facture d'eau" title="Écouter">🔊</button><span class="fr-line">payer la facture d'eau</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去7-11繳水費。" title="聽">🔊</button><div><span class="zh-line zh">我要去7-11繳水費。</span><span class="pinyin">Wǒ yào qù 7-11 jiǎo shuǐ fèi.</span></div></div></div><div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="retirer un colis" title="Écouter">🔊</button><span class="fr-line">retirer un colis</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去7-11取包裹。" title="聽">🔊</button><div><span class="zh-line zh">我要去7-11取包裹。</span><span class="pinyin">Wǒ yào qù 7-11 qǔ bāoguǒ.</span></div></div></div><div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="imprimer des documents" title="Écouter">🔊</button><span class="fr-line">imprimer des documents</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去7-11印文件。" title="聽">🔊</button><div><span class="zh-line zh">我要去7-11印文件。</span><span class="pinyin">Wǒ yào qù 7-11 yìn wénjiàn.</span></div></div></div><div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="acheter un plat préparé" title="Écouter">🔊</button><span class="fr-line">acheter un plat préparé</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去7-11買便當。" title="聽">🔊</button><div><span class="zh-line zh">我要去7-11買便當。</span><span class="pinyin">Wǒ yào qù 7-11 mǎi biàndāng.</span></div></div></div></div></details>
-<details class="review"><summary><span class="badge badge-review">Révision</span> 50嵐</summary><div class="inner">
-<div class="compare"><div class="col"><h5>🇹🇼 Taïwan</h5><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="手搖飲 50–80 元" title="聽">🔊</button><div><span class="zh-line zh">手搖飲 50–80 元</span><span class="pinyin">shǒuyáo yǐn 50–80 yuán</span></div></div></div>
-<div class="col"><h5>🇫🇷 France</h5><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="Souvent plus cher" title="Écouter">🔊</button><span class="fr-line">Souvent plus cher</span></div></div></div>
-<div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="acheter un bubble tea" title="Écouter">🔊</button><span class="fr-line">acheter un bubble tea</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去50嵐買珍珠奶茶。" title="聽">🔊</button><div><span class="zh-line zh">我要去50嵐買珍珠奶茶。</span><span class="pinyin">Wǒ yào qù 50 Lán mǎi zhēnzhū nǎichá.</span></div></div></div><div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="acheter une boisson fraîche" title="Écouter">🔊</button><span class="fr-line">acheter une boisson fraîche</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去50嵐買手搖飲。" title="聽">🔊</button><div><span class="zh-line zh">我要去50嵐買手搖飲。</span><span class="pinyin">Wǒ yào qù 50 Lán mǎi shǒuyáo yǐn.</span></div></div></div><div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="acheter du thé vert" title="Écouter">🔊</button><span class="fr-line">acheter du thé vert</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="我要去50嵐買綠茶。" title="聽">🔊</button><div><span class="zh-line zh">我要去50嵐買綠茶。</span><span class="pinyin">Wǒ yào qù 50 Lán mǎi lǜchá.</span></div></div></div>
-<div class="phrase"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="moins de sucre, moins de glace" title="Écouter">🔊</button><span class="fr-line">moins de sucre, moins de glace</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="少糖少冰" title="聽">🔊</button><div><span class="zh-line zh">少糖少冰</span><span class="pinyin">shǎo táng shǎo bīng</span></div></div></div>
-</div></details>
+<p class="section-title">COCO · Choisis ta boisson<span class="pinyin zh">Xuǎn yǐnliào</span></p>
+<div class="coco-panel">
+  <p class="coco-formula zh">我要去 <span class="coco-brand">COCO</span> <span class="coco-plus">+</span> <span class="coco-buy">買</span> <span class="coco-plus">+</span> <span class="coco-pick-name" id="coco-pick-name">⋯</span></p>
+  <p class="coco-hint">點飲料選句子 · 點圖片看內容物（中法文）</p>
+  <div class="coco-grid" id="coco-grid"><button type="button" class="coco-card" data-coco-id="shuangxiangpao" data-zh="我要去COCO買百香雙響炮。" data-fr="Je vais à CoCo acheter le Duo Passion." data-py="Wǒ yào qù COCO mǎi bǎixiāng shuāngxiǎngpào." data-name="百香雙響炮" data-img="images/coco-shuangxiangpao.png" data-ing-zh="內容物：百香果汁、綠茶、珍珠（黑色）、椰果（白色方塊）" data-ing-fr="Contenu : jus de fruit de la passion, thé vert, perles de tapioca noires, gelée de noix de coco.">
+  <span class="coco-card-media"><img src="images/coco-shuangxiangpao.png" alt="百香雙響炮" width="400" height="300" loading="lazy"><span class="coco-zoom" aria-hidden="true">⤢</span></span>
+  <span class="coco-card-body"><span class="coco-card-zh zh">百香雙響炮</span><span class="coco-card-fr">Duo Passion</span></span>
+</button>
+<button type="button" class="coco-card" data-coco-id="sanxiongdi" data-zh="我要去COCO買奶茶三兄弟。" data-fr="Je vais à CoCo acheter le milk tea aux trois garnitures." data-py="Wǒ yào qù COCO mǎi nǎichá sānxiōngdì." data-name="奶茶三兄弟" data-img="images/coco-sanxiongdi.png" data-ing-zh="內容物：奶茶、珍珠、椰果、仙草（三種配料）" data-ing-fr="Contenu : thé au lait, perles de tapioca, gelée de coco, herbe gelée (trois garnitures).">
+  <span class="coco-card-media"><img src="images/coco-sanxiongdi.png" alt="奶茶三兄弟" width="400" height="300" loading="lazy"><span class="coco-zoom" aria-hidden="true">⤢</span></span>
+  <span class="coco-card-body"><span class="coco-card-zh zh">奶茶三兄弟</span><span class="coco-card-fr">Milk tea aux trois garnitures</span></span>
+</button>
+<button type="button" class="coco-card" data-coco-id="sijizhenyeqing" data-zh="我要去COCO買四季珍椰青。" data-fr="Je vais à CoCo acheter le Siji Zhen Ye Qing." data-py="Wǒ yào qù COCO mǎi sìjì zhēn yē qīng." data-name="四季珍椰青" data-img="images/coco-sijizhenyeqing.png" data-ing-zh="內容物：四季春茶、珍珠、椰果" data-ing-fr="Contenu : thé Four Seasons (Si Ji Chun), perles de tapioca, gelée de noix de coco.">
+  <span class="coco-card-media"><img src="images/coco-sijizhenyeqing.png" alt="四季珍椰青" width="400" height="300" loading="lazy"><span class="coco-zoom" aria-hidden="true">⤢</span></span>
+  <span class="coco-card-body"><span class="coco-card-zh zh">四季珍椰青</span><span class="coco-card-fr">Siji Zhen Ye Qing</span></span>
+</button>
+<button type="button" class="coco-card" data-coco-id="yutou" data-zh="我要去COCO買芋頭西谷米牛奶。" data-fr="Je vais à CoCo acheter le lait taro et sagou." data-py="Wǒ yào qù COCO mǎi yùtou xīgǔmǐ niúnǎi." data-name="芋頭西谷米牛奶" data-img="images/coco-yutou.png" data-ing-zh="內容物：芋頭塊、西米（西谷米）、鮮奶" data-ing-fr="Contenu : morceaux de taro, sagou (perles blanches), lait frais.">
+  <span class="coco-card-media"><img src="images/coco-yutou.png" alt="芋頭西谷米牛奶" width="400" height="300" loading="lazy"><span class="coco-zoom" aria-hidden="true">⤢</span></span>
+  <span class="coco-card-body"><span class="coco-card-zh zh">芋頭西谷米牛奶</span><span class="coco-card-fr">Lait taro et sagou</span></span>
+</button>
+<button type="button" class="coco-card" data-coco-id="fenjiao" data-zh="我要去COCO買粉角檸檬冬瓜。" data-fr="Je vais à CoCo acheter la boisson citron et courge." data-py="Wǒ yào qù COCO mǎi fěnjiǎo níngméng dōngguā." data-name="粉角檸檬冬瓜" data-img="images/coco-fenjiao.png" data-ing-zh="內容物：冬瓜茶、檸檬、粉角（彩色粉圓）" data-ing-fr="Contenu : thé au melon d'hiver (courge), citron, fenjiao (perles colorées).">
+  <span class="coco-card-media"><img src="images/coco-fenjiao.png" alt="粉角檸檬冬瓜" width="400" height="300" loading="lazy"><span class="coco-zoom" aria-hidden="true">⤢</span></span>
+  <span class="coco-card-body"><span class="coco-card-zh zh">粉角檸檬冬瓜</span><span class="coco-card-fr">Citron et courge</span></span>
+</button></div>
+  <div class="result" id="coco-result"></div>
+</div>
+<div class="img-lightbox" id="img-lightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie" hidden>
+  <button type="button" class="img-lightbox-close" id="lightbox-close" title="Fermer">×</button>
+  <div class="img-lightbox-inner">
+    <img id="lightbox-img" src="" alt="">
+    <div class="img-lightbox-desc" id="lightbox-desc"></div>
+  </div>
+</div>
 </section>
 
 </div>
@@ -751,17 +957,86 @@ body:has(#theme1:target) #theme1-practice{display:none}
     speechSynthesis.speak(u);
   }
   document.addEventListener('click',function(e){
-    var b=e.target.closest('[data-speak]');
+    var b=e.target.closest('.btn-speak[data-speak], [data-speak].btn-speak');
+    if(!b)b=e.target.closest('[data-speak]');
     if(!b)return;
     if(b.getAttribute('data-action')==='error')return;
+    e.preventDefault();
+    e.stopPropagation();
     speak(b.getAttribute('data-speak'),b.getAttribute('data-lang')||'zh',b);
-  });
-  var pick=document.getElementById('phrase-pick');
-  if(pick)pick.addEventListener('change',function(){
-    var v=this.value,box=document.getElementById('picked-result');
-    if(!v){box.innerHTML='';return;}
-    box.innerHTML='<div class="phrase"><div class="fr-block">'+document.createElement('div').innerHTML+'</div></div>';
-    box.innerHTML='<div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="'+v.replace(/"/g,'&quot;')+'">🔊</button><div><span class="zh-line zh">'+v+'</span></div></div>';
+  },true);
+  function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+  function renderPickedPhrase(zh,fr,py){
+    var box=document.getElementById('picked-result');
+    if(!box)return;
+    if(!zh){box.innerHTML='';return;}
+    box.innerHTML='<div class="phrase"><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="'+escHtml(zh)+'" title="聽">🔊</button><div><span class="zh-line zh">'+escHtml(zh)+'</span>'+(py?'<span class="pinyin">'+escHtml(py)+'</span>':'')+'</div></div><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="'+escHtml(fr)+'" title="Écouter">🔊</button><span class="fr-line">'+escHtml(fr)+'</span></div></div>';
+  }
+
+  function renderCocoPhrase(zh,fr,py){
+    var box=document.getElementById('coco-result');
+    if(!box)return;
+    if(!zh){box.innerHTML='';return;}
+    box.innerHTML='<div class="phrase"><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="'+escHtml(zh)+'" title="聽">🔊</button><div><span class="zh-line zh">'+escHtml(zh)+'</span><span class="pinyin">'+escHtml(py)+'</span></div></div><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="'+escHtml(fr)+'" title="Écouter">🔊</button><span class="fr-line">'+escHtml(fr)+'</span></div></div>';
+  }
+  var cocoGrid=document.getElementById('coco-grid');
+  var cocoName=document.getElementById('coco-pick-name');
+  var lightbox=document.getElementById('img-lightbox');
+  var lightboxImg=document.getElementById('lightbox-img');
+  
+  function openLightbox(src,name,ingZh,ingFr){
+    if(!lightbox||!lightboxImg)return;
+    lightboxImg.src=src||'';
+    lightboxImg.alt=name||'';
+    var desc=document.getElementById('lightbox-desc');
+    if(desc){
+      if(ingZh||ingFr){
+        desc.innerHTML='<div class="zh-block"><span class="lb-title zh">'+escHtml(name||'')+'</span><span class="lb-body zh">'+escHtml(ingZh||'')+'</span></div><div class="fr-block"><span class="lb-title">'+escHtml(name||'')+'</span><span class="lb-body">'+escHtml(ingFr||'')+'</span></div>';
+        desc.hidden=false;
+      }else{desc.innerHTML='';desc.hidden=true;}
+    }
+    lightbox.hidden=false;
+    lightbox.classList.add('is-open');
+    document.body.style.overflow='hidden';
+  }
+  function closeLightbox(){
+    if(!lightbox)return;
+    lightbox.classList.remove('is-open');
+    lightbox.hidden=true;
+    document.body.style.overflow='';
+  }
+  var lbClose=document.getElementById('lightbox-close');
+  if(lbClose)lbClose.addEventListener('click',closeLightbox);
+  if(lightbox)lightbox.addEventListener('click',function(e){if(e.target===lightbox)closeLightbox();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
+  if(cocoGrid){
+    cocoGrid.addEventListener('click',function(e){
+      var img=e.target.closest('.coco-card-media img');
+      if(img){
+        e.stopPropagation();
+        var card=img.closest('.coco-card');
+        openLightbox(img.getAttribute('src'),card?card.getAttribute('data-name'):'',card?card.getAttribute('data-ing-zh'):'',card?card.getAttribute('data-ing-fr'):'');
+        return;
+      }
+      var card=e.target.closest('.coco-card');
+      if(!card)return;
+      cocoGrid.querySelectorAll('.coco-card').forEach(function(c){c.classList.remove('is-selected');});
+      card.classList.add('is-selected');
+      if(cocoName)cocoName.textContent=card.getAttribute('data-name')||'⋯';
+      renderCocoPhrase(card.dataset.zh,card.dataset.fr,card.dataset.py||'');
+    });
+  }
+  ['pick-buy','pick-pay','pick-svc'].forEach(function(id){
+    var sel=document.getElementById(id);
+    if(!sel)return;
+    sel.addEventListener('change',function(){
+      var o=this.selectedOptions[0];
+      if(!o||!o.dataset.zh){renderPickedPhrase('','','');return;}
+      ['pick-buy','pick-pay','pick-svc'].forEach(function(other){
+        if(other!==id){var s=document.getElementById(other);if(s)s.selectedIndex=0;}
+      });
+      renderPickedPhrase(o.dataset.zh,o.dataset.fr,o.dataset.py||'');
+    });
   });
   function shufflePracticeOrder(){
     var pool=document.getElementById('drag-pool');

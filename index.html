@@ -366,9 +366,40 @@ details.review .inner{padding:0 1.1rem 1.15rem;border-top:2px solid var(--lav-so
 }
 .stem-cell-pick .pick-menu{
   position:absolute;left:0;right:0;top:calc(100% + .28rem);z-index:80;
-  max-height:min(48vh,280px);overflow-y:auto;-webkit-overflow-scrolling:touch;
+  max-height:min(48vh,280px);
+  overflow-y:scroll;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-gutter:stable;
+  scrollbar-width:auto;
+  scrollbar-color:var(--lav-deep) var(--lav-soft);
   background:#fff;border:2px solid var(--lav-soft);border-radius:12px;
-  box-shadow:0 12px 28px rgba(80,60,100,.18);padding:.3rem;
+  box-shadow:0 12px 28px rgba(80,60,100,.18),inset -6px 0 10px -6px rgba(167,139,250,.2);
+  padding:.3rem .15rem .3rem .3rem;
+}
+.stem-cell-pick .pick-menu::-webkit-scrollbar{width:11px}
+.stem-cell-pick .pick-menu::-webkit-scrollbar-track{
+  background:var(--lav-soft);border-radius:10px;margin:.2rem .08rem .2rem 0;
+}
+.stem-cell-pick .pick-menu::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,var(--lav-deep),var(--pink-deep));
+  border-radius:10px;border:2px solid #fff;min-height:36px;
+}
+.stem-cell-pick .pick-menu::-webkit-scrollbar-thumb:hover{background:var(--pink-deep)}
+.stem-cell-pick .pick-menu.has-more::before{
+  content:'↓ 往下滑 · Faire défiler';
+  display:block;position:sticky;top:0;z-index:2;
+  margin:-.15rem -.05rem .35rem 0;padding:.32rem .45rem;
+  font-size:.72rem;font-weight:700;color:var(--lav-deep);
+  font-family:var(--font-fr);
+  background:linear-gradient(180deg,#fff 70%,rgba(255,255,255,.85));
+  border-bottom:1px dashed rgba(167,139,250,.35);
+  border-radius:8px 8px 0 0;
+}
+.stem-cell-pick .pick-menu.has-more::after{
+  content:'';display:block;position:sticky;bottom:0;height:1.1rem;
+  margin:.2rem -.05rem -.15rem 0;
+  background:linear-gradient(0deg,#fff 30%,transparent);
+  pointer-events:none;
 }
 .stem-cell-pick .pick-menu[hidden]{display:none!important}
 .stem-cell-pick .pick-option{
@@ -391,9 +422,25 @@ details.review .inner{padding:0 1.1rem 1.15rem;border-top:2px solid var(--lav-so
 .pick-audio-zh,.pick-audio-fr{display:flex;justify-content:center}
 @media(max-width:768px){
   .builder-stem{grid-template-columns:1fr}
-  .cell-layout,.stem-cell-pick .pick-trigger-body{min-height:0}
-  .stem-cell-pick .pick-trigger{min-height:0}
-  .pick-opt-audio{grid-template-columns:1fr}
+  .cell-layout{
+    grid-template-columns:1fr;
+    grid-template-rows:auto auto;
+    row-gap:.5rem;min-height:0;
+  }
+  .cell-text{grid-column:1}
+  .cell-actions{
+    grid-column:1;flex-direction:row;justify-content:flex-start;gap:.45rem;
+  }
+  .stem-cell-pick .pick-trigger-body{
+    grid-template-columns:1fr;
+    grid-template-rows:auto auto;min-height:0;row-gap:.45rem;
+  }
+  .stem-cell-pick .pick-trigger-text{grid-column:1}
+  .stem-cell-pick .pick-trigger-audio{
+    grid-column:1;flex-direction:row;gap:.4rem;
+  }
+  .stem-cell-pick .pick-trigger-audio .btn-chip{flex:1}
+  .pick-opt-audio{grid-template-columns:1fr 1fr}
 }
 /* —— COCO boissons —— */
 .coco-panel{
@@ -780,8 +827,27 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
   .builder-711 .builder-row .builder-prefix{font-size:1.1rem}
   .coco-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}
   .coco-hint{font-size:.8rem;line-height:1.35}
-  .float-nav{max-width:min(88vw,280px);top:max(3.75rem,calc(env(safe-area-inset-top) + 2.25rem))}
-  .float-nav a{padding:.55rem .85rem;font-size:.75rem}
+  /* 手機：底部導覽，不擋住主內容 */
+  body{padding-bottom:max(5.75rem,calc(env(safe-area-inset-bottom) + 5rem))}
+  .app{padding:1rem 1rem 1.25rem}
+  .float-nav{
+    top:auto;bottom:0;left:0;right:0;
+    max-width:none;width:100%;
+    flex-direction:row;flex-wrap:nowrap;justify-content:stretch;align-items:stretch;
+    gap:.35rem;padding:.45rem max(.5rem,env(safe-area-inset-left)) max(.55rem,env(safe-area-inset-bottom)) max(.5rem,env(safe-area-inset-right));
+    background:linear-gradient(0deg,rgba(255,255,255,.97) 70%,rgba(255,255,255,0));
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border-top:1px solid rgba(212,196,255,.5);
+    box-shadow:0 -4px 20px rgba(120,80,160,.12);
+  }
+  .float-nav a{
+    flex:1 1 0;min-width:0;align-items:center;text-align:center;
+    padding:.55rem .35rem;border-radius:14px;font-size:.8rem;
+  }
+  .float-nav a .fn-fr{font-size:.68rem;line-height:1.2}
+  .float-nav a .fn-zh{font-size:.74rem;line-height:1.25}
+  .float-nav a .fn-fr{display:block}
+  .float-nav a .fn-zh{display:block;margin-top:.08rem}
   .drag-cards{
     grid-template-columns:repeat(2,minmax(0,1fr))!important;
     row-gap:.45rem;column-gap:.45rem;padding:.5rem;
@@ -803,6 +869,65 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
   .learn-board-four .learn-scroll>.learn-tile{flex:0 0 auto!important;min-height:auto!important}
   .learn-tile{padding:.5rem .55rem}
   .learn-board{margin-bottom:.5rem}
+
+  /* —— 手機易讀、易點 —— */
+  .section-title{font-size:1.05rem;margin-bottom:.65rem}
+  .section-title .pinyin{font-size:.88rem}
+  .pattern-box{padding:1rem}
+  .pattern-box .zh-line{font-size:1.12rem}
+  .pattern-box .pinyin{font-size:.92rem}
+  .pattern-box .fr-line{font-size:.95rem}
+  .zh-block,.fr-block{padding:.65rem .75rem}
+  .zh-line{font-size:1.08rem}
+  .fr-line{font-size:.95rem}
+  .pinyin{font-size:.9rem}
+  .btn-speak{width:48px;height:48px;font-size:1.15rem}
+  .builder-711{gap:.85rem}
+  .builder-711 .builder-row{padding:.65rem .6rem}
+  .builder-711 .builder-row .builder-prefix{font-size:1.2rem;margin-bottom:.35rem}
+  .builder-stem{gap:.65rem}
+  .stem-cell{padding:.55rem .6rem}
+  .stem-text .zh-line{font-size:1.1rem}
+  .stem-text .pinyin{font-size:.9rem}
+  .stem-text .stem-fr{font-size:.88rem}
+  .btn-chip{
+    min-height:44px;min-width:4.5rem;padding:.45rem .65rem;font-size:.78rem;
+  }
+  .cell-actions{gap:.4rem}
+  .stem-cell-pick .pick-trigger{
+    min-height:5.5rem;padding:.55rem 1.1rem .55rem .6rem;
+    background:rgba(246,240,255,.95);
+    border:2px dashed var(--lav);border-radius:12px;
+  }
+  .stem-cell-pick .pick-trigger::after{font-size:1.1rem;top:.45rem;right:.35rem}
+  .pick-tap-hint{display:block;font-size:1.05rem;font-weight:700;color:var(--lav-deep);line-height:1.35}
+  .pick-tap-hint-fr{display:block;font-size:.88rem;font-family:var(--font-fr);color:var(--muted);margin-top:.2rem}
+  .stem-cell-pick .pick-trigger .pick-opt-zh{font-size:1.12rem}
+  .stem-cell-pick .pick-trigger .pick-opt-py{font-size:.9rem}
+  .stem-cell-pick .pick-trigger .pick-opt-fr{font-size:.88rem}
+  .stem-cell-pick .pick-menu{
+    max-height:min(62vh,420px);padding:.45rem .2rem .45rem .4rem;
+    left:-.15rem;right:-.15rem;
+  }
+  .stem-cell-pick .pick-menu.has-more::before{font-size:.82rem;padding:.4rem .5rem}
+  .stem-cell-pick .pick-option{padding:.65rem .55rem;margin-bottom:.35rem}
+  .pick-opt-zh{font-size:1.08rem}
+  .pick-opt-py{font-size:.9rem}
+  .pick-opt-fr{font-size:.88rem}
+  .pick-opt-audio{gap:.4rem;padding-top:.4rem}
+  .pick-opt-audio .btn-chip{width:100%;min-height:46px;font-size:.82rem}
+  .coco-hint{font-size:.9rem;padding:.5rem .55rem}
+  .coco-card-zh{font-size:1rem}
+  .coco-card-fr{font-size:.8rem}
+  .learn-tile{padding:.65rem .7rem}
+  .tile-zh{font-size:1.15rem!important}
+  .tile-py{font-size:.88rem!important}
+  .tile-fr{font-size:.82rem!important}
+  .tile-text>.btn-speak{width:42px;height:42px}
+  .btn-learn-clear-all{font-size:.95rem;padding:.65rem 1.35rem;min-height:48px}
+  .link-back{font-size:.95rem;padding:.35rem 0;display:inline-block}
+  .page-hero{padding:1rem 1.05rem}
+  .page-hero .zh-line{font-size:1.15rem}
 
   .img-lightbox{
     padding:max(1rem,env(safe-area-inset-top)) max(.75rem,env(safe-area-inset-right)) max(1rem,env(safe-area-inset-bottom)) max(.75rem,env(safe-area-inset-left));
@@ -1377,7 +1502,7 @@ body.touch-drag-active{-webkit-user-select:none;user-select:none}
   }
   function escPick(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
   function pickTriggerHTML(opt,kind){
-    if(!opt||!opt.value)return '—';
+    if(!opt||!opt.value)return '<div class="pick-trigger-body pick-trigger-empty"><div class="pick-trigger-text"><span class="pick-tap-hint zh">👆 點此選詞</span><span class="pick-tap-hint-fr">Choisir un mot</span></div></div>';
     var p=pickParts(opt,kind);
     return '<div class="pick-trigger-body"><div class="pick-trigger-text">'
       +'<span class="pick-opt-zh zh">'+escPick(p.zh)+'</span>'
@@ -1432,6 +1557,9 @@ body.touch-drag-active{-webkit-user-select:none;user-select:none}
       document.querySelectorAll('.builder-711 .pick-menu').forEach(function(m){if(m!==menu)m.hidden=true;});
       document.querySelectorAll('.builder-711 .pick-trigger').forEach(function(t){if(t!==trigger)t.classList.remove('is-open');});
       menu.hidden=false;trigger.classList.add('is-open');trigger.setAttribute('aria-expanded','true');
+      requestAnimationFrame(function(){
+        menu.classList.toggle('has-more',menu.scrollHeight>menu.clientHeight+4);
+      });
     }
     function syncTrigger(){
       var o=sel.selectedOptions[0];

@@ -7,6 +7,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Nunito:wght@500;600;700&display=swap" rel="stylesheet"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Cours du jour — 今日課程</title>
+<script>
+(function(){
+  function getSiteBase(){
+    var path=location.pathname||'/';
+    if(path.charAt(path.length-1)==='/')return path;
+    var file=path.split('/').pop()||'';
+    if(file.indexOf('.')>=0)return path.substring(0,path.lastIndexOf('/')+1)||'/';
+    return path+'/';
+  }
+  window.__siteBase=getSiteBase();
+  window.assetUrl=function(rel){
+    if(!rel)return '';
+    if(/^https?:\/\//i.test(rel))return rel;
+    return window.__siteBase+String(rel).replace(/^\//,'');
+  };
+})();
+</script>
 <style>
 /* 可愛童心 · Couleurs douces & polices rondes */
 :root{
@@ -37,7 +54,7 @@ body{
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   min-height:100dvh;
-  padding-bottom:6rem;
+  padding-bottom:2rem;
   background-color:#fff9fc;
   background-image:
     radial-gradient(ellipse 90% 70% at 8% 5%,rgba(255,210,235,.55),transparent 55%),
@@ -50,7 +67,7 @@ body{
 .zh,.zh-line,.zh-title,.zh-block,.status-zh,.tile-zh,.fc-big,.placed-zh,.feedback-zh,.zone-label,.fn-zh,.col-head,.stage-title,.section-title .zh-title{font-family:var(--font-display)}
 .fr-line,.status-fr,.fn-fr,.course-card h2,.sub-card h2,.page-hero h2,h1{font-family:var(--font-fr)}
 .pinyin{font-family:var(--font-fr);font-weight:500;letter-spacing:.04em}
-.app{max-width:720px;margin:0 auto;padding:1.25rem 1rem 2rem}
+.app{max-width:720px;margin:0 auto;padding:1.25rem 1rem 1rem}
 .page{display:none}.page:target{display:block}#home{display:block}
 body:has(.page:target:not(#home)) #home{display:none}
 
@@ -372,21 +389,6 @@ details.review .inner{padding:0 1.1rem 1.15rem;border-top:2px solid var(--lav-so
   padding-top:.28rem;border-top:1px dashed rgba(167,139,250,.22);
 }
 .pick-audio-zh,.pick-audio-fr{display:flex;justify-content:center}
-.builder-outside-speak{
-  margin-top:.6rem;padding:.55rem .65rem;border-radius:12px;
-  background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(237,233,254,.5));
-  border:2px dashed rgba(167,139,250,.4);
-}
-.builder-outside-speak[hidden]{display:none!important}
-.outside-speak-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.35rem .45rem;padding:.25rem 0}
-.outside-speak-row .outside-hint{flex:1 1 100%;margin:0 0 .1rem}
-.outside-hint{font-size:.7rem;font-weight:700;color:var(--lav-deep);text-align:center;font-family:var(--font-fr)}
-.builder-outside-speak .btn-chip,.builder-outside-speak .btn-sentence{
-  justify-content:center;width:100%;font-size:.72rem;padding:.38rem .4rem;
-}
-.builder-outside-speak .btn-sentence{border-radius:999px;border:2px solid #fff;font-weight:700;cursor:pointer;touch-action:manipulation}
-.builder-outside-speak .btn-sentence.btn-zh{background:linear-gradient(145deg,#d4faf0,#a8e6cf);color:#047857}
-.builder-outside-speak .btn-sentence.btn-fr{background:linear-gradient(145deg,#ede9fe,#ddd6fe);color:#5b21b6;font-family:var(--font-fr)}
 @media(max-width:768px){
   .builder-stem{grid-template-columns:1fr}
   .cell-layout,.stem-cell-pick .pick-trigger-body{min-height:0}
@@ -469,7 +471,8 @@ footer.foot{
 
 /* —— Navigation flottante —— */
 .float-nav{
-  position:fixed;right:max(.75rem,env(safe-area-inset-right));bottom:max(.75rem,env(safe-area-inset-bottom));
+  position:fixed;right:max(.75rem,env(safe-area-inset-right));
+  top:max(4.5rem,calc(env(safe-area-inset-top) + 3rem));bottom:auto;
   z-index:9999;display:flex;flex-direction:column;gap:.45rem;align-items:flex-end;max-width:min(92vw,320px);
 }
 .float-nav a{
@@ -540,7 +543,7 @@ body:has(#theme1:target) #theme1-practice{display:none}
 #theme1.theme1-hub:target{
   display:flex;
   flex-direction:column;
-  min-height:calc(100dvh - 4.5rem);
+  min-height:0;
   gap:clamp(.6rem,1.8vh,.85rem);
   padding:0 0 .35rem;
   box-sizing:border-box;
@@ -579,7 +582,7 @@ body:has(#theme1:target) #theme1-practice{display:none}
   line-height:1;
 }
 @media(max-width:560px){
-  #theme1.theme1-hub:target{min-height:calc(100dvh - 5rem)}
+  #theme1.theme1-hub:target{min-height:0}
 }
 
 
@@ -633,7 +636,7 @@ body:has(#theme1:target) #theme1-practice{display:none}
 .tile-fr{display:inline;font-size:.72rem;color:var(--fr-ink);font-family:var(--font-fr);font-weight:600;line-height:1.2;max-width:10rem;white-space:nowrap}
 .learn-tile .btn-speak{flex-shrink:0}
 .page-hero-compact{margin-bottom:.75rem}
-.learn-stage{position:relative;background:linear-gradient(145deg,#fff8fc,#fff0fa 50%,#f5f0ff);border:3px solid #fff;border-radius:var(--radius);padding:1rem 1.1rem;margin-bottom:1rem;box-shadow:var(--shadow);outline:3px dashed rgba(212,196,255,.45);outline-offset:4px}
+.learn-stage{position:relative;margin-bottom:.5rem;background:linear-gradient(145deg,#fff8fc,#fff0fa 50%,#f5f0ff);border:3px solid #fff;border-radius:var(--radius);padding:1rem 1.1rem;margin-bottom:1rem;box-shadow:var(--shadow);outline:3px dashed rgba(212,196,255,.45);outline-offset:4px}
 .stage-title{margin:0 0 .75rem;font-size:1.05rem;font-weight:600;text-align:center;color:var(--lav-deep)}
 .stage-title .pinyin{display:block;font-size:.8rem;font-weight:600;color:var(--muted)}
 /* 教學算式：橫排 動詞 + 名詞 = 答案（手機不換行） */
@@ -744,6 +747,16 @@ body:has(#theme1:target) #theme1-practice{display:none}
 }
 
 .result-py{display:block;font-size:.82rem;color:var(--muted);text-align:center}
+
+.stage-clear-bar{margin-top:.75rem;display:flex;justify-content:center;padding-top:.15rem}
+.btn-learn-clear-all{
+  padding:.5rem 1.15rem;border-radius:999px;border:2px solid #fff;
+  background:linear-gradient(145deg,#ede9fe,#ddd6fe);color:#5b21b6;
+  font-size:.88rem;font-weight:700;font-family:var(--font-fr);cursor:pointer;
+  box-shadow:0 3px 10px rgba(167,139,250,.25);touch-action:manipulation;
+}
+.btn-learn-clear-all:hover{background:#ddd6fe;transform:scale(1.02)}
+
 .btn-stage-clear{position:absolute;top:.45rem;right:.45rem;width:2.1rem;height:2.1rem;padding:0;margin:0;border:2px solid #fff;border-radius:50%;background:var(--lav-soft);color:var(--lav-deep);font-weight:700;font-size:1.15rem;line-height:1;cursor:pointer;box-shadow:0 3px 0 rgba(180,150,200,.18);z-index:2;transition:transform .15s}
 .btn-stage-clear:hover{background:#ede9fe;transform:scale(1.08)}
 #result-speak:disabled{opacity:.35;cursor:not-allowed}
@@ -751,9 +764,10 @@ body:has(#theme1:target) #theme1-practice{display:none}
 
 /* —— Mobile / touch —— */
 html{-webkit-text-size-adjust:100%}
-body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-area-inset-bottom))}
-.app{padding:1rem .85rem 2rem;max-width:720px}
-.btn-speak,.coco-card,.drag-card,.bucket,.learn-tile,.course-card,.sub-card{touch-action:manipulation}
+body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-area-inset-bottom))}
+.app{padding:1rem .85rem 1rem;max-width:720px}
+.btn-speak,.coco-card,.course-card,.sub-card{touch-action:manipulation}
+.drag-card,.bucket,.learn-tile,.stage-zone{touch-action:manipulation}
 @media(max-width:768px){
   .home-title-row{flex-direction:column;align-items:stretch;gap:.5rem}
   .home-title-fr{justify-content:flex-start}
@@ -766,7 +780,7 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
   .builder-711 .builder-row .builder-prefix{font-size:1.1rem}
   .coco-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}
   .coco-hint{font-size:.8rem;line-height:1.35}
-  .float-nav{max-width:min(88vw,280px)}
+  .float-nav{max-width:min(88vw,280px);top:max(3.75rem,calc(env(safe-area-inset-top) + 2.25rem))}
   .float-nav a{padding:.55rem .85rem;font-size:.75rem}
   .drag-cards{
     grid-template-columns:repeat(2,minmax(0,1fr))!important;
@@ -779,6 +793,17 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
   .buckets{grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem}
   .learn-board{gap:.65rem}
   .learn-col-tiles{gap:.45rem}
+
+  /* 學習頁手機：字卡全部顯示，靠頁面捲動（不改電腦版） */
+  .learn-col{height:auto!important;min-height:0!important;overflow:visible!important}
+  .learn-scroll{overflow:visible!important;flex:none!important;min-height:0!important;padding:.45rem .5rem .55rem}
+  .learn-scroll>.learn-tile{flex:0 0 auto!important;min-height:auto!important}
+  .learn-board-four .learn-col{height:auto!important}
+  .learn-board-four .learn-scroll{overflow:visible!important}
+  .learn-board-four .learn-scroll>.learn-tile{flex:0 0 auto!important;min-height:auto!important}
+  .learn-tile{padding:.5rem .55rem}
+  .learn-board{margin-bottom:.5rem}
+
   .img-lightbox{
     padding:max(1rem,env(safe-area-inset-top)) max(.75rem,env(safe-area-inset-right)) max(1rem,env(safe-area-inset-bottom)) max(.75rem,env(safe-area-inset-left));
   }
@@ -793,10 +818,24 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
 .touch-learn .learn-tile.touch-pick{outline:3px solid var(--pink);outline-offset:2px}
 .learn-touch-hint{display:none;font-size:.8rem;color:var(--muted);text-align:center;margin:.25rem 0 .5rem}
 .touch-learn .learn-touch-hint{display:block}
+.drag-ghost{
+  position:fixed;left:0;top:0;z-index:10050;pointer-events:none;
+  transform:translate(-50%,-50%);padding:.45rem .65rem;border-radius:12px;
+  border:3px solid #fff;background:#fff;box-shadow:0 8px 24px rgba(120,80,160,.35);
+  max-width:min(72vw,240px);opacity:.96;
+}
+.drag-ghost .zh{font-weight:700;font-size:1.2rem;color:var(--pink-deep)}
+.drag-ghost .pinyin{color:var(--muted);font-size:.85rem}
+body.touch-drag-active{-webkit-user-select:none;user-select:none}
+.touch-drag-active [data-drop-zone].over,.touch-drag-active .bucket.over{
+  outline:3px solid var(--pink);outline-offset:3px;background:rgba(255,200,230,.25);
+}
+.learn-tile.is-pointer-dragging,.drag-card.is-pointer-dragging{opacity:.42}
 
 </style>
 </head>
 <body>
+<div id="file-protocol-hint" hidden style="position:fixed;left:.75rem;right:.75rem;bottom:.75rem;z-index:10060;padding:.65rem .85rem;border-radius:12px;background:#fff3cd;border:2px solid #f5d76e;color:#6d5f7a;font-size:.82rem;line-height:1.4;box-shadow:0 6px 20px rgba(0,0,0,.12)"></div>
 <nav class="float-nav" aria-label="Navigation">
   <a href="#home" class="fn-home">
     <span class="fn-fr">Accueil</span>
@@ -878,37 +917,36 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
   <div class="learn-col learn-verbs">
     <h3 class="col-head zh">動詞<span class="pinyin">dòngcí</span></h3>
     <div class="learn-scroll">
-  <div class="learn-tile learn-tile-verb tile-da" draggable="true" data-drag-type="verb" data-zh="打" data-py="dǎ" data-speak="打" data-fr="jouer (au…)">
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="打">🔊</button><span class="tile-zh zh">打</span><span class="tile-py pinyin">dǎ</span><span class="tile-fr fr-line">jouer (au…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer au">🔊</button></div>
+  <div class="learn-tile learn-tile-verb tile-da" draggable="true" data-drag-type="verb" data-zh="打" data-py="dǎ" data-fr="jouer (au…)">
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="打">🔊</button><span class="tile-zh zh">打</span><span class="tile-py pinyin">dǎ</span><span class="tile-fr fr-line">jouer (au…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer (au…)">🔊</button></div>
   </div>
-  <div class="learn-tile learn-tile-verb tile-ti" draggable="true" data-drag-type="verb" data-zh="踢" data-py="tī" data-speak="踢" data-fr="jouer (au…)">
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="踢">🔊</button><span class="tile-zh zh">踢</span><span class="tile-py pinyin">tī</span><span class="tile-fr fr-line">jouer (au…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer au">🔊</button></div>
+  <div class="learn-tile learn-tile-verb tile-ti" draggable="true" data-drag-type="verb" data-zh="踢" data-py="tī" data-fr="jouer (au…)">
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="踢">🔊</button><span class="tile-zh zh">踢</span><span class="tile-py pinyin">tī</span><span class="tile-fr fr-line">jouer (au…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer (au…)">🔊</button></div>
   </div>
-  <div class="learn-tile learn-tile-verb tile-xia" draggable="true" data-drag-type="verb" data-zh="下" data-py="xià" data-speak="下" data-fr="jouer (au…)">
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="下">🔊</button><span class="tile-zh zh">下</span><span class="tile-py pinyin">xià</span><span class="tile-fr fr-line">jouer (au…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer au">🔊</button></div>
+  <div class="learn-tile learn-tile-verb tile-xia" draggable="true" data-drag-type="verb" data-zh="下" data-py="xià" data-fr="jouer (au…)">
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="下">🔊</button><span class="tile-zh zh">下</span><span class="tile-py pinyin">xià</span><span class="tile-fr fr-line">jouer (au…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer (au…)">🔊</button></div>
   </div>
     </div>
   </div>
   <div class="learn-col learn-nouns">
     <h3 class="col-head zh">名詞<span class="pinyin">míngcí</span></h3>
     <div class="learn-scroll">
-  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="籃球" data-py="lánqiú" data-speak="籃球" data-full="打籃球" data-full-py="dǎ lánqiú" data-verb="打" data-fr="jouer au basket">
+  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="籃球" data-py="lánqiú" data-full="打籃球" data-full-py="dǎ lánqiú" data-verb="打" data-fr="jouer au basket">
     <div class="tile-img"><span class="tile-emoji">🏀</span></div>
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="籃球">🔊</button><span class="tile-zh zh">籃球</span><span class="tile-py pinyin">lánqiú</span><span class="tile-fr fr-line">le basket</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="le basket">🔊</button></div>
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="籃球">🔊</button><span class="tile-zh zh">籃球</span><span class="tile-py pinyin">lánqiú</span><span class="tile-fr fr-line">le basket</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer au basket">🔊</button></div>
   </div>
-  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="足球" data-py="zúqiú" data-speak="足球" data-full="踢足球" data-full-py="tī zúqiú" data-verb="踢" data-fr="jouer au football">
+  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="足球" data-py="zúqiú" data-full="踢足球" data-full-py="tī zúqiú" data-verb="踢" data-fr="jouer au football">
     <div class="tile-img"><span class="tile-emoji">⚽</span></div>
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="足球">🔊</button><span class="tile-zh zh">足球</span><span class="tile-py pinyin">zúqiú</span><span class="tile-fr fr-line">le football</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="le football">🔊</button></div>
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="足球">🔊</button><span class="tile-zh zh">足球</span><span class="tile-py pinyin">zúqiú</span><span class="tile-fr fr-line">le football</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer au football">🔊</button></div>
   </div>
-  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="圍棋" data-py="wéiqí" data-speak="圍棋" data-full="下圍棋" data-full-py="xià wéiqí" data-verb="下" data-fr="jouer au go">
+  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="圍棋" data-py="wéiqí" data-full="下圍棋" data-full-py="xià wéiqí" data-verb="下" data-fr="jouer au go">
     <div class="tile-img"><svg class="tile-svg" viewBox="0 0 80 80" aria-hidden="true"><rect x="8" y="8" width="64" height="64" rx="8" fill="#deb887"/><circle cx="28" cy="28" r="8" fill="#f5f5f4"/><circle cx="52" cy="52" r="8" fill="#333"/><circle cx="52" cy="28" r="5" fill="#fce7f3"/></svg></div>
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="圍棋">🔊</button><span class="tile-zh zh">圍棋</span><span class="tile-py pinyin">wéiqí</span><span class="tile-fr fr-line">le go</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="le go">🔊</button></div>
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="圍棋">🔊</button><span class="tile-zh zh">圍棋</span><span class="tile-py pinyin">wéiqí</span><span class="tile-fr fr-line">le go</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer au go">🔊</button></div>
   </div>
     </div>
   </div>
 </div>
 <div class="learn-stage">
-  <button type="button" class="btn-stage-clear" data-stage-clear title="清空" aria-label="清空">↺</button>
   <div class="stage-row stage-equation">
     <div class="stage-zone" data-drop-zone="verb">
       <span class="zone-label zh">動詞</span>
@@ -936,6 +974,9 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
         <button type="button" class="btn-speak btn-fr" data-speak-fr data-lang="fr" disabled>🔊</button>
       </div>
     </div>
+  </div>
+  <div class="stage-clear-bar">
+    <button type="button" class="btn-learn-clear-all" data-stage-clear>清除全部 · Tout effacer</button>
   </div>
 </div>
 </section>
@@ -946,44 +987,43 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
   <div class="learn-col learn-verbs">
     <h3 class="col-head zh">動詞<span class="pinyin">dòngcí</span></h3>
     <div class="learn-scroll">
-  <div class="learn-tile learn-tile-verb tile-tan" draggable="true" data-drag-type="verb" data-zh="彈" data-py="tán" data-speak="彈" data-fr="jouer (du…)">
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="彈">🔊</button><span class="tile-zh zh">彈</span><span class="tile-py pinyin">tán</span><span class="tile-fr fr-line">jouer (du…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer du">🔊</button></div>
+  <div class="learn-tile learn-tile-verb tile-tan" draggable="true" data-drag-type="verb" data-zh="彈" data-py="tán" data-fr="jouer (du…)">
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="彈">🔊</button><span class="tile-zh zh">彈</span><span class="tile-py pinyin">tán</span><span class="tile-fr fr-line">jouer (du…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer (du…)">🔊</button></div>
   </div>
-  <div class="learn-tile learn-tile-verb tile-la" draggable="true" data-drag-type="verb" data-zh="拉" data-py="lā" data-speak="拉" data-fr="jouer (du…)">
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="拉">🔊</button><span class="tile-zh zh">拉</span><span class="tile-py pinyin">lā</span><span class="tile-fr fr-line">jouer (du…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer du">🔊</button></div>
+  <div class="learn-tile learn-tile-verb tile-la" draggable="true" data-drag-type="verb" data-zh="拉" data-py="lā" data-fr="jouer (du…)">
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="拉">🔊</button><span class="tile-zh zh">拉</span><span class="tile-py pinyin">lā</span><span class="tile-fr fr-line">jouer (du…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer (du…)">🔊</button></div>
   </div>
-  <div class="learn-tile learn-tile-verb tile-chui" draggable="true" data-drag-type="verb" data-zh="吹" data-py="chuī" data-speak="吹" data-fr="jouer (du…)">
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="吹">🔊</button><span class="tile-zh zh">吹</span><span class="tile-py pinyin">chuī</span><span class="tile-fr fr-line">jouer (du…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer du">🔊</button></div>
+  <div class="learn-tile learn-tile-verb tile-chui" draggable="true" data-drag-type="verb" data-zh="吹" data-py="chuī" data-fr="jouer (du…)">
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="吹">🔊</button><span class="tile-zh zh">吹</span><span class="tile-py pinyin">chuī</span><span class="tile-fr fr-line">jouer (du…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer (du…)">🔊</button></div>
   </div>
-  <div class="learn-tile learn-tile-verb tile-da" draggable="true" data-drag-type="verb" data-zh="打" data-py="dǎ" data-speak="打" data-fr="jouer (du…)">
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="打">🔊</button><span class="tile-zh zh">打</span><span class="tile-py pinyin">dǎ</span><span class="tile-fr fr-line">jouer (du…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer du">🔊</button></div>
+  <div class="learn-tile learn-tile-verb tile-da" draggable="true" data-drag-type="verb" data-zh="打" data-py="dǎ" data-fr="jouer (du…)">
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="打">🔊</button><span class="tile-zh zh">打</span><span class="tile-py pinyin">dǎ</span><span class="tile-fr fr-line">jouer (du…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer (du…)">🔊</button></div>
   </div>
     </div>
   </div>
   <div class="learn-col learn-nouns">
     <h3 class="col-head zh">名詞<span class="pinyin">míngcí</span></h3>
     <div class="learn-scroll">
-  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="鋼琴" data-py="gāngqín" data-speak="鋼琴" data-full="彈鋼琴" data-full-py="tán gāngqín" data-verb="彈" data-fr="jouer du piano">
+  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="鋼琴" data-py="gāngqín" data-full="彈鋼琴" data-full-py="tán gāngqín" data-verb="彈" data-fr="jouer du piano">
     <div class="tile-img"><span class="tile-emoji">🎹</span></div>
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="鋼琴">🔊</button><span class="tile-zh zh">鋼琴</span><span class="tile-py pinyin">gāngqín</span><span class="tile-fr fr-line">le piano</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="le piano">🔊</button></div>
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="鋼琴">🔊</button><span class="tile-zh zh">鋼琴</span><span class="tile-py pinyin">gāngqín</span><span class="tile-fr fr-line">le piano</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer du piano">🔊</button></div>
   </div>
-  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="小提琴" data-py="xiǎotíqín" data-speak="小提琴" data-full="拉小提琴" data-full-py="lā xiǎotíqín" data-verb="拉" data-fr="jouer du violon">
+  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="小提琴" data-py="xiǎotíqín" data-full="拉小提琴" data-full-py="lā xiǎotíqín" data-verb="拉" data-fr="jouer du violon">
     <div class="tile-img"><span class="tile-emoji">🎻</span></div>
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="小提琴">🔊</button><span class="tile-zh zh">小提琴</span><span class="tile-py pinyin">xiǎotíqín</span><span class="tile-fr fr-line">le violon</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="le violon">🔊</button></div>
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="小提琴">🔊</button><span class="tile-zh zh">小提琴</span><span class="tile-py pinyin">xiǎotíqín</span><span class="tile-fr fr-line">le violon</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer du violon">🔊</button></div>
   </div>
-  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="薩克斯風" data-py="sàkèsīfēng" data-speak="薩克斯風" data-full="吹薩克斯風" data-full-py="chuī sàkèsīfēng" data-verb="吹" data-fr="jouer du saxophone">
+  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="薩克斯風" data-py="sàkèsīfēng" data-full="吹薩克斯風" data-full-py="chuī sàkèsīfēng" data-verb="吹" data-fr="jouer du saxophone">
     <div class="tile-img"><span class="tile-emoji">🎷</span></div>
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="薩克斯風">🔊</button><span class="tile-zh zh">薩克斯風</span><span class="tile-py pinyin">sàkèsīfēng</span><span class="tile-fr fr-line">le saxophone</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="le saxophone">🔊</button></div>
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="薩克斯風">🔊</button><span class="tile-zh zh">薩克斯風</span><span class="tile-py pinyin">sàkèsīfēng</span><span class="tile-fr fr-line">le saxophone</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer du saxophone">🔊</button></div>
   </div>
-  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="鼓" data-py="gǔ" data-speak="鼓" data-full="打鼓" data-full-py="dǎ gǔ" data-verb="打" data-fr="jouer du tambour">
+  <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="鼓" data-py="gǔ" data-full="打鼓" data-full-py="dǎ gǔ" data-verb="打" data-fr="jouer du tambour">
     <div class="tile-img"><span class="tile-emoji">🥁</span></div>
-    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="鼓">🔊</button><span class="tile-zh zh">鼓</span><span class="tile-py pinyin">gǔ</span><span class="tile-fr fr-line">le tambour</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="le tambour">🔊</button></div>
+    <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="鼓">🔊</button><span class="tile-zh zh">鼓</span><span class="tile-py pinyin">gǔ</span><span class="tile-fr fr-line">le tambour</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer du tambour">🔊</button></div>
   </div>
     </div>
   </div>
 </div>
 <div class="learn-stage">
-  <button type="button" class="btn-stage-clear" data-stage-clear title="清空" aria-label="清空">↺</button>
   <div class="stage-row stage-equation">
     <div class="stage-zone" data-drop-zone="verb">
       <span class="zone-label zh">動詞</span>
@@ -1012,14 +1052,17 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
       </div>
     </div>
   </div>
+  <div class="stage-clear-bar">
+    <button type="button" class="btn-learn-clear-all" data-stage-clear>清除全部 · Tout effacer</button>
+  </div>
 </div>
 </section>
 
 <section id="theme1-practice" class="page">
 <a class="link-back" href="#theme1">← Thème 1 / 返回主題一</a>
 <div class="explain explain-practice"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="Glisse chaque mot vers le bon verbe." title="Écouter">🔊</button><span class="fr-line">Glisse chaque mot vers le bon verbe.</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="把名詞拖到教過的動詞。" title="聽">🔊</button><div><span class="zh-line zh">把名詞拖到教過的動詞。</span><span class="pinyin">Bǎ míngcí tuō dào jiàoguò de dòngcí.</span></div></div></div>
-<div class="drag-area" id="drag-game"><p class="drag-touch-hint" id="drag-touch-hint">先點名詞，再點動詞 · Choisis un nom, puis un verbe</p>
-  <div class="drag-cards" id="drag-pool"><div class="drag-card" draggable="true" data-bucket="打" data-speak="打籃球"><span class="zh">籃球</span><span class="pinyin">lánqiú</span></div><div class="drag-card" draggable="true" data-bucket="踢" data-speak="踢足球"><span class="zh">足球</span><span class="pinyin">zúqiú</span></div><div class="drag-card" draggable="true" data-bucket="下" data-speak="下圍棋"><span class="zh">圍棋</span><span class="pinyin">wéiqí</span></div><div class="drag-card" draggable="true" data-bucket="彈" data-speak="彈鋼琴"><span class="zh">鋼琴</span><span class="pinyin">gāngqín</span></div><div class="drag-card" draggable="true" data-bucket="拉" data-speak="拉小提琴"><span class="zh">小提琴</span><span class="pinyin">xiǎotíqín</span></div><div class="drag-card" draggable="true" data-bucket="吹" data-speak="吹薩克斯風"><span class="zh">薩克斯風</span><span class="pinyin">sàkèsīfēng</span></div><div class="drag-card" draggable="true" data-bucket="打" data-speak="打鼓"><span class="zh">鼓</span><span class="pinyin">gǔ</span></div></div>
+<div class="drag-area" id="drag-game"><p class="drag-touch-hint" id="drag-touch-hint">按住名詞拖到動詞（或先點名詞再點動詞）· Glisse ou touche nom puis verbe</p>
+  <div class="drag-cards" id="drag-pool"><div class="drag-card" draggable="true" data-bucket="打"><span class="zh">籃球</span><span class="pinyin">lánqiú</span></div><div class="drag-card" draggable="true" data-bucket="踢"><span class="zh">足球</span><span class="pinyin">zúqiú</span></div><div class="drag-card" draggable="true" data-bucket="下"><span class="zh">圍棋</span><span class="pinyin">wéiqí</span></div><div class="drag-card" draggable="true" data-bucket="彈"><span class="zh">鋼琴</span><span class="pinyin">gāngqín</span></div><div class="drag-card" draggable="true" data-bucket="拉"><span class="zh">小提琴</span><span class="pinyin">xiǎotíqín</span></div><div class="drag-card" draggable="true" data-bucket="吹"><span class="zh">薩克斯風</span><span class="pinyin">sàkèsīfēng</span></div><div class="drag-card" draggable="true" data-bucket="打"><span class="zh">鼓</span><span class="pinyin">gǔ</span></div></div>
   <div class="buckets" id="drag-buckets"><div class="bucket" data-bucket="打"><h6 class="zh">打</h6><span class="pinyin">dǎ</span><div class="dropped"></div></div><div class="bucket" data-bucket="踢"><h6 class="zh">踢</h6><span class="pinyin">tī</span><div class="dropped"></div></div><div class="bucket" data-bucket="下"><h6 class="zh">下</h6><span class="pinyin">xià</span><div class="dropped"></div></div><div class="bucket" data-bucket="彈"><h6 class="zh">彈</h6><span class="pinyin">tán</span><div class="dropped"></div></div><div class="bucket" data-bucket="拉"><h6 class="zh">拉</h6><span class="pinyin">lā</span><div class="dropped"></div></div><div class="bucket" data-bucket="吹"><h6 class="zh">吹</h6><span class="pinyin">chuī</span><div class="dropped"></div></div></div>
   <p id="drag-msg"></p>
 </div>
@@ -1088,18 +1131,6 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
     </div>
   </div>
 </div>
-<div class="builder-outside-speak" id="builder-outside-speak" hidden>
-    <div class="outside-speak-row word-speak-row">
-      <p class="outside-hint">所選詞 · Mot choisi</p>
-      <button type="button" class="btn-chip btn-zh" id="speak-zh-part" data-lang="zh" data-speak="" title="聽中文詞">詞 🔊</button>
-      <button type="button" class="btn-chip btn-fr" id="speak-fr-part" data-lang="fr" data-speak="" title="Écouter le mot">mot 🔊</button>
-    </div>
-    <div class="outside-speak-row sentence-speak-row">
-      <p class="outside-hint">完整句子 · Phrase complète</p>
-      <button type="button" class="btn-sentence btn-zh" id="speak-zh-full" data-lang="zh" data-speak="" title="聽整句">整句 🔊</button>
-      <button type="button" class="btn-sentence btn-fr" id="speak-fr-full" data-lang="fr" data-speak="" title="Écouter la phrase">phrase 🔊</button>
-    </div>
-  </div>
 </div>
 <p class="section-title">COCO · Choisis ta boisson<span class="pinyin zh">Xuǎn yǐnliào</span></p>
 <div class="coco-panel">
@@ -1139,16 +1170,50 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
 </div>
 <script>
 (function(){
+  function fixAssetPaths(){
+    if(!window.assetUrl)return;
+    document.querySelectorAll('img[src]').forEach(function(img){
+      var s=img.getAttribute('src');
+      if(s&&s.indexOf('images/')===0)img.src=assetUrl(s);
+    });
+    document.querySelectorAll('[data-img]').forEach(function(el){
+      var d=el.getAttribute('data-img');
+      if(d&&d.indexOf('images/')===0)el.setAttribute('data-img',assetUrl(d));
+    });
+  }
+  fixAssetPaths();
   var voices={zh:null,fr:null};
+  var speechUnlocked=false;
   function loadVoices(){
     if(!window.speechSynthesis)return;
     var v=speechSynthesis.getVoices();
+    if(!v||!v.length)return;
     voices.zh=v.find(function(x){return x.lang==='zh-TW'||(x.lang&&x.lang.indexOf('zh-TW')===0)})||v.find(function(x){return x.lang&&x.lang.indexOf('zh')===0})||null;
-    voices.fr=v.find(function(x){return x.lang==='fr-FR'||(x.lang&&x.lang.indexOf('fr')===0)})||null;
+    voices.fr=v.find(function(x){return x.lang==='fr-FR'||(x.lang&&x.lang.indexOf('fr-FR')===0)})||v.find(function(x){return x.lang&&x.lang.indexOf('fr')===0})||null;
   }
-  if(window.speechSynthesis){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;}
+  if(window.speechSynthesis){
+    loadVoices();
+    speechSynthesis.onvoiceschanged=function(){loadVoices();};
+    window.addEventListener('pageshow',function(){loadVoices();});
+  }
+  function unlockSpeech(){
+    if(!window.speechSynthesis)return;
+    loadVoices();
+    if(speechUnlocked)return;
+    speechUnlocked=true;
+    try{
+      var u=new SpeechSynthesisUtterance('\u200b');
+      u.volume=0.01;u.rate=1;u.lang='zh-TW';
+      speechSynthesis.speak(u);
+      speechSynthesis.cancel();
+    }catch(err){}
+    if(window.speechSynthesis.paused)try{speechSynthesis.resume();}catch(e2){}
+  }
   function speak(text,lang,btn){
     if(!text||!window.speechSynthesis)return;
+    unlockSpeech();
+    loadVoices();
+    if(window.speechSynthesis.paused)try{speechSynthesis.resume();}catch(e){}
     speechSynthesis.cancel();
     var u=new SpeechSynthesisUtterance(text);
     u.lang=lang==='fr'?'fr-FR':'zh-TW';
@@ -1158,15 +1223,45 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
     if(btn){btn.classList.add('speaking');u.onend=u.onerror=function(){btn.classList.remove('speaking');};}
     speechSynthesis.speak(u);
   }
+  function findSpeakButton(e){
+    var t=e.target;
+    if(!t||!t.closest)return null;
+    var b=t.closest('button.btn-speak,button.btn-chip,button.btn-sentence');
+    if(!b||b.disabled)return null;
+    var text=(b.getAttribute('data-speak')||'').trim();
+    if(!text&&b.hasAttribute('data-speak-zh'))text=(b.getAttribute('data-speak-zh')||'').trim();
+    if(!text&&b.hasAttribute('data-speak-fr'))text=(b.getAttribute('data-speak-fr')||'').trim();
+    if(!text)return null;
+    return b;
+  }
+  function triggerSpeak(e){
+    var b=findSpeakButton(e);
+    if(!b)return false;
+    if(b.getAttribute('data-action')==='error')return false;
+    var lang=b.getAttribute('data-lang')||'zh';
+    var text=(b.getAttribute('data-speak')||'').trim();
+    if(!text&&lang==='zh')text=(b.getAttribute('data-speak-zh')||'').trim();
+    if(!text&&lang==='fr')text=(b.getAttribute('data-speak-fr')||'').trim();
+    if(!text)return false;
+    speak(text,lang,b);
+    return true;
+  }
   document.addEventListener('click',function(e){
-    var b=e.target.closest('.btn-speak[data-speak], [data-speak].btn-speak');
-    if(!b)b=e.target.closest('[data-speak]');
-    if(!b)return;
-    if(b.getAttribute('data-action')==='error')return;
+    if(!triggerSpeak(e))return;
     e.preventDefault();
     e.stopPropagation();
-    speak(b.getAttribute('data-speak'),b.getAttribute('data-lang')||'zh',b);
   },true);
+  document.addEventListener('touchend',function(e){
+    if(!triggerSpeak(e))return;
+    e.preventDefault();
+    e.stopPropagation();
+  },{capture:true,passive:false});
+  document.addEventListener('pointerup',function(e){
+    if(e.pointerType!=='touch')return;
+    if(!triggerSpeak(e))return;
+    e.preventDefault();
+    e.stopPropagation();
+  },{capture:true});
   function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
   function renderPickedPhrase(zh,fr,py){/* phrase shown in stem + pick; no duplicate block */}
 
@@ -1183,7 +1278,7 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
   
   function openLightbox(src,name,ingZh,ingFr){
     if(!lightbox||!lightboxImg)return;
-    lightboxImg.src=src||'';
+    lightboxImg.src=src?(window.assetUrl?assetUrl(src):src):'';
     lightboxImg.alt=name||'';
     var desc=document.getElementById('lightbox-desc');
     if(desc){
@@ -1269,22 +1364,6 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
       +'<button type="button" class="btn-chip btn-fr" data-lang="fr" data-speak="'+escPick(p.fr)+'" title="Écouter le mot">mot 🔊</button>'
       +'</div></div></div>';
   }
-  function updateSpeakPanel(opt){
-    var panel=document.getElementById('builder-outside-speak');
-    if(!panel)return;
-    if(!opt||!opt.value){panel.hidden=true;return;}
-    var kind=pickKindFromId((opt.parentElement&&opt.parentElement.id)||'');
-    var p=pickParts(opt,kind);
-    panel.hidden=false;
-    var zhp=document.getElementById('speak-zh-part');
-    var zhf=document.getElementById('speak-zh-full');
-    var frp=document.getElementById('speak-fr-part');
-    var frf=document.getElementById('speak-fr-full');
-    if(zhp)zhp.setAttribute('data-speak',p.zh);
-    if(zhf)zhf.setAttribute('data-speak',opt.getAttribute('data-zh')||'');
-    if(frp)frp.setAttribute('data-speak',p.fr);
-    if(frf)frf.setAttribute('data-speak',opt.getAttribute('data-fr')||'');
-  }
   function enhancePickSelect(sel){
     if(!sel)return;
     var existing=sel.closest('.pick-enhanced');
@@ -1355,7 +1434,6 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
     sel.addEventListener('change',function(){
       var o=this.selectedOptions[0];
       if(!o||!o.dataset.zh){
-        updateSpeakPanel(null);
         return;
       }
       ['pick-buy','pick-pay','pick-svc'].forEach(function(other){
@@ -1364,7 +1442,6 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
           if(s){s.selectedIndex=0;if(s._syncPickTrigger)s._syncPickTrigger();}
         }
       });
-      updateSpeakPanel(o);
     });
   });
   var wrongResetTimer=null;
@@ -1419,8 +1496,107 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
     var msg=document.getElementById('drag-msg');
     if(msg)msg.textContent='';
   }
-  function isTouchUI(){
-    return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+function isTouchUI(){
+    if(navigator.maxTouchPoints>0)return true;
+    if(window.matchMedia('(hover: none) and (pointer: coarse)').matches)return true;
+    return false;
+  }
+  function setupPointerDrag(opts){
+    var active=null,ghost=null,hlZone=null,TH=8;
+    function clearHL(){if(hlZone){hlZone.classList.remove('over');hlZone=null;}}
+    function clearDrag(){
+      if(ghost){ghost.remove();ghost=null;}
+      document.body.classList.remove('touch-drag-active');
+      if(active&&active.item)active.item.classList.remove('is-pointer-dragging');
+      clearHL();active=null;
+    }
+    function findZone(x,y){
+      if(ghost)ghost.style.visibility='hidden';
+      var el=document.elementFromPoint(x,y);
+      if(ghost)ghost.style.visibility='';
+      return el?el.closest(opts.zoneSelector):null;
+    }
+    function pt(e){
+      var t=(e.touches&&e.touches[0])||(e.changedTouches&&e.changedTouches[0]);
+      if(t)return{x:t.clientX,y:t.clientY};
+      return{x:e.clientX,y:e.clientY};
+    }
+    function start(item,x,y){
+      active={item:item,x:x,y:y,moved:false,payload:opts.getPayload(item),touch:!!navigator.maxTouchPoints};
+    }
+    function move(x,y){
+      if(!active)return;
+      var dx=x-active.x,dy=y-active.y;
+      if(!active.moved){
+        if(Math.hypot(dx,dy)<TH)return false;
+        active.moved=true;
+        active.item.classList.add('is-pointer-dragging');
+        ghost=opts.makeGhost(active.item,active.payload);
+        document.body.appendChild(ghost);
+        document.body.classList.add('touch-drag-active');
+      }
+      ghost.style.left=x+'px';
+      ghost.style.top=y+'px';
+      var z=findZone(x,y);
+      if(z!==hlZone){clearHL();hlZone=z;if(z)z.classList.add('over');}
+      return true;
+    }
+    function end(x,y,prevent){
+      if(!active)return;
+      var was=active;
+      if(was.moved){
+        if(prevent)try{event.preventDefault();}catch(e){}
+        var z=findZone(x,y);
+        if(z)opts.onDrop(z,was.payload,was.item);
+        clearDrag();
+        return 'dropped';
+      }
+      if(opts.onTap)opts.onTap(was.item);
+      active=null;
+      return 'tap';
+    }
+    opts.scope.addEventListener('touchstart',function(e){
+      var item=e.target.closest(opts.itemSelector);
+      if(!item||!opts.scope.contains(item))return;
+      if(e.target.closest('.btn-speak,.btn-chip'))return;
+      if(opts.canDrag&&!opts.canDrag(item))return;
+      var p=pt(e);
+      start(item,p.x,p.y);
+    },{passive:true});
+    opts.scope.addEventListener('touchmove',function(e){
+      if(!active)return;
+      var p=pt(e);
+      if(move(p.x,p.y))e.preventDefault();
+    },{passive:false});
+    opts.scope.addEventListener('touchend',function(e){
+      if(!active)return;
+      var p=pt(e);
+      var r=end(p.x,p.y,true);
+      if(r==='dropped')e.preventDefault();
+    },{passive:false});
+    opts.scope.addEventListener('touchcancel',function(){clearDrag();},{passive:true});
+    opts.scope.addEventListener('pointerdown',function(e){
+      if(e.pointerType==='touch')return;
+      if(e.button!==0)return;
+      var item=e.target.closest(opts.itemSelector);
+      if(!item||!opts.scope.contains(item))return;
+      if(e.target.closest('.btn-speak,.btn-chip'))return;
+      if(opts.canDrag&&!opts.canDrag(item))return;
+      start(item,e.clientX,e.clientY);
+      active.id=e.pointerId;
+    },{passive:true});
+    window.addEventListener('pointermove',function(e){
+      if(!active||active.id===undefined||e.pointerId!==active.id)return;
+      move(e.clientX,e.clientY);
+    },{passive:true});
+    window.addEventListener('pointerup',function(e){
+      if(!active||active.id===undefined||e.pointerId!==active.id)return;
+      end(e.clientX,e.clientY,false);
+    },{passive:true});
+    window.addEventListener('pointercancel',function(e){
+      if(!active||active.id===undefined||e.pointerId!==active.id)return;
+      clearDrag();
+    },{passive:true});
   }
   function applyPracticeMatch(card,bucket){
     var pool=document.getElementById('drag-pool');
@@ -1432,7 +1608,6 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
       card.classList.add('correct');
       if(droppedEl){droppedEl.classList.remove('wrong-x');droppedEl.textContent=label+' ✓';}
       document.getElementById('drag-msg').textContent='對了！Correct !';
-      if(card.dataset.speak)speak(card.dataset.speak,'zh',null);
     }else{
       card.classList.add('wrong');
       if(droppedEl){droppedEl.textContent='✗';droppedEl.classList.add('wrong-x');}
@@ -1448,17 +1623,17 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
     shufflePracticeOrder();
     var selectedPracticeCard=null;
     var dragGame=document.getElementById('drag-game');
-    if(isTouchUI()){
+    var touchPractice=isTouchUI();
+    if(touchPractice){
       if(dragGame)dragGame.classList.add('touch-practice');
-      pool.querySelectorAll('.drag-card').forEach(function(card){
-        card.addEventListener('click',function(){
-          if(card.classList.contains('correct'))return;
-          pool.querySelectorAll('.drag-card').forEach(function(c){c.classList.remove('touch-pick');});
-          card.classList.add('touch-pick');
-          selectedPracticeCard=card;
-          document.getElementById('drag-msg').textContent='再點一個動詞 · Choisis un verbe';
-        });
-      });
+      pool.querySelectorAll('.drag-card').forEach(function(card){card.draggable=false;});
+      function pickPracticeCard(card){
+        if(card.classList.contains('correct'))return;
+        pool.querySelectorAll('.drag-card').forEach(function(c){c.classList.remove('touch-pick');});
+        card.classList.add('touch-pick');
+        selectedPracticeCard=card;
+        document.getElementById('drag-msg').textContent='再點一個動詞 · Choisis un verbe';
+      }
       document.querySelectorAll('#drag-buckets .bucket').forEach(function(bucket){
         bucket.addEventListener('click',function(){
           if(!selectedPracticeCard){
@@ -1468,9 +1643,36 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
           applyPracticeMatch(selectedPracticeCard,bucket);
           selectedPracticeCard=null;
         });
+        bucket.addEventListener('touchend',function(e){
+          if(!selectedPracticeCard){
+            document.getElementById('drag-msg').textContent='先點名詞 · Choisis un nom';
+            return;
+          }
+          applyPracticeMatch(selectedPracticeCard,bucket);
+          selectedPracticeCard=null;
+          e.preventDefault();
+        },{passive:false});
+      });
+      setupPointerDrag({
+        scope:dragGame||document.body,itemSelector:'.drag-card',zoneSelector:'.bucket',
+        canDrag:function(card){return !card.classList.contains('correct');},
+        onTap:pickPracticeCard,
+        getPayload:function(card){
+          return {card:card,bucket:card.dataset.bucket,label:card.querySelector('.zh').textContent};
+        },
+        makeGhost:function(card){
+          var g=document.createElement('div');
+          g.className='drag-ghost';
+          g.innerHTML='<span class="zh">'+card.querySelector('.zh').textContent+'</span><span class="pinyin">'+card.querySelector('.pinyin').textContent+'</span>';
+          return g;
+        },
+        onDrop:function(bucket,payload){
+          if(payload&&payload.card)applyPracticeMatch(payload.card,bucket);
+        }
       });
     }else{
       pool.querySelectorAll('.drag-card').forEach(function(card){
+        card.draggable=true;
         card.addEventListener('dragstart',function(e){card.classList.remove('wrong');card.classList.add('dragging');e.dataTransfer.setData('text/plain',card.dataset.bucket+'|'+card.querySelector('.zh').textContent);});
         card.addEventListener('dragend',function(){card.classList.remove('dragging');});
       });
@@ -1524,12 +1726,14 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
     return errorBeepUrl;
   }
   function unlockAudio(){
+    unlockSpeech();
     buildErrorBeepUrl();
     if(!errorBeepAudio){
       errorBeepAudio=new Audio(buildErrorBeepUrl());
       errorBeepAudio.preload='auto';
     }
     try{errorBeepAudio.load();}catch(e){}
+    unlockSpeech();
   }
   ['pointerdown','touchstart','click','dragstart','keydown'].forEach(function(ev){
     document.addEventListener(ev,unlockAudio,{passive:true});
@@ -1632,7 +1836,7 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
       }
     }
     function tilePayload(tile){
-      return{type:tile.dataset.dragType,zh:tile.dataset.zh,py:tile.dataset.py,speak:tile.dataset.speak||tile.dataset.zh,full:tile.dataset.full||'',fullPy:tile.dataset.fullPy||'',verb:tile.dataset.verb||'',fr:tile.dataset.fr||'',img:tile.querySelector('.tile-emoji')?tile.querySelector('.tile-emoji').textContent:(tile.querySelector('.tile-svg')?'go':'')};
+      return{type:tile.dataset.dragType,zh:tile.dataset.zh,py:tile.dataset.py,speak:tile.dataset.zh,full:tile.dataset.full||'',fullPy:tile.dataset.fullPy||'',verb:tile.dataset.verb||'',fr:tile.dataset.fr||'',img:tile.querySelector('.tile-emoji')?tile.querySelector('.tile-emoji').textContent:(tile.querySelector('.tile-svg')?'go':'')};
     }
     function applyLearnDrop(zone,data){
       if(data.type!==zone.dataset.dropZone)return;
@@ -1649,52 +1853,60 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
       var imgHtml=data.img?('<div class="placed-img">'+(data.img==='go'?'<svg class="tile-svg" viewBox="0 0 80 80"><rect x="8" y="8" width="64" height="64" rx="8" fill="#deb887"/><circle cx="28" cy="28" r="8" fill="#f5f5f4"/><circle cx="52" cy="52" r="8" fill="#333"/></svg>':data.img)+'</div>'):'';
       slot.innerHTML='<div class="placed">'+imgHtml+'<span class="placed-zh zh">'+data.zh+'</span><span class="placed-py pinyin">'+data.py+'</span></div>';
     }
-    root.querySelectorAll('.learn-tile[draggable]').forEach(function(tile){
+    var touchLearn=isTouchUI();
+    root.querySelectorAll('.learn-tile').forEach(function(tile){
+      var frBtn=tile.querySelector('.btn-speak.btn-fr');
+      if(frBtn&&tile.dataset.fr){
+        var frText=tile.dataset.fr;
+        if(tile.dataset.dragType==='noun'&&tile.dataset.full)frText=tile.dataset.fr;
+        frBtn.setAttribute('data-speak',frText);
+      }
       tile.querySelectorAll('.btn-speak').forEach(function(btn){
         btn.addEventListener('mousedown',function(e){e.stopPropagation();});
         btn.addEventListener('touchstart',function(e){e.stopPropagation();},{passive:true});
+        btn.addEventListener('click',function(e){e.stopPropagation();});
       });
-      tile.addEventListener('dragstart',function(e){
-        if(e.target.closest('.btn-speak')){e.preventDefault();return;}
-        tile.classList.add('dragging');
-        e.dataTransfer.setData('application/json',JSON.stringify({
-          type:tile.dataset.dragType,
-          zh:tile.dataset.zh,
-          py:tile.dataset.py,
-          speak:tile.dataset.speak||tile.dataset.zh,
-          full:tile.dataset.full||'',fullPy:tile.dataset.fullPy||'',
-          verb:tile.dataset.verb||'',fr:tile.dataset.fr||'',
-          img:tile.querySelector('.tile-emoji')?tile.querySelector('.tile-emoji').textContent:(tile.querySelector('.tile-svg')?'go':'')
-        }));
-      });
-      tile.addEventListener('dragend',function(){tile.classList.remove('dragging');});
+      if(touchLearn)tile.draggable=false;
+      else{
+        tile.draggable=true;
+        tile.addEventListener('dragstart',function(e){
+          if(e.target.closest('.btn-speak')){e.preventDefault();return;}
+          tile.classList.add('dragging');
+          e.dataTransfer.setData('application/json',JSON.stringify({
+            type:tile.dataset.dragType,zh:tile.dataset.zh,py:tile.dataset.py,speak:tile.dataset.zh,
+            full:tile.dataset.full||'',fullPy:tile.dataset.fullPy||'',
+            verb:tile.dataset.verb||'',fr:tile.dataset.fr||'',
+            img:tile.querySelector('.tile-emoji')?tile.querySelector('.tile-emoji').textContent:(tile.querySelector('.tile-svg')?'go':'')
+          }));
+        });
+        tile.addEventListener('dragend',function(){tile.classList.remove('dragging');});
+      }
     });
-    root.querySelectorAll('[data-drop-zone]').forEach(function(zone){
-      zone.addEventListener('dragover',function(e){e.preventDefault();zone.classList.add('over');});
-      zone.addEventListener('dragleave',function(){zone.classList.remove('over');});
-      zone.addEventListener('drop',function(e){
-        e.preventDefault();zone.classList.remove('over');
-        applyLearnDrop(zone,JSON.parse(e.dataTransfer.getData('application/json')));
+    if(!touchLearn){
+      root.querySelectorAll('[data-drop-zone]').forEach(function(zone){
+        zone.addEventListener('dragover',function(e){e.preventDefault();zone.classList.add('over');});
+        zone.addEventListener('dragleave',function(){zone.classList.remove('over');});
+        zone.addEventListener('drop',function(e){
+          e.preventDefault();zone.classList.remove('over');
+          applyLearnDrop(zone,JSON.parse(e.dataTransfer.getData('application/json')));
+        });
       });
-    });
-    if(isTouchUI()){
+    }
+    if(touchLearn){
       root.classList.add('touch-learn');
       var stage=root.querySelector('.learn-stage');
       if(stage&&!root.querySelector('.learn-touch-hint')){
         var hint=document.createElement('p');
         hint.className='learn-touch-hint';
-        hint.textContent='先點詞語，再點空格 · Choisis une tuile, puis une zone';
+        hint.textContent='按住詞語拖到空格（或先點詞語再點空格）· Glisse ou touche tuile puis zone';
         stage.parentNode.insertBefore(hint,stage);
       }
       var pickedTile=null;
-      root.querySelectorAll('.learn-tile').forEach(function(tile){
-        tile.addEventListener('click',function(e){
-          if(e.target.closest('.btn-speak'))return;
-          root.querySelectorAll('.learn-tile').forEach(function(t){t.classList.remove('touch-pick');});
-          tile.classList.add('touch-pick');
-          pickedTile=tile;
-        });
-      });
+      function pickTile(tile){
+        root.querySelectorAll('.learn-tile').forEach(function(t){t.classList.remove('touch-pick');});
+        tile.classList.add('touch-pick');
+        pickedTile=tile;
+      }
       root.querySelectorAll('[data-drop-zone]').forEach(function(zone){
         zone.addEventListener('click',function(){
           if(!pickedTile)return;
@@ -1702,17 +1914,46 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-
           pickedTile=null;
           root.querySelectorAll('.learn-tile').forEach(function(t){t.classList.remove('touch-pick');});
         });
+        zone.addEventListener('touchend',function(e){
+          if(!pickedTile)return;
+          applyLearnDrop(zone,tilePayload(pickedTile));
+          pickedTile=null;
+          root.querySelectorAll('.learn-tile').forEach(function(t){t.classList.remove('touch-pick');});
+          e.preventDefault();
+        },{passive:false});
+      });
+      setupPointerDrag({
+        scope:root,itemSelector:'.learn-tile',zoneSelector:'[data-drop-zone]',
+        getPayload:tilePayload,
+        canDrag:function(){return true;},
+        onTap:pickTile,
+        makeGhost:function(tile){
+          var g=document.createElement('div');
+          g.className='drag-ghost';
+          g.innerHTML='<span class="zh">'+tile.dataset.zh+'</span><span class="pinyin">'+tile.dataset.py+'</span>';
+          return g;
+        },
+        onDrop:function(zone,payload){applyLearnDrop(zone,payload);}
       });
     }
-    var clearBtn=root.querySelector('[data-stage-clear]');
-    if(clearBtn)clearBtn.addEventListener('click',function(){
-      state.verb=null;state.noun=null;lastWrongKey="";lastCorrectKey="";
-      renderSlot(slotVerb,null);renderSlot(slotNoun,null);
-      updateResult();
+    root.querySelectorAll('[data-stage-clear]').forEach(function(clearBtn){
+      clearBtn.addEventListener('click',function(){
+        state.verb=null;state.noun=null;lastWrongKey="";lastCorrectKey="";
+        renderSlot(slotVerb,null);renderSlot(slotNoun,null);
+        updateResult();
+        root.querySelectorAll('.learn-tile').forEach(function(t){t.classList.remove('touch-pick');});
+      });
     });
   }
   document.querySelectorAll('[data-learn-page]').forEach(initLearnBoard);
 
+  if(location.protocol==='file:'){
+    var hint=document.getElementById('file-protocol-hint');
+    if(hint){
+      hint.hidden=false;
+      hint.innerHTML='手機若無法發音：請用 Safari 開啟此頁的網址（https），不要直接用「檔案」預覽。<br>Pour la voix sur mobile : ouvrir via Safari (https), pas l’aperçu Fichiers.';
+    }
+  }
   setNavCurrent();
 })();
 </script>

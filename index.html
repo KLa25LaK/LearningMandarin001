@@ -1296,9 +1296,23 @@ body.touch-drag-active{-webkit-user-select:none;user-select:none}
   var lightbox=document.getElementById('img-lightbox');
   var lightboxImg=document.getElementById('lightbox-img');
   
+  function toDisplayUrl(src){
+    if(!src)return '';
+    if(/^https?:\/\//i.test(src))return src;
+    if(src.charAt(0)==='/'&&window.__siteBase&&src.indexOf(window.__siteBase)===0)return src;
+    return window.assetUrl?assetUrl(String(src).replace(/^\//,'')):src;
+  }
   function openLightbox(src,name,ingZh,ingFr){
     if(!lightbox||!lightboxImg)return;
-    lightboxImg.src=src?(window.assetUrl?assetUrl(src):src):'';
+    var url=toDisplayUrl(src);
+    var file=(url.match(/coco-[a-z0-9]+\.png/i)||[])[0]||(String(src).split('/').pop()||'');
+    var tries=cocoCandidates(file);
+    var n=0;
+    lightboxImg.onerror=function(){
+      n++;
+      if(n<tries.length)lightboxImg.src=tries[n];
+    };
+    lightboxImg.src=url||'';
     lightboxImg.alt=name||'';
     var desc=document.getElementById('lightbox-desc');
     if(desc){
@@ -1332,8 +1346,9 @@ body.touch-drag-active{-webkit-user-select:none;user-select:none}
       if(e.target.closest('.coco-card-media')){
         e.preventDefault();
         var img=card.querySelector('img');
-        var src=img?img.getAttribute('src'):(card.getAttribute('data-img')||'');
-        if(!src||img&&img.complete&&img.naturalWidth===0)src=card.dataset.imgFallback||card.getAttribute('data-img')||'';
+        var src='';
+        if(img&&img.naturalWidth>0)src=img.currentSrc||img.src||'';
+        else src=toDisplayUrl(card.getAttribute('data-img')||'')||card.dataset.imgFallback||'';
         openLightbox(src,card.getAttribute('data-name')||'',card.getAttribute('data-ing-zh')||'',card.getAttribute('data-ing-fr')||'');
         return;
       }

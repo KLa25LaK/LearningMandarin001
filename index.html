@@ -215,6 +215,14 @@ a.course-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 8px 0 rg
 .drag-card .pinyin{color:var(--muted);font-size:clamp(.88rem,3.5vw,1.05rem);line-height:1.25;margin-top:.12rem}
 .drag-card.correct{border-color:var(--mint);background:var(--mint-soft)}
 .drag-card.wrong{border-color:var(--coral);background:var(--peach)}
+.drag-card{position:relative}
+.drag-card.wrong::after{
+  content:'✗';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:clamp(1.8rem,8vw,2.4rem);font-weight:800;color:#be123c;
+  background:rgba(255,241,242,.88);border-radius:inherit;pointer-events:none;
+}
+.bucket .dropped.wrong-x{color:#be123c;font-size:clamp(1.1rem,5vw,1.45rem);font-weight:800}
+
 .buckets{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
@@ -279,11 +287,112 @@ details.review .inner{padding:0 1.1rem 1.15rem;border-top:2px solid var(--lav-so
   border:2px solid var(--lav-soft);background:#fff;font-family:inherit;
 }
 .builder .result{margin-top:1rem;padding:1rem;background:linear-gradient(135deg,var(--peach),var(--lav-soft));border-radius:12px}
-.builder-711 .builder-row{margin-bottom:.85rem}
-.builder-711 .builder-row:last-of-type{margin-bottom:.35rem}
 .builder-prefix{margin:0 0 .3rem;font-size:clamp(1.05rem,4vw,1.2rem);font-weight:700;color:var(--pink-deep)}
 .builder-711 select{margin-top:0}
-#picked-result .phrase{margin-bottom:0}
+.builder-711{display:flex;flex-direction:column;gap:.7rem}
+.builder-711 .builder-row{margin-bottom:0;padding:.5rem .55rem;border-radius:12px;background:rgba(255,255,255,.92);border:1px solid rgba(167,139,250,.18);box-shadow:0 2px 8px rgba(167,139,250,.08)}
+.builder-stem{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;align-items:stretch}
+.stem-cell{
+  background:rgba(255,255,255,.9);border-radius:12px;padding:.45rem .5rem;
+  border:1px solid rgba(167,139,250,.22);min-width:0;display:flex;
+}
+.stem-cell-zh{border-color:rgba(110,200,170,.38)}
+.stem-cell-pick{border-color:rgba(167,139,250,.38);padding:.4rem .45rem}
+.cell-layout{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  column-gap:.4rem;row-gap:.2rem;width:100%;align-items:center;
+  min-height:4.6rem;
+}
+.cell-text{align-self:center;min-width:0}
+.cell-actions{
+  display:flex;flex-direction:column;justify-content:center;gap:.28rem;
+  align-items:stretch;flex-shrink:0;
+}
+.stem-text .zh-line{font-size:clamp(.98rem,3.8vw,1.12rem);font-weight:700;color:var(--pink-deep);display:block;line-height:1.2}
+.stem-text .pinyin{font-size:clamp(.74rem,2.2vw,.86rem);display:block;margin-top:.1rem;color:var(--muted);line-height:1.2}
+.stem-text .stem-fr{display:block;margin-top:.15rem;font-size:clamp(.7rem,2vw,.8rem);font-family:var(--font-fr);color:var(--lav-deep);line-height:1.25}
+.btn-chip{
+  display:inline-flex;align-items:center;justify-content:center;gap:.15rem;
+  padding:.28rem .5rem;min-width:3.1rem;
+  border-radius:999px;border:2px solid #fff;font-size:.64rem;font-weight:700;
+  cursor:pointer;font-family:inherit;box-shadow:0 2px 5px rgba(0,0,0,.06);touch-action:manipulation;
+  white-space:nowrap;
+}
+.btn-chip.btn-zh{background:linear-gradient(145deg,#d4faf0,#a8e6cf);color:#047857}
+.btn-chip.btn-fr{background:linear-gradient(145deg,#ede9fe,#ddd6fe);color:#5b21b6;font-family:var(--font-fr)}
+.stem-cell-pick .pick-enhanced{position:relative;width:100%;height:100%;display:flex}
+.stem-cell-pick .pick-select-native{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.stem-cell-pick .pick-trigger{
+  width:100%;flex:1;display:block;position:relative;padding:0 .95rem 0 0;
+  border:none;background:transparent;cursor:pointer;box-shadow:none;
+  touch-action:manipulation;text-align:left;font-family:inherit;min-height:4.6rem;
+}
+.stem-cell-pick .pick-trigger::after{
+  content:'▾';position:absolute;top:.12rem;right:0;
+  color:var(--lav-deep);font-size:.9rem;line-height:1;
+}
+.stem-cell-pick .pick-trigger.is-open::after{content:'▴'}
+.stem-cell-pick .pick-trigger-inner{width:100%;height:100%}
+.stem-cell-pick .pick-trigger-body{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  column-gap:.35rem;align-items:center;min-height:4.6rem;
+}
+.stem-cell-pick .pick-trigger-text{min-width:0;line-height:1.2}
+.stem-cell-pick .pick-trigger .pick-opt-zh{font-size:clamp(.95rem,3.8vw,1.08rem);font-weight:700;color:var(--ink);display:block}
+.stem-cell-pick .pick-trigger .pick-opt-py{font-size:clamp(.72rem,2.2vw,.82rem);color:var(--muted);display:block;margin-top:.06rem}
+.stem-cell-pick .pick-trigger .pick-opt-fr{
+  font-size:clamp(.68rem,2vw,.76rem);color:var(--lav-deep);font-family:var(--font-fr);
+  display:block;margin-top:.06rem;line-height:1.2;white-space:normal;
+}
+.stem-cell-pick .pick-trigger-audio{
+  display:flex;flex-direction:column;gap:.25rem;margin:0;justify-content:center;
+}
+.stem-cell-pick .pick-menu{
+  position:absolute;left:0;right:0;top:calc(100% + .28rem);z-index:80;
+  max-height:min(48vh,280px);overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:#fff;border:2px solid var(--lav-soft);border-radius:12px;
+  box-shadow:0 12px 28px rgba(80,60,100,.18);padding:.3rem;
+}
+.stem-cell-pick .pick-menu[hidden]{display:none!important}
+.stem-cell-pick .pick-option{
+  display:block;width:100%;text-align:left;border:none;background:transparent;
+  padding:.4rem .45rem;margin:0 0 .2rem;border-radius:10px;cursor:pointer;
+  font-family:inherit;touch-action:manipulation;
+}
+.stem-cell-pick .pick-option:last-child{margin-bottom:0}
+.stem-cell-pick .pick-option:hover,.stem-cell-pick .pick-option:focus{background:var(--lav-soft)}
+.stem-cell-pick .pick-option.is-selected{background:linear-gradient(135deg,var(--pink-soft),#fff)}
+.pick-opt-card{width:100%}
+.pick-opt-text{padding:0 .08rem .3rem}
+.pick-opt-zh{display:block;font-size:.95rem;font-weight:700;color:var(--ink)}
+.pick-opt-py{display:block;font-size:.8rem;color:var(--muted)}
+.pick-opt-fr{display:block;font-size:.76rem;color:var(--lav-deep);font-family:var(--font-fr);line-height:1.25}
+.pick-opt-audio{
+  display:grid;grid-template-columns:1fr 1fr;gap:.28rem;
+  padding-top:.28rem;border-top:1px dashed rgba(167,139,250,.22);
+}
+.pick-audio-zh,.pick-audio-fr{display:flex;justify-content:center}
+.builder-outside-speak{
+  margin-top:.6rem;padding:.55rem .65rem;border-radius:12px;
+  background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(237,233,254,.5));
+  border:2px dashed rgba(167,139,250,.4);
+}
+.builder-outside-speak[hidden]{display:none!important}
+.outside-speak-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.35rem .45rem;padding:.25rem 0}
+.outside-speak-row .outside-hint{flex:1 1 100%;margin:0 0 .1rem}
+.outside-hint{font-size:.7rem;font-weight:700;color:var(--lav-deep);text-align:center;font-family:var(--font-fr)}
+.builder-outside-speak .btn-chip,.builder-outside-speak .btn-sentence{
+  justify-content:center;width:100%;font-size:.72rem;padding:.38rem .4rem;
+}
+.builder-outside-speak .btn-sentence{border-radius:999px;border:2px solid #fff;font-weight:700;cursor:pointer;touch-action:manipulation}
+.builder-outside-speak .btn-sentence.btn-zh{background:linear-gradient(145deg,#d4faf0,#a8e6cf);color:#047857}
+.builder-outside-speak .btn-sentence.btn-fr{background:linear-gradient(145deg,#ede9fe,#ddd6fe);color:#5b21b6;font-family:var(--font-fr)}
+@media(max-width:768px){
+  .builder-stem{grid-template-columns:1fr}
+  .cell-layout,.stem-cell-pick .pick-trigger-body{min-height:0}
+  .stem-cell-pick .pick-trigger{min-height:0}
+  .pick-opt-audio{grid-template-columns:1fr}
+}
 /* —— COCO boissons —— */
 .coco-panel{
   background:linear-gradient(145deg,#fffaf5,#fff0f5);
@@ -639,6 +748,52 @@ body:has(#theme1:target) #theme1-practice{display:none}
 .btn-stage-clear:hover{background:#ede9fe;transform:scale(1.08)}
 #result-speak:disabled{opacity:.35;cursor:not-allowed}
 
+
+/* —— Mobile / touch —— */
+html{-webkit-text-size-adjust:100%}
+body{-webkit-tap-highlight-color:transparent;padding-bottom:max(5.5rem,env(safe-area-inset-bottom))}
+.app{padding:1rem .85rem 2rem;max-width:720px}
+.btn-speak,.coco-card,.drag-card,.bucket,.learn-tile,.course-card,.sub-card{touch-action:manipulation}
+@media(max-width:768px){
+  .home-title-row{flex-direction:column;align-items:stretch;gap:.5rem}
+  .home-title-fr{justify-content:flex-start}
+  .course-card-row{flex-direction:column;align-items:flex-start;gap:.5rem;padding-right:0}
+  .course-card{padding:1.1rem 1rem}
+  .page-hero-row{flex-direction:column;align-items:stretch;gap:.55rem}
+  .page-hero-row>.fr-block{max-width:none;justify-content:flex-start}
+  .pattern-box .phrase-row{flex-direction:column;align-items:stretch;gap:.4rem}
+  .pattern-box .phrase-row .fr-block{max-width:none}
+  .builder-711 .builder-row .builder-prefix{font-size:1.1rem}
+  .coco-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}
+  .coco-hint{font-size:.8rem;line-height:1.35}
+  .float-nav{max-width:min(88vw,280px)}
+  .float-nav a{padding:.55rem .85rem;font-size:.75rem}
+  .drag-cards{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    row-gap:.45rem;column-gap:.45rem;padding:.5rem;
+  }
+  .drag-cards .drag-card:nth-child(-n+3),
+  .drag-cards .drag-card:nth-child(n+4){grid-column:span 1!important}
+  .drag-card,.bucket{min-height:4.5rem;padding:.55rem .4rem}
+  .drag-card{cursor:pointer}
+  .buckets{grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem}
+  .learn-board{gap:.65rem}
+  .learn-col-tiles{gap:.45rem}
+  .img-lightbox{
+    padding:max(1rem,env(safe-area-inset-top)) max(.75rem,env(safe-area-inset-right)) max(1rem,env(safe-area-inset-bottom)) max(.75rem,env(safe-area-inset-left));
+  }
+  .img-lightbox-close{top:max(.5rem,env(safe-area-inset-top));right:max(.5rem,env(safe-area-inset-right))}
+}
+.drag-touch-hint{display:none;margin:.35rem 0 .65rem;padding:.45rem .65rem;border-radius:10px;background:rgba(232,222,255,.5);font-size:.82rem;color:var(--lav-deep);text-align:center;line-height:1.35}
+.touch-practice .drag-touch-hint{display:block}
+.touch-practice .drag-card{cursor:pointer}
+.touch-practice .drag-card.touch-pick{outline:3px solid var(--pink);outline-offset:2px;transform:scale(1.03)}
+.touch-practice .bucket{cursor:pointer}
+.touch-learn .learn-tile{cursor:pointer}
+.touch-learn .learn-tile.touch-pick{outline:3px solid var(--pink);outline-offset:2px}
+.learn-touch-hint{display:none;font-size:.8rem;color:var(--muted);text-align:center;margin:.25rem 0 .5rem}
+.touch-learn .learn-touch-hint{display:block}
+
 </style>
 </head>
 <body>
@@ -863,7 +1018,7 @@ body:has(#theme1:target) #theme1-practice{display:none}
 <section id="theme1-practice" class="page">
 <a class="link-back" href="#theme1">← Thème 1 / 返回主題一</a>
 <div class="explain explain-practice"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="Glisse chaque mot vers le bon verbe." title="Écouter">🔊</button><span class="fr-line">Glisse chaque mot vers le bon verbe.</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="把名詞拖到教過的動詞。" title="聽">🔊</button><div><span class="zh-line zh">把名詞拖到教過的動詞。</span><span class="pinyin">Bǎ míngcí tuō dào jiàoguò de dòngcí.</span></div></div></div>
-<div class="drag-area" id="drag-game">
+<div class="drag-area" id="drag-game"><p class="drag-touch-hint" id="drag-touch-hint">先點名詞，再點動詞 · Choisis un nom, puis un verbe</p>
   <div class="drag-cards" id="drag-pool"><div class="drag-card" draggable="true" data-bucket="打" data-speak="打籃球"><span class="zh">籃球</span><span class="pinyin">lánqiú</span></div><div class="drag-card" draggable="true" data-bucket="踢" data-speak="踢足球"><span class="zh">足球</span><span class="pinyin">zúqiú</span></div><div class="drag-card" draggable="true" data-bucket="下" data-speak="下圍棋"><span class="zh">圍棋</span><span class="pinyin">wéiqí</span></div><div class="drag-card" draggable="true" data-bucket="彈" data-speak="彈鋼琴"><span class="zh">鋼琴</span><span class="pinyin">gāngqín</span></div><div class="drag-card" draggable="true" data-bucket="拉" data-speak="拉小提琴"><span class="zh">小提琴</span><span class="pinyin">xiǎotíqín</span></div><div class="drag-card" draggable="true" data-bucket="吹" data-speak="吹薩克斯風"><span class="zh">薩克斯風</span><span class="pinyin">sàkèsīfēng</span></div><div class="drag-card" draggable="true" data-bucket="打" data-speak="打鼓"><span class="zh">鼓</span><span class="pinyin">gǔ</span></div></div>
   <div class="buckets" id="drag-buckets"><div class="bucket" data-bucket="打"><h6 class="zh">打</h6><span class="pinyin">dǎ</span><div class="dropped"></div></div><div class="bucket" data-bucket="踢"><h6 class="zh">踢</h6><span class="pinyin">tī</span><div class="dropped"></div></div><div class="bucket" data-bucket="下"><h6 class="zh">下</h6><span class="pinyin">xià</span><div class="dropped"></div></div><div class="bucket" data-bucket="彈"><h6 class="zh">彈</h6><span class="pinyin">tán</span><div class="dropped"></div></div><div class="bucket" data-bucket="拉"><h6 class="zh">拉</h6><span class="pinyin">lā</span><div class="dropped"></div></div><div class="bucket" data-bucket="吹"><h6 class="zh">吹</h6><span class="pinyin">chuī</span><div class="dropped"></div></div></div>
   <p id="drag-msg"></p>
@@ -885,19 +1040,66 @@ body:has(#theme1:target) #theme1-practice{display:none}
 </div>
 <p class="section-title">Choisis une phrase<span class="pinyin zh">Xuǎn yī jù</span></p>
 <div class="builder builder-711">
-  <div class="builder-row">
-    <p class="builder-prefix zh">我要去7-11買</p>
-    <select id="pick-buy"><option value="">—</option><option value="水" data-zh="我要去7-11買水。" data-fr="Je vais à 7-11 acheter de l'eau." data-py="Wǒ yào qù 7-11 mǎi shuǐ.">水 · acheter de l'eau</option><option value="東西" data-zh="我要去7-11買東西。" data-fr="Je vais à 7-11 faire des courses." data-py="Wǒ yào qù 7-11 mǎi dōngxi.">東西 · faire des courses</option><option value="便當" data-zh="我要去7-11買便當。" data-fr="Je vais à 7-11 acheter un bento." data-py="Wǒ yào qù 7-11 mǎi biàndāng.">便當 · acheter un bento</option><option value="零食" data-zh="我要去7-11買零食。" data-fr="Je vais à 7-11 acheter des snacks." data-py="Wǒ yào qù 7-11 mǎi língshí.">零食 · acheter des snacks</option><option value="飲料" data-zh="我要去7-11買飲料。" data-fr="Je vais à 7-11 acheter des boissons." data-py="Wǒ yào qù 7-11 mǎi yǐnliào.">飲料 · acheter des boissons</option><option value="咖啡" data-zh="我要去7-11買咖啡。" data-fr="Je vais à 7-11 acheter un café." data-py="Wǒ yào qù 7-11 mǎi kāfēi.">咖啡 · acheter un café</option><option value="電影票" data-zh="我要去7-11買電影票。" data-fr="Je vais à 7-11 acheter des billets de cinéma." data-py="Wǒ yào qù 7-11 mǎi diànyǐng piào.">電影票 · acheter des billets de cinéma</option><option value="票" data-zh="我要去7-11買票。" data-fr="Je vais à 7-11 acheter des billets." data-py="Wǒ yào qù 7-11 mǎi piào.">票 · acheter des billets</option><option value="悠遊卡" data-zh="我要去7-11買悠遊卡。" data-fr="Je vais à 7-11 acheter une carte EasyCard." data-py="Wǒ yào qù 7-11 mǎi yōuyóu kǎ.">悠遊卡 · acheter une carte EasyCard</option><option value="衛生紙" data-zh="我要去7-11買衛生紙。" data-fr="Je vais à 7-11 acheter du papier toilette." data-py="Wǒ yào qù 7-11 mǎi wèishēngzhǐ.">衛生紙 · acheter du papier toilette</option><option value="關東煮" data-zh="我要去7-11買關東煮。" data-fr="Je vais à 7-11 acheter de l'oden." data-py="Wǒ yào qù 7-11 mǎi guāndōngzhǔ.">關東煮 · acheter de l'oden</option><option value="霜淇淋" data-zh="我要去7-11買霜淇淋。" data-fr="Je vais à 7-11 acheter une glace." data-py="Wǒ yào qù 7-11 mǎi shuāngqílín.">霜淇淋 · acheter une glace</option></select>
+    <div class="builder-row">
+  <div class="builder-stem">
+    <div class="stem-cell stem-cell-zh">
+      <div class="cell-layout">
+        <div class="cell-text stem-text"><span class="zh-line zh">我要去7-11買</span><span class="pinyin">Wǒ yào qù 7-11 mǎi</span><span class="fr-line stem-fr">Je vais à 7-11 acheter</span></div>
+        <div class="cell-actions stem-audio">
+          <button type="button" class="btn-chip btn-zh" data-lang="zh" data-speak="我要去7-11買" title="聽句型">句型 🔊</button>
+          <button type="button" class="btn-chip btn-fr" data-lang="fr" data-speak="Je vais à 7-11 acheter." title="Écouter le modèle">modèle 🔊</button>
+        </div>
+      </div>
+    </div>
+    <div class="stem-cell stem-cell-pick">
+      <select id="pick-buy"><option value="">—</option><option value="水" data-zh="我要去7-11買水。" data-fr="Je vais à 7-11 acheter de l'eau." data-py="Wǒ yào qù 7-11 mǎi shuǐ.">水 · acheter de l'eau</option><option value="東西" data-zh="我要去7-11買東西。" data-fr="Je vais à 7-11 faire des courses." data-py="Wǒ yào qù 7-11 mǎi dōngxi.">東西 · faire des courses</option><option value="便當" data-zh="我要去7-11買便當。" data-fr="Je vais à 7-11 acheter un bento." data-py="Wǒ yào qù 7-11 mǎi biàndāng.">便當 · acheter un bento</option><option value="零食" data-zh="我要去7-11買零食。" data-fr="Je vais à 7-11 acheter des snacks." data-py="Wǒ yào qù 7-11 mǎi língshí.">零食 · acheter des snacks</option><option value="飲料" data-zh="我要去7-11買飲料。" data-fr="Je vais à 7-11 acheter des boissons." data-py="Wǒ yào qù 7-11 mǎi yǐnliào.">飲料 · acheter des boissons</option><option value="咖啡" data-zh="我要去7-11買咖啡。" data-fr="Je vais à 7-11 acheter un café." data-py="Wǒ yào qù 7-11 mǎi kāfēi.">咖啡 · acheter un café</option><option value="電影票" data-zh="我要去7-11買電影票。" data-fr="Je vais à 7-11 acheter des billets de cinéma." data-py="Wǒ yào qù 7-11 mǎi diànyǐng piào.">電影票 · acheter des billets de cinéma</option><option value="票" data-zh="我要去7-11買票。" data-fr="Je vais à 7-11 acheter des billets." data-py="Wǒ yào qù 7-11 mǎi piào.">票 · acheter des billets</option><option value="悠遊卡" data-zh="我要去7-11買悠遊卡。" data-fr="Je vais à 7-11 acheter une carte EasyCard." data-py="Wǒ yào qù 7-11 mǎi yōuyóu kǎ.">悠遊卡 · acheter une carte EasyCard</option><option value="衛生紙" data-zh="我要去7-11買衛生紙。" data-fr="Je vais à 7-11 acheter du papier toilette." data-py="Wǒ yào qù 7-11 mǎi wèishēngzhǐ.">衛生紙 · acheter du papier toilette</option><option value="關東煮" data-zh="我要去7-11買關東煮。" data-fr="Je vais à 7-11 acheter de l'oden." data-py="Wǒ yào qù 7-11 mǎi guāndōngzhǔ.">關東煮 · acheter de l'oden</option><option value="霜淇淋" data-zh="我要去7-11買霜淇淋。" data-fr="Je vais à 7-11 acheter une glace." data-py="Wǒ yào qù 7-11 mǎi shuāngqílín.">霜淇淋 · acheter une glace</option></select>
+    </div>
   </div>
-  <div class="builder-row">
-    <p class="builder-prefix zh">我要去7-11繳</p>
-    <select id="pick-pay"><option value="">—</option><option value="電話費" data-zh="我要去7-11繳電話費。" data-fr="Je vais à 7-11 payer la facture de téléphone." data-py="Wǒ yào qù 7-11 jiǎo diànhuà fèi.">電話費 · payer la facture de téléphone</option><option value="水費" data-zh="我要去7-11繳水費。" data-fr="Je vais à 7-11 payer la facture d'eau." data-py="Wǒ yào qù 7-11 jiǎo shuǐ fèi.">水費 · payer la facture d'eau</option><option value="電費" data-zh="我要去7-11繳電費。" data-fr="Je vais à 7-11 payer la facture d'électricité." data-py="Wǒ yào qù 7-11 jiǎo diànfèi.">電費 · payer la facture d'électricité</option><option value="瓦斯費" data-zh="我要去7-11繳瓦斯費。" data-fr="Je vais à 7-11 payer la facture de gaz." data-py="Wǒ yào qù 7-11 jiǎo wǎsī fèi.">瓦斯費 · payer la facture de gaz</option><option value="健保費" data-zh="我要去7-11繳健保費。" data-fr="Je vais à 7-11 payer l'assurance maladie." data-py="Wǒ yào qù 7-11 jiǎo jiànbǎo fèi.">健保費 · payer l'assurance maladie</option><option value="信用卡費" data-zh="我要去7-11繳信用卡費。" data-fr="Je vais à 7-11 payer la carte de crédit." data-py="Wǒ yào qù 7-11 jiǎo xìnyòngkǎ fèi.">信用卡費 · payer la carte de crédit</option><option value="學費" data-zh="我要去7-11繳學費。" data-fr="Je vais à 7-11 payer les frais de scolarité." data-py="Wǒ yào qù 7-11 jiǎo xuéfèi.">學費 · payer les frais de scolarité</option><option value="補習班費" data-zh="我要去7-11繳補習班費。" data-fr="Je vais à 7-11 payer les cours particuliers." data-py="Wǒ yào qù 7-11 jiǎo bǔxíbān fèi.">補習班費 · payer les cours particuliers</option><option value="罰單" data-zh="我要去7-11繳罰單。" data-fr="Je vais à 7-11 payer une amende." data-py="Wǒ yào qù 7-11 jiǎo fádān.">罰單 · payer une amende</option><option value="停車費" data-zh="我要去7-11繳停車費。" data-fr="Je vais à 7-11 payer le stationnement." data-py="Wǒ yào qù 7-11 jiǎo tíngchē fèi.">停車費 · payer le stationnement</option><option value="稅" data-zh="我要去7-11繳稅。" data-fr="Je vais à 7-11 payer des impôts." data-py="Wǒ yào qù 7-11 jiǎo shuì.">稅 · payer des impôts</option></select>
+</div>
+<div class="builder-row">
+  <div class="builder-stem">
+    <div class="stem-cell stem-cell-zh">
+      <div class="cell-layout">
+        <div class="cell-text stem-text"><span class="zh-line zh">我要去7-11繳</span><span class="pinyin">Wǒ yào qù 7-11 jiǎo</span><span class="fr-line stem-fr">Je vais à 7-11 payer</span></div>
+        <div class="cell-actions stem-audio">
+          <button type="button" class="btn-chip btn-zh" data-lang="zh" data-speak="我要去7-11繳" title="聽句型">句型 🔊</button>
+          <button type="button" class="btn-chip btn-fr" data-lang="fr" data-speak="Je vais à 7-11 payer." title="Écouter le modèle">modèle 🔊</button>
+        </div>
+      </div>
+    </div>
+    <div class="stem-cell stem-cell-pick">
+      <select id="pick-pay"><option value="">—</option><option value="電話費" data-zh="我要去7-11繳電話費。" data-fr="Je vais à 7-11 payer la facture de téléphone." data-py="Wǒ yào qù 7-11 jiǎo diànhuà fèi.">電話費 · payer la facture de téléphone</option><option value="水費" data-zh="我要去7-11繳水費。" data-fr="Je vais à 7-11 payer la facture d'eau." data-py="Wǒ yào qù 7-11 jiǎo shuǐ fèi.">水費 · payer la facture d'eau</option><option value="電費" data-zh="我要去7-11繳電費。" data-fr="Je vais à 7-11 payer la facture d'électricité." data-py="Wǒ yào qù 7-11 jiǎo diànfèi.">電費 · payer la facture d'électricité</option><option value="瓦斯費" data-zh="我要去7-11繳瓦斯費。" data-fr="Je vais à 7-11 payer la facture de gaz." data-py="Wǒ yào qù 7-11 jiǎo wǎsī fèi.">瓦斯費 · payer la facture de gaz</option><option value="健保費" data-zh="我要去7-11繳健保費。" data-fr="Je vais à 7-11 payer l'assurance maladie." data-py="Wǒ yào qù 7-11 jiǎo jiànbǎo fèi.">健保費 · payer l'assurance maladie</option><option value="信用卡費" data-zh="我要去7-11繳信用卡費。" data-fr="Je vais à 7-11 payer la carte de crédit." data-py="Wǒ yào qù 7-11 jiǎo xìnyòngkǎ fèi.">信用卡費 · payer la carte de crédit</option><option value="學費" data-zh="我要去7-11繳學費。" data-fr="Je vais à 7-11 payer les frais de scolarité." data-py="Wǒ yào qù 7-11 jiǎo xuéfèi.">學費 · payer les frais de scolarité</option><option value="補習班費" data-zh="我要去7-11繳補習班費。" data-fr="Je vais à 7-11 payer les cours particuliers." data-py="Wǒ yào qù 7-11 jiǎo bǔxíbān fèi.">補習班費 · payer les cours particuliers</option><option value="罰單" data-zh="我要去7-11繳罰單。" data-fr="Je vais à 7-11 payer une amende." data-py="Wǒ yào qù 7-11 jiǎo fádān.">罰單 · payer une amende</option><option value="停車費" data-zh="我要去7-11繳停車費。" data-fr="Je vais à 7-11 payer le stationnement." data-py="Wǒ yào qù 7-11 jiǎo tíngchē fèi.">停車費 · payer le stationnement</option><option value="稅" data-zh="我要去7-11繳稅。" data-fr="Je vais à 7-11 payer des impôts." data-py="Wǒ yào qù 7-11 jiǎo shuì.">稅 · payer des impôts</option></select>
+    </div>
   </div>
-  <div class="builder-row">
-    <p class="builder-prefix zh">我要去7-11</p>
-    <select id="pick-svc"><option value="">—</option><option value="寄包裹" data-zh="我要去7-11寄包裹。" data-fr="Je vais à 7-11 envoyer un colis." data-py="Wǒ yào qù 7-11 jì bāoguǒ.">寄包裹 · envoyer un colis</option><option value="取包裹" data-zh="我要去7-11取包裹。" data-fr="Je vais à 7-11 retirer un colis." data-py="Wǒ yào qù 7-11 qǔ bāoguǒ.">取包裹 · retirer un colis</option><option value="影印" data-zh="我要去7-11影印。" data-fr="Je vais à 7-11 faire une photocopie." data-py="Wǒ yào qù 7-11 yǐngyìn.">影印 · faire une photocopie</option><option value="列印照片" data-zh="我要去7-11列印照片。" data-fr="Je vais à 7-11 imprimer des photos." data-py="Wǒ yào qù 7-11 lièyìn zhàopiàn.">列印照片 · imprimer des photos</option><option value="上廁所" data-zh="我要去7-11上廁所。" data-fr="Je vais au 7-11 utiliser les toilettes." data-py="Wǒ yào qù 7-11 shàng cèsuǒ.">上廁所 · utiliser les toilettes</option><option value="提款" data-zh="我要去7-11提款。" data-fr="Je vais au 7-11 retirer de l'argent." data-py="Wǒ yào qù 7-11 tí kuǎn.">提款 · retirer de l'argent</option></select>
+</div>
+<div class="builder-row">
+  <div class="builder-stem">
+    <div class="stem-cell stem-cell-zh">
+      <div class="cell-layout">
+        <div class="cell-text stem-text"><span class="zh-line zh">我要去7-11</span><span class="pinyin">Wǒ yào qù 7-11</span><span class="fr-line stem-fr">Je vais à 7-11</span></div>
+        <div class="cell-actions stem-audio">
+          <button type="button" class="btn-chip btn-zh" data-lang="zh" data-speak="我要去7-11" title="聽句型">句型 🔊</button>
+          <button type="button" class="btn-chip btn-fr" data-lang="fr" data-speak="Je vais à 7-11." title="Écouter le modèle">modèle 🔊</button>
+        </div>
+      </div>
+    </div>
+    <div class="stem-cell stem-cell-pick">
+      <select id="pick-svc"><option value="">—</option><option value="寄包裹" data-zh="我要去7-11寄包裹。" data-fr="Je vais à 7-11 envoyer un colis." data-py="Wǒ yào qù 7-11 jì bāoguǒ.">寄包裹 · envoyer un colis</option><option value="取包裹" data-zh="我要去7-11取包裹。" data-fr="Je vais à 7-11 retirer un colis." data-py="Wǒ yào qù 7-11 qǔ bāoguǒ.">取包裹 · retirer un colis</option><option value="影印" data-zh="我要去7-11影印。" data-fr="Je vais à 7-11 faire une photocopie." data-py="Wǒ yào qù 7-11 yǐngyìn.">影印 · faire une photocopie</option><option value="列印照片" data-zh="我要去7-11列印照片。" data-fr="Je vais à 7-11 imprimer des photos." data-py="Wǒ yào qù 7-11 lièyìn zhàopiàn.">列印照片 · imprimer des photos</option><option value="上廁所" data-zh="我要去7-11上廁所。" data-fr="Je vais au 7-11 utiliser les toilettes." data-py="Wǒ yào qù 7-11 shàng cèsuǒ.">上廁所 · utiliser les toilettes</option><option value="提款" data-zh="我要去7-11提款。" data-fr="Je vais au 7-11 retirer de l'argent." data-py="Wǒ yào qù 7-11 tí kuǎn.">提款 · retirer de l'argent</option></select>
+    </div>
   </div>
-  <div class="result" id="picked-result"></div>
+</div>
+<div class="builder-outside-speak" id="builder-outside-speak" hidden>
+    <div class="outside-speak-row word-speak-row">
+      <p class="outside-hint">所選詞 · Mot choisi</p>
+      <button type="button" class="btn-chip btn-zh" id="speak-zh-part" data-lang="zh" data-speak="" title="聽中文詞">詞 🔊</button>
+      <button type="button" class="btn-chip btn-fr" id="speak-fr-part" data-lang="fr" data-speak="" title="Écouter le mot">mot 🔊</button>
+    </div>
+    <div class="outside-speak-row sentence-speak-row">
+      <p class="outside-hint">完整句子 · Phrase complète</p>
+      <button type="button" class="btn-sentence btn-zh" id="speak-zh-full" data-lang="zh" data-speak="" title="聽整句">整句 🔊</button>
+      <button type="button" class="btn-sentence btn-fr" id="speak-fr-full" data-lang="fr" data-speak="" title="Écouter la phrase">phrase 🔊</button>
+    </div>
+  </div>
 </div>
 <p class="section-title">COCO · Choisis ta boisson<span class="pinyin zh">Xuǎn yǐnliào</span></p>
 <div class="coco-panel">
@@ -925,7 +1127,7 @@ body:has(#theme1:target) #theme1-practice{display:none}
 </button></div>
   <div class="result" id="coco-result"></div>
 </div>
-<div class="img-lightbox" id="img-lightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie" hidden>
+<div class="img-lightbox" id="img-lightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie" aria-hidden="true">
   <button type="button" class="img-lightbox-close" id="lightbox-close" title="Fermer">×</button>
   <div class="img-lightbox-inner">
     <img id="lightbox-img" src="" alt="">
@@ -966,12 +1168,7 @@ body:has(#theme1:target) #theme1-practice{display:none}
     speak(b.getAttribute('data-speak'),b.getAttribute('data-lang')||'zh',b);
   },true);
   function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
-  function renderPickedPhrase(zh,fr,py){
-    var box=document.getElementById('picked-result');
-    if(!box)return;
-    if(!zh){box.innerHTML='';return;}
-    box.innerHTML='<div class="phrase"><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="'+escHtml(zh)+'" title="聽">🔊</button><div><span class="zh-line zh">'+escHtml(zh)+'</span>'+(py?'<span class="pinyin">'+escHtml(py)+'</span>':'')+'</div></div><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="'+escHtml(fr)+'" title="Écouter">🔊</button><span class="fr-line">'+escHtml(fr)+'</span></div></div>';
-  }
+  function renderPickedPhrase(zh,fr,py){/* phrase shown in stem + pick; no duplicate block */}
 
   function renderCocoPhrase(zh,fr,py){
     var box=document.getElementById('coco-result');
@@ -992,52 +1189,200 @@ body:has(#theme1:target) #theme1-practice{display:none}
     if(desc){
       if(ingZh||ingFr){
         desc.innerHTML='<div class="zh-block"><span class="lb-title zh">'+escHtml(name||'')+'</span><span class="lb-body zh">'+escHtml(ingZh||'')+'</span></div><div class="fr-block"><span class="lb-title">'+escHtml(name||'')+'</span><span class="lb-body">'+escHtml(ingFr||'')+'</span></div>';
-        desc.hidden=false;
-      }else{desc.innerHTML='';desc.hidden=true;}
+        desc.style.display='';
+      }else{desc.innerHTML='';desc.style.display='none';}
     }
-    lightbox.hidden=false;
+    lightbox.setAttribute('aria-hidden','false');
     lightbox.classList.add('is-open');
     document.body.style.overflow='hidden';
   }
   function closeLightbox(){
     if(!lightbox)return;
     lightbox.classList.remove('is-open');
-    lightbox.hidden=true;
+    lightbox.setAttribute('aria-hidden','true');
     document.body.style.overflow='';
   }
   var lbClose=document.getElementById('lightbox-close');
-  if(lbClose)lbClose.addEventListener('click',closeLightbox);
-  if(lightbox)lightbox.addEventListener('click',function(e){if(e.target===lightbox)closeLightbox();});
+  function onLightboxClose(e){if(e)e.preventDefault();closeLightbox();}
+  if(lbClose){lbClose.addEventListener('click',onLightboxClose);lbClose.addEventListener('touchend',onLightboxClose,{passive:false});}
+  if(lightbox){
+    lightbox.addEventListener('click',function(e){if(e.target===lightbox)closeLightbox();});
+    lightbox.addEventListener('touchend',function(e){if(e.target===lightbox){e.preventDefault();closeLightbox();}},{passive:false});
+  }
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
   if(cocoGrid){
-    cocoGrid.addEventListener('click',function(e){
-      var img=e.target.closest('.coco-card-media img');
-      if(img){
-        e.stopPropagation();
-        var card=img.closest('.coco-card');
-        openLightbox(img.getAttribute('src'),card?card.getAttribute('data-name'):'',card?card.getAttribute('data-ing-zh'):'',card?card.getAttribute('data-ing-fr'):'');
-        return;
-      }
+    cocoGrid.addEventListener('pointerup',function(e){
       var card=e.target.closest('.coco-card');
       if(!card)return;
+      if(e.target.closest('.coco-card-media')){
+        e.preventDefault();
+        var img=card.querySelector('img');
+        openLightbox(img?img.getAttribute('src'):'',card.getAttribute('data-name')||'',card.getAttribute('data-ing-zh')||'',card.getAttribute('data-ing-fr')||'');
+        return;
+      }
       cocoGrid.querySelectorAll('.coco-card').forEach(function(c){c.classList.remove('is-selected');});
       card.classList.add('is-selected');
       if(cocoName)cocoName.textContent=card.getAttribute('data-name')||'⋯';
       renderCocoPhrase(card.dataset.zh,card.dataset.fr,card.dataset.py||'');
     });
   }
+
+  function pickKindFromId(id){
+    if(id==='pick-buy')return 'buy';
+    if(id==='pick-pay')return 'pay';
+    return 'svc';
+  }
+  function pickWordPy(opt,kind){
+    var py=(opt.getAttribute('data-py')||'').replace(/\.$/,'');
+    if(kind==='buy')return py.replace(/^Wǒ yào qù 7-11 mǎi\s*/,'');
+    if(kind==='pay')return py.replace(/^Wǒ yào qù 7-11 jiǎo\s*/,'');
+    return py.replace(/^Wǒ yào qù 7-11\s*/,'');
+  }
+  function pickParts(opt,kind){
+    var parts=(opt.textContent||'').split(' · ');
+    kind=kind||pickKindFromId((opt.parentElement&&opt.parentElement.id)||'');
+    return {zh:parts[0]||opt.value||'',fr:parts[1]||'',py:pickWordPy(opt,kind)};
+  }
+  function escPick(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+  function pickTriggerHTML(opt,kind){
+    if(!opt||!opt.value)return '—';
+    var p=pickParts(opt,kind);
+    return '<div class="pick-trigger-body"><div class="pick-trigger-text">'
+      +'<span class="pick-opt-zh zh">'+escPick(p.zh)+'</span>'
+      +'<span class="pick-opt-py pinyin">'+escPick(p.py)+'</span>'
+      +'<span class="pick-opt-fr fr-line">'+escPick(p.fr)+'</span></div>'
+      +'<div class="pick-trigger-audio">'
+      +'<button type="button" class="btn-chip btn-zh" data-lang="zh" data-speak="'+escPick(p.zh)+'" title="聽詞語">詞 🔊</button>'
+      +'<button type="button" class="btn-chip btn-fr" data-lang="fr" data-speak="'+escPick(p.fr)+'" title="Écouter le mot">mot 🔊</button>'
+      +'</div></div>';
+  }
+  function pickOptionHTML(opt,kind){
+    if(!opt.value)return '<span class="pick-opt-zh">—</span>';
+    var p=pickParts(opt,kind);
+    return '<div class="pick-opt-card"><div class="pick-opt-text">'
+      +'<span class="pick-opt-zh zh">'+escPick(p.zh)+'</span>'
+      +'<span class="pick-opt-py pinyin">'+escPick(p.py)+'</span>'
+      +'<span class="pick-opt-fr fr-line">'+escPick(p.fr)+'</span></div>'
+      +'<div class="pick-opt-audio"><div class="pick-audio-zh">'
+      +'<button type="button" class="btn-chip btn-zh" data-lang="zh" data-speak="'+escPick(p.zh)+'" title="聽詞語">詞 🔊</button>'
+      +'</div><div class="pick-audio-fr">'
+      +'<button type="button" class="btn-chip btn-fr" data-lang="fr" data-speak="'+escPick(p.fr)+'" title="Écouter le mot">mot 🔊</button>'
+      +'</div></div></div>';
+  }
+  function updateSpeakPanel(opt){
+    var panel=document.getElementById('builder-outside-speak');
+    if(!panel)return;
+    if(!opt||!opt.value){panel.hidden=true;return;}
+    var kind=pickKindFromId((opt.parentElement&&opt.parentElement.id)||'');
+    var p=pickParts(opt,kind);
+    panel.hidden=false;
+    var zhp=document.getElementById('speak-zh-part');
+    var zhf=document.getElementById('speak-zh-full');
+    var frp=document.getElementById('speak-fr-part');
+    var frf=document.getElementById('speak-fr-full');
+    if(zhp)zhp.setAttribute('data-speak',p.zh);
+    if(zhf)zhf.setAttribute('data-speak',opt.getAttribute('data-zh')||'');
+    if(frp)frp.setAttribute('data-speak',p.fr);
+    if(frf)frf.setAttribute('data-speak',opt.getAttribute('data-fr')||'');
+  }
+  function enhancePickSelect(sel){
+    if(!sel)return;
+    var existing=sel.closest('.pick-enhanced');
+    if(sel.dataset.pickUi==='6'&&existing)return;
+    if(existing){try{existing.remove();}catch(e){}}
+    sel.dataset.pickUi='6';
+    delete sel.dataset.pickEnhanced;
+    sel.dataset.pickEnhanced='1';
+    var kind=pickKindFromId(sel.id);
+    var wrap=document.createElement('div');
+    wrap.className='pick-enhanced';
+    sel.parentNode.insertBefore(wrap,sel);
+    wrap.appendChild(sel);
+    sel.classList.add('pick-select-native');
+    var trigger=document.createElement('button');
+    trigger.type='button';
+    trigger.className='pick-trigger';
+    trigger.setAttribute('aria-haspopup','listbox');
+    trigger.setAttribute('aria-expanded','false');
+    var triggerInner=document.createElement('span');
+    triggerInner.className='pick-trigger-inner';
+    trigger.appendChild(triggerInner);
+    var menu=document.createElement('div');
+    menu.className='pick-menu';
+    menu.setAttribute('role','listbox');
+    menu.hidden=true;
+    function closeMenu(){menu.hidden=true;trigger.classList.remove('is-open');trigger.setAttribute('aria-expanded','false');}
+    function openMenu(){
+      document.querySelectorAll('.builder-711 .pick-menu').forEach(function(m){if(m!==menu)m.hidden=true;});
+      document.querySelectorAll('.builder-711 .pick-trigger').forEach(function(t){if(t!==trigger)t.classList.remove('is-open');});
+      menu.hidden=false;trigger.classList.add('is-open');trigger.setAttribute('aria-expanded','true');
+    }
+    function syncTrigger(){
+      var o=sel.selectedOptions[0];
+      triggerInner.innerHTML=pickTriggerHTML(o,kind);
+      menu.querySelectorAll('.pick-option').forEach(function(btn){
+        btn.classList.toggle('is-selected',btn.dataset.value===(sel.value||''));
+      });
+    }
+    Array.from(sel.options).forEach(function(opt){
+      var btn=document.createElement('button');
+      btn.type='button';btn.className='pick-option';btn.setAttribute('role','option');
+      btn.dataset.value=opt.value;
+      Array.from(opt.attributes).forEach(function(attr){if(attr.name.indexOf('data-')===0)btn.setAttribute(attr.name,attr.value);});
+      btn.innerHTML=pickOptionHTML(opt,kind);
+      btn.addEventListener('click',function(e){
+        if(e.target.closest('.btn-chip')){e.stopPropagation();return;}
+        sel.value=opt.value;syncTrigger();closeMenu();
+        sel.dispatchEvent(new Event('change',{bubbles:true}));
+      });
+      menu.appendChild(btn);
+    });
+    trigger.addEventListener('click',function(e){
+      if(e.target.closest('.btn-chip')){e.stopPropagation();return;}
+      e.stopPropagation();if(menu.hidden)openMenu();else closeMenu();
+    });
+    wrap.appendChild(trigger);wrap.appendChild(menu);
+    sel._syncPickTrigger=syncTrigger;syncTrigger();
+  }
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('.pick-enhanced'))document.querySelectorAll('.builder-711 .pick-menu').forEach(function(m){m.hidden=true;});
+    if(!e.target.closest('.pick-trigger'))document.querySelectorAll('.builder-711 .pick-trigger').forEach(function(t){t.classList.remove('is-open');t.setAttribute('aria-expanded','false');});
+  });
   ['pick-buy','pick-pay','pick-svc'].forEach(function(id){
     var sel=document.getElementById(id);
     if(!sel)return;
+    enhancePickSelect(sel);
     sel.addEventListener('change',function(){
       var o=this.selectedOptions[0];
-      if(!o||!o.dataset.zh){renderPickedPhrase('','','');return;}
+      if(!o||!o.dataset.zh){
+        updateSpeakPanel(null);
+        return;
+      }
       ['pick-buy','pick-pay','pick-svc'].forEach(function(other){
-        if(other!==id){var s=document.getElementById(other);if(s)s.selectedIndex=0;}
+        if(other!==id){
+          var s=document.getElementById(other);
+          if(s){s.selectedIndex=0;if(s._syncPickTrigger)s._syncPickTrigger();}
+        }
       });
-      renderPickedPhrase(o.dataset.zh,o.dataset.fr,o.dataset.py||'');
+      updateSpeakPanel(o);
     });
   });
+  var wrongResetTimer=null;
+  function resetPracticeUI(){
+    var pool=document.getElementById('drag-pool');
+    var buckets=document.getElementById('drag-buckets');
+    if(!pool||!buckets)return;
+    pool.querySelectorAll('.drag-card').forEach(function(c){
+      c.classList.remove('correct','wrong','dragging','touch-pick');
+    });
+    buckets.querySelectorAll('.bucket').forEach(function(b){
+      b.classList.remove('over');
+      var d=b.querySelector('.dropped');
+      if(d){d.textContent='';d.classList.remove('wrong-x');}
+    });
+    var msg=document.getElementById('drag-msg');
+    if(msg)msg.textContent='';
+  }
   function shufflePracticeOrder(){
     var pool=document.getElementById('drag-pool');
     var buckets=document.getElementById('drag-buckets');
@@ -1074,30 +1419,74 @@ body:has(#theme1:target) #theme1-practice{display:none}
     var msg=document.getElementById('drag-msg');
     if(msg)msg.textContent='';
   }
+  function isTouchUI(){
+    return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  }
+  function applyPracticeMatch(card,bucket){
+    var pool=document.getElementById('drag-pool');
+    var label=card.querySelector('.zh').textContent;
+    var ok=card.dataset.bucket===bucket.dataset.bucket;
+    var droppedEl=bucket.querySelector('.dropped');
+    card.classList.remove('correct','wrong','touch-pick');
+    if(ok){
+      card.classList.add('correct');
+      if(droppedEl){droppedEl.classList.remove('wrong-x');droppedEl.textContent=label+' ✓';}
+      document.getElementById('drag-msg').textContent='對了！Correct !';
+      if(card.dataset.speak)speak(card.dataset.speak,'zh',null);
+    }else{
+      card.classList.add('wrong');
+      if(droppedEl){droppedEl.textContent='✗';droppedEl.classList.add('wrong-x');}
+      document.getElementById('drag-msg').textContent='再試一次 · Essaie encore';
+      playErrorSound();
+      if(wrongResetTimer)clearTimeout(wrongResetTimer);
+      wrongResetTimer=window.setTimeout(function(){wrongResetTimer=null;resetPracticeUI();},1000);
+    }
+    if(pool)pool.querySelectorAll('.drag-card').forEach(function(c){c.classList.remove('touch-pick');});
+  }
   var pool=document.getElementById('drag-pool');
   if(pool){
     shufflePracticeOrder();
-    pool.querySelectorAll('.drag-card').forEach(function(card){
-      card.addEventListener('dragstart',function(e){card.classList.add('dragging');e.dataTransfer.setData('text/plain',card.dataset.bucket+'|'+card.querySelector('.zh').textContent);});
-      card.addEventListener('dragend',function(){card.classList.remove('dragging');});
-    });
-    document.querySelectorAll('#drag-buckets .bucket').forEach(function(bucket){
-      bucket.addEventListener('dragover',function(e){e.preventDefault();bucket.classList.add('over');});
-      bucket.addEventListener('dragleave',function(){bucket.classList.remove('over');});
-      bucket.addEventListener('drop',function(e){
-        e.preventDefault();bucket.classList.remove('over');
-        var parts=e.dataTransfer.getData('text/plain').split('|');
-        var targetBucket=parts[0], label=parts[1]||'';
-        var card=Array.from(pool.querySelectorAll('.drag-card')).find(function(c){return c.querySelector('.zh').textContent===label;});
-        if(!card)return;
-        var ok=targetBucket===bucket.dataset.bucket;
-        card.classList.remove('correct','wrong');card.classList.add(ok?'correct':'wrong');
-        bucket.querySelector('.dropped').textContent=label+(ok?' ✓':'');
-        document.getElementById('drag-msg').textContent=ok?'對了！Correct !':'再試一次 · Essaie encore';
-        if(ok&&card.dataset.speak)speak(card.dataset.speak,'zh',null);
-        else if(!ok)playErrorSound();
+    var selectedPracticeCard=null;
+    var dragGame=document.getElementById('drag-game');
+    if(isTouchUI()){
+      if(dragGame)dragGame.classList.add('touch-practice');
+      pool.querySelectorAll('.drag-card').forEach(function(card){
+        card.addEventListener('click',function(){
+          if(card.classList.contains('correct'))return;
+          pool.querySelectorAll('.drag-card').forEach(function(c){c.classList.remove('touch-pick');});
+          card.classList.add('touch-pick');
+          selectedPracticeCard=card;
+          document.getElementById('drag-msg').textContent='再點一個動詞 · Choisis un verbe';
+        });
       });
-    });
+      document.querySelectorAll('#drag-buckets .bucket').forEach(function(bucket){
+        bucket.addEventListener('click',function(){
+          if(!selectedPracticeCard){
+            document.getElementById('drag-msg').textContent='先點名詞 · Choisis un nom';
+            return;
+          }
+          applyPracticeMatch(selectedPracticeCard,bucket);
+          selectedPracticeCard=null;
+        });
+      });
+    }else{
+      pool.querySelectorAll('.drag-card').forEach(function(card){
+        card.addEventListener('dragstart',function(e){card.classList.remove('wrong');card.classList.add('dragging');e.dataTransfer.setData('text/plain',card.dataset.bucket+'|'+card.querySelector('.zh').textContent);});
+        card.addEventListener('dragend',function(){card.classList.remove('dragging');});
+      });
+      document.querySelectorAll('#drag-buckets .bucket').forEach(function(bucket){
+        bucket.addEventListener('dragover',function(e){e.preventDefault();bucket.classList.add('over');});
+        bucket.addEventListener('dragleave',function(){bucket.classList.remove('over');});
+        bucket.addEventListener('drop',function(e){
+          e.preventDefault();bucket.classList.remove('over');
+          var parts=e.dataTransfer.getData('text/plain').split('|');
+          var label=parts[1]||'';
+          var card=Array.from(pool.querySelectorAll('.drag-card')).find(function(c){return c.querySelector('.zh').textContent===label;});
+          if(!card)return;
+          applyPracticeMatch(card,bucket);
+        });
+      });
+    }
   }
   function setNavCurrent(){
     var id=(location.hash||'#home').slice(1)||'home';
@@ -1242,7 +1631,20 @@ body:has(#theme1:target) #theme1-practice{display:none}
         if(wk!==lastWrongKey)lastWrongKey=wk;
       }
     }
-    function renderSlot(slot,data){
+    function tilePayload(tile){
+      return{type:tile.dataset.dragType,zh:tile.dataset.zh,py:tile.dataset.py,speak:tile.dataset.speak||tile.dataset.zh,full:tile.dataset.full||'',fullPy:tile.dataset.fullPy||'',verb:tile.dataset.verb||'',fr:tile.dataset.fr||'',img:tile.querySelector('.tile-emoji')?tile.querySelector('.tile-emoji').textContent:(tile.querySelector('.tile-svg')?'go':'')};
+    }
+    function applyLearnDrop(zone,data){
+      if(data.type!==zone.dataset.dropZone)return;
+      if(zone.dataset.dropZone==='verb'){state.verb=data;renderSlot(slotVerb,data);}
+      else{state.noun=data;renderSlot(slotNoun,data);}
+      updateResult();
+      if(state.verb&&state.noun&&state.noun.verb!==state.verb.zh){
+        var wk=state.verb.zh+"+"+state.noun.zh;
+        if(wk===lastWrongKey)playErrorSound();
+      }
+    }
+        function renderSlot(slot,data){
       if(!data){slot.innerHTML='';return;}
       var imgHtml=data.img?('<div class="placed-img">'+(data.img==='go'?'<svg class="tile-svg" viewBox="0 0 80 80"><rect x="8" y="8" width="64" height="64" rx="8" fill="#deb887"/><circle cx="28" cy="28" r="8" fill="#f5f5f4"/><circle cx="52" cy="52" r="8" fill="#333"/></svg>':data.img)+'</div>'):'';
       slot.innerHTML='<div class="placed">'+imgHtml+'<span class="placed-zh zh">'+data.zh+'</span><span class="placed-py pinyin">'+data.py+'</span></div>';
@@ -1272,17 +1674,36 @@ body:has(#theme1:target) #theme1-practice{display:none}
       zone.addEventListener('dragleave',function(){zone.classList.remove('over');});
       zone.addEventListener('drop',function(e){
         e.preventDefault();zone.classList.remove('over');
-        var data=JSON.parse(e.dataTransfer.getData('application/json'));
-        if(data.type!==zone.dataset.dropZone)return;
-        if(zone.dataset.dropZone==='verb'){state.verb=data;renderSlot(slotVerb,data);}
-        else{state.noun=data;renderSlot(slotNoun,data);}
-        updateResult();
-        if(state.verb&&state.noun&&state.noun.verb!==state.verb.zh){
-          var wk=state.verb.zh+"+"+state.noun.zh;
-          if(wk===lastWrongKey)playErrorSound();
-        }
+        applyLearnDrop(zone,JSON.parse(e.dataTransfer.getData('application/json')));
       });
     });
+    if(isTouchUI()){
+      root.classList.add('touch-learn');
+      var stage=root.querySelector('.learn-stage');
+      if(stage&&!root.querySelector('.learn-touch-hint')){
+        var hint=document.createElement('p');
+        hint.className='learn-touch-hint';
+        hint.textContent='先點詞語，再點空格 · Choisis une tuile, puis une zone';
+        stage.parentNode.insertBefore(hint,stage);
+      }
+      var pickedTile=null;
+      root.querySelectorAll('.learn-tile').forEach(function(tile){
+        tile.addEventListener('click',function(e){
+          if(e.target.closest('.btn-speak'))return;
+          root.querySelectorAll('.learn-tile').forEach(function(t){t.classList.remove('touch-pick');});
+          tile.classList.add('touch-pick');
+          pickedTile=tile;
+        });
+      });
+      root.querySelectorAll('[data-drop-zone]').forEach(function(zone){
+        zone.addEventListener('click',function(){
+          if(!pickedTile)return;
+          applyLearnDrop(zone,tilePayload(pickedTile));
+          pickedTile=null;
+          root.querySelectorAll('.learn-tile').forEach(function(t){t.classList.remove('touch-pick');});
+        });
+      });
+    }
     var clearBtn=root.querySelector('[data-stage-clear]');
     if(clearBtn)clearBtn.addEventListener('click',function(){
       state.verb=null;state.noun=null;lastWrongKey="";lastCorrectKey="";

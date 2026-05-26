@@ -10,7 +10,7 @@
 <meta http-equiv="Pragma" content="no-cache"/>
 <meta http-equiv="Expires" content="0"/>
 <title>Cours du jour — 今日課程</title>
-<!-- build: v3-js-force-grid 若手機左下角無綠色 v3 標籤 = 仍是舊檔或快取 -->
+<!-- build: v4-js-force-grid 若手機左下角無綠色 v4 標籤 = 仍是舊檔或快取 -->
 <script>
 (function(){
   function syncLearnGridClass(){
@@ -684,8 +684,8 @@ body:has(#theme1:target) #theme1-practice{display:none}
 }
 #theme1-instruments-learn .learn-scroll,
 [data-learn-page] .learn-board-four .learn-scroll{
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  grid-template-rows:repeat(2,minmax(0,1fr));
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-rows:1fr;
 }
 [data-learn-page] .learn-scroll>.learn-tile,
 [data-learn-page] .learn-board-four .learn-scroll>.learn-tile{
@@ -700,6 +700,21 @@ body:has(#theme1:target) #theme1-practice{display:none}
 [data-learn-page] .tile-py{font-size:.6rem;white-space:normal}
 [data-learn-page] .tile-img{width:30px;height:30px;border-radius:8px;margin:0 auto}
 [data-learn-page] .tile-emoji{font-size:1.25rem}
+@media(max-width:768px){
+[data-learn-page] .learn-tile-noun{
+  flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;
+  text-align:left!important;padding:.22rem .18rem!important;gap:.2rem!important;
+}
+[data-learn-page] .learn-tile-noun .tile-img{
+  width:clamp(22px,6vw,28px);height:clamp(22px,6vw,28px);margin:0;flex-shrink:0;
+}
+[data-learn-page] .learn-tile-noun .tile-svg{width:clamp(22px,6vw,28px);height:clamp(22px,6vw,28px)}
+[data-learn-page] .learn-tile-noun .tile-emoji{font-size:clamp(.95rem,3.2vw,1.15rem)}
+[data-learn-page] .learn-tile-noun .tile-text{align-items:flex-start!important;text-align:left!important}
+[data-learn-page] .learn-tile-noun .tile-zh{font-size:clamp(.72rem,2.8vw,.88rem);line-height:1.1}
+[data-learn-page] .learn-tile-noun .tile-py{font-size:clamp(.52rem,2.2vw,.58rem)}
+[data-learn-page] .learn-board-four .learn-tile-noun .tile-zh{font-size:clamp(.68rem,2.5vw,.82rem)}
+}
 @media(min-width:769px){
   [data-learn-page] .learn-board{
     grid-template-columns:minmax(0,42%) minmax(0,58%);
@@ -978,7 +993,7 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
   [data-learn-page] .learn-board,
   [data-learn-page] .learn-board.learn-board-four,
   [data-learn-page] .learn-board.learn-board-games{
-    flex:1 1 auto;min-height:0;
+    flex:1 1 auto;min-height:0;max-height:min(38dvh,260px);
     display:grid!important;
     grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
     grid-template-rows:1fr;
@@ -998,18 +1013,19 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
   [data-learn-page] .learn-scroll{
     flex:1 1 auto;min-height:0;overflow:hidden!important;
     display:grid!important;
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    gap:.32rem!important;padding:.28rem .3rem;align-content:start;
+    gap:.28rem!important;padding:.22rem .26rem;align-content:stretch;
+    grid-auto-flow:column;
+    grid-template-rows:1fr!important;
   }
-  /* 運動 Jeux：一行 3 個 */
+  /* 遊戲 Jeux：動詞／名詞各一行 3 個（橫向） */
   #theme1-games-learn .learn-scroll,
   [data-learn-page] .learn-board:not(.learn-board-four) .learn-scroll{
     grid-template-columns:repeat(3,minmax(0,1fr))!important;
   }
-  /* 樂器 Instruments：一行 2 個 */
+  /* 樂器 Instruments：動詞／名詞各一行 4 個（橫向） */
   #theme1-instruments-learn .learn-scroll,
   [data-learn-page] .learn-board.learn-board-four .learn-scroll{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
   }
   [data-learn-page] .learn-scroll>.learn-tile{
     flex:none!important;min-height:0!important;height:auto!important;
@@ -1020,7 +1036,20 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
     -webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none!important;
   }
   #theme1-games-learn .learn-scroll{grid-template-rows:1fr!important}
-  #theme1-instruments-learn .learn-scroll{grid-template-rows:repeat(2,minmax(0,1fr))!important}
+  #theme1-instruments-learn .learn-scroll{grid-template-rows:1fr!important}
+  [data-learn-page] .learn-tile-noun{
+    flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;
+    text-align:left!important;padding:.2rem .14rem!important;gap:.18rem!important;
+  }
+  [data-learn-page] .learn-tile-noun .tile-img{
+    width:clamp(20px,5.5vw,26px);height:clamp(20px,5.5vw,26px);margin:0;flex-shrink:0;
+  }
+  [data-learn-page] .learn-tile-noun .tile-svg{width:clamp(20px,5.5vw,26px);height:clamp(20px,5.5vw,26px)}
+  [data-learn-page] .learn-tile-noun .tile-emoji{font-size:clamp(.9rem,3vw,1.1rem)}
+  [data-learn-page] .learn-tile-noun .tile-text{align-items:flex-start!important;text-align:left!important}
+  [data-learn-page] .learn-tile-noun .tile-zh{font-size:clamp(.7rem,2.6vw,.86rem)!important;line-height:1.1}
+  [data-learn-page] .learn-tile-noun .tile-py{font-size:clamp(.5rem,2vw,.56rem)!important}
+  [data-learn-page] .learn-board-four .learn-tile-noun .tile-zh{font-size:clamp(.62rem,2.3vw,.76rem)!important}
   [data-learn-page] .tile-img{width:30px;height:30px;border-radius:8px;margin:0 auto}
   [data-learn-page] .tile-emoji{font-size:1.25rem}
   [data-learn-page] .tile-text{flex-direction:column!important;align-items:center!important;width:100%;gap:.04rem!important}
@@ -1168,8 +1197,15 @@ html.learn-grid-on [data-learn-page] .learn-board:not(.learn-board-four) .learn-
 }
 html.learn-grid-on #theme1-instruments-learn .learn-scroll,
 html.learn-grid-on [data-learn-page] .learn-board-four .learn-scroll{
-  grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  grid-template-rows:repeat(2,minmax(0,1fr))!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-template-rows:1fr!important;
+}
+html.learn-grid-on [data-learn-page] .learn-tile-noun{
+  flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;
+}
+html.learn-grid-on [data-learn-page] .learn-tile-noun .tile-img,
+html.learn-grid-on [data-learn-page] .learn-tile-noun .tile-svg{
+  width:clamp(20px,5.5vw,26px);height:clamp(20px,5.5vw,26px);margin:0;flex-shrink:0;
 }
 html.learn-grid-on [data-learn-page] .learn-board-four .learn-scroll>.learn-tile,
 html.learn-grid-on [data-learn-page] .learn-scroll>.learn-tile{
@@ -2389,7 +2425,7 @@ function isTouchUI(){
 <script>
 /* 不依賴 CSS / 媒體查詢：用手機偵測 + inline style 強制橫向網格 */
 (function forceMobileLearnGrid(){
-  var BADGE='v3';
+  var BADGE='v4';
   function isPhone(){
     return window.innerWidth<=900||navigator.maxTouchPoints>0||window.matchMedia('(hover:none) and (pointer:coarse)').matches;
   }
@@ -2431,7 +2467,7 @@ function isTouchUI(){
     document.documentElement.classList.toggle('learn-grid-on',isPhone());
     if(!isPhone())return;
     layoutPage('theme1-games-learn',3,1);
-    layoutPage('theme1-instruments-learn',2,2);
+    layoutPage('theme1-instruments-learn',4,1);
     var b=document.getElementById('layout-version-badge');
     if(!b){
       b=document.createElement('div');

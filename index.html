@@ -10,7 +10,7 @@
 <meta http-equiv="Pragma" content="no-cache"/>
 <meta http-equiv="Expires" content="0"/>
 <title>Cours du jour — 今日課程</title>
-<!-- build: v5-js-force-grid 若手機左下角無綠色 v5 標籤 = 仍是舊檔或快取 -->
+<!-- build: v6-js-force-grid 若手機左下角無綠色 v6 標籤 = 仍是舊檔或快取 -->
 <script>
 (function(){
   function syncLearnGridClass(){
@@ -378,6 +378,22 @@ details.review .inner{padding:0 1.1rem 1.15rem;border-top:2px solid var(--lav-so
 .stem-cell-pick .pick-trigger-audio{
   display:flex;flex-direction:column;gap:.25rem;margin:0;justify-content:center;
 }
+.pick-sentence-speak{
+  margin-top:.5rem;padding:.5rem .55rem;
+  background:linear-gradient(135deg,rgba(236,253,245,.95),rgba(245,243,255,.95));
+  border-radius:12px;border:2px dashed rgba(110,200,170,.5);
+  display:flex;flex-wrap:wrap;align-items:center;gap:.45rem .55rem;
+}
+.pick-sentence-speak[hidden]{display:none!important}
+.pick-sentence-preview{flex:1 1 12rem;min-width:0;margin:0;line-height:1.3}
+.pick-sentence-preview .zh{display:block;font-size:clamp(.92rem,3.6vw,1.05rem);font-weight:700;color:var(--ink)}
+.pick-sentence-preview .fr-line{display:block;margin-top:.12rem;font-size:clamp(.72rem,2.4vw,.82rem);color:var(--lav-deep);font-family:var(--font-fr)}
+.pick-sentence-actions{display:flex;gap:.4rem;flex-shrink:0}
+.pick-sentence-actions .btn-chip{
+  font-size:clamp(.68rem,2.4vw,.78rem);font-weight:700;min-width:4.6rem;padding:.35rem .65rem;
+}
+.pick-sentence-actions .btn-chip.btn-zh{background:linear-gradient(145deg,#9ee0c8,#6ecfba);color:#fff}
+.pick-sentence-actions .btn-chip.btn-fr{background:linear-gradient(145deg,#d4c4ff,#b49ae8);color:#fff}
 .stem-cell-pick .pick-menu{
   position:absolute;left:0;right:0;top:calc(100% + .28rem);z-index:80;
   max-height:min(48vh,280px);
@@ -454,6 +470,8 @@ details.review .inner{padding:0 1.1rem 1.15rem;border-top:2px solid var(--lav-so
     grid-column:1;flex-direction:row;gap:.4rem;
   }
   .stem-cell-pick .pick-trigger-audio .btn-chip{flex:1}
+  .pick-sentence-speak{flex-direction:column;align-items:stretch}
+  .pick-sentence-actions .btn-chip{flex:1}
   .pick-opt-audio{grid-template-columns:1fr 1fr}
 }
 /* —— COCO boissons —— */
@@ -698,8 +716,10 @@ body:has(#theme1:target) #theme1-practice{display:none}
 [data-learn-page] .learn-tile .btn-speak{display:none!important}
 [data-learn-page] .tile-fr{display:none!important}
 [data-learn-page] .tile-text{flex-direction:column;align-items:center;width:100%;gap:.04rem}
-[data-learn-page] .tile-zh{font-size:.9rem;line-height:1.12;white-space:normal}
-[data-learn-page] .tile-py{font-size:.6rem;white-space:normal}
+[data-learn-page] .tile-zh{font-size:1.15rem;line-height:1.12;white-space:normal}
+[data-learn-page] .tile-py{font-size:.78rem;white-space:normal}
+[data-learn-page] .learn-tile-verb .tile-zh{font-size:clamp(1.35rem,5.5vw,1.65rem);line-height:1.15}
+[data-learn-page] .learn-tile-verb .tile-py{font-size:clamp(.85rem,3.5vw,1rem)}
 [data-learn-page] .tile-img{width:30px;height:30px;border-radius:8px;margin:0 auto}
 [data-learn-page] .tile-emoji{font-size:1.25rem}
 @media(max-width:768px){
@@ -708,14 +728,15 @@ body:has(#theme1:target) #theme1-practice{display:none}
   text-align:left!important;padding:.22rem .18rem!important;gap:.2rem!important;
 }
 [data-learn-page] .learn-tile-noun .tile-img{
-  width:clamp(22px,6vw,28px);height:clamp(22px,6vw,28px);margin:0;flex-shrink:0;
+  width:clamp(34px,9vw,44px);height:clamp(34px,9vw,44px);margin:0;flex-shrink:0;
 }
-[data-learn-page] .learn-tile-noun .tile-svg{width:clamp(22px,6vw,28px);height:clamp(22px,6vw,28px)}
-[data-learn-page] .learn-tile-noun .tile-emoji{font-size:clamp(.95rem,3.2vw,1.15rem)}
+[data-learn-page] .learn-tile-noun .tile-svg{width:clamp(34px,9vw,44px);height:clamp(34px,9vw,44px)}
+[data-learn-page] .learn-tile-noun .tile-emoji{font-size:clamp(1.35rem,5vw,1.65rem)}
 [data-learn-page] .learn-tile-noun .tile-text{align-items:flex-start!important;text-align:left!important}
-[data-learn-page] .learn-tile-noun .tile-zh{font-size:clamp(.72rem,2.8vw,.88rem);line-height:1.1}
-[data-learn-page] .learn-tile-noun .tile-py{font-size:clamp(.52rem,2.2vw,.58rem)}
-[data-learn-page] .learn-board-four .learn-tile-noun .tile-zh{font-size:clamp(.68rem,2.5vw,.82rem)}
+[data-learn-page] .learn-tile-noun .tile-zh{font-size:clamp(1.05rem,4.5vw,1.3rem);line-height:1.12}
+[data-learn-page] .learn-tile-noun .tile-py{font-size:clamp(.75rem,3vw,.9rem)}
+[data-learn-page] .learn-board-four .learn-tile-noun .tile-zh{font-size:clamp(.92rem,3.6vw,1.12rem)}
+[data-learn-page] .learn-board-four .learn-tile-noun .tile-py{font-size:clamp(.7rem,2.6vw,.84rem)}
 }
 @media(min-width:769px){
   [data-learn-page] .learn-board{
@@ -996,7 +1017,7 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
   [data-learn-page] .learn-board,
   [data-learn-page] .learn-board.learn-board-four,
   [data-learn-page] .learn-board.learn-board-games{
-    flex:1 1 auto;min-height:0;max-height:min(46dvh,320px);
+    flex:1 1 auto;min-height:0;max-height:min(50dvh,350px);
     display:grid!important;
     grid-template-columns:minmax(0,1fr)!important;
     grid-template-rows:auto auto!important;
@@ -1010,8 +1031,8 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
   [data-learn-page] .learn-board-four .learn-scroll>.learn-tile{
     flex:none!important;min-height:0!important;
   }
-  [data-learn-page] .col-head{padding:.3rem .4rem;font-size:.78rem;flex-shrink:0}
-  [data-learn-page] .col-head .pinyin{font-size:.65rem;margin-left:.2rem}
+  [data-learn-page] .col-head{padding:.38rem .5rem;font-size:.9rem;flex-shrink:0}
+  [data-learn-page] .col-head .pinyin{font-size:.76rem;margin-left:.2rem}
   [data-learn-page] .learn-tile .btn-speak{display:none!important}
   [data-learn-page] .learn-scroll{
     flex:1 1 auto;min-height:0;overflow:hidden!important;
@@ -1034,7 +1055,7 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
     flex:none!important;min-height:0!important;height:auto!important;
     flex-direction:column!important;align-items:center!important;
     justify-content:center!important;text-align:center!important;
-    padding:.28rem .15rem!important;gap:.08rem!important;overflow:hidden;
+    padding:.38rem .22rem!important;gap:.1rem!important;overflow:hidden;
     -webkit-user-select:none!important;user-select:none!important;
     -webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none!important;
   }
@@ -1045,21 +1066,22 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
     text-align:left!important;padding:.2rem .14rem!important;gap:.18rem!important;
   }
   [data-learn-page] .learn-tile-noun .tile-img{
-    width:clamp(28px,7.5vw,36px);height:clamp(28px,7.5vw,36px);margin:0;flex-shrink:0;
+    width:clamp(34px,9vw,44px);height:clamp(34px,9vw,44px);margin:0;flex-shrink:0;
   }
-  [data-learn-page] .learn-tile-noun .tile-svg{width:clamp(28px,7.5vw,36px);height:clamp(28px,7.5vw,36px)}
-  [data-learn-page] .learn-tile-noun .tile-emoji{font-size:clamp(1.1rem,4vw,1.35rem)}
+  [data-learn-page] .learn-tile-noun .tile-svg{width:clamp(34px,9vw,44px);height:clamp(34px,9vw,44px)}
+  [data-learn-page] .learn-tile-noun .tile-emoji{font-size:clamp(1.35rem,5vw,1.65rem)}
   [data-learn-page] .learn-tile-noun .tile-text{align-items:flex-start!important;text-align:left!important}
-  [data-learn-page] .learn-tile-verb .tile-zh{font-size:clamp(1rem,4.2vw,1.2rem)!important;line-height:1.15}
-  [data-learn-page] .learn-tile-verb .tile-py{font-size:clamp(.68rem,2.8vw,.78rem)!important}
-  [data-learn-page] .learn-tile-noun .tile-zh{font-size:clamp(.88rem,3.6vw,1.05rem)!important;line-height:1.12}
-  [data-learn-page] .learn-tile-noun .tile-py{font-size:clamp(.62rem,2.4vw,.72rem)!important}
-  [data-learn-page] .learn-board-four .learn-tile-noun .tile-zh{font-size:clamp(.82rem,3.2vw,.98rem)!important}
+  [data-learn-page] .learn-tile-verb .tile-zh{font-size:clamp(1.4rem,5.8vw,1.75rem)!important;line-height:1.15}
+  [data-learn-page] .learn-tile-verb .tile-py{font-size:clamp(.88rem,3.6vw,1.05rem)!important}
+  [data-learn-page] .learn-tile-noun .tile-zh{font-size:clamp(1.12rem,4.8vw,1.38rem)!important;line-height:1.12}
+  [data-learn-page] .learn-tile-noun .tile-py{font-size:clamp(.8rem,3.2vw,.95rem)!important}
+  [data-learn-page] .learn-board-four .learn-tile-noun .tile-zh{font-size:clamp(.98rem,3.8vw,1.18rem)!important}
+  [data-learn-page] .learn-board-four .learn-tile-noun .tile-py{font-size:clamp(.74rem,2.8vw,.88rem)!important}
   [data-learn-page] .tile-img{width:30px;height:30px;border-radius:8px;margin:0 auto}
   [data-learn-page] .tile-emoji{font-size:1.25rem}
-  [data-learn-page] .tile-text{flex-direction:column!important;align-items:center!important;width:100%;gap:.04rem!important}
-  [data-learn-page] .tile-zh{font-size:1rem!important;line-height:1.12;white-space:normal!important}
-  [data-learn-page] .tile-py{font-size:.68rem!important;white-space:normal!important}
+  [data-learn-page] .tile-text{flex-direction:column!important;align-items:center!important;width:100%;gap:.06rem!important}
+  [data-learn-page] .tile-zh{font-size:1.2rem!important;line-height:1.12;white-space:normal!important}
+  [data-learn-page] .tile-py{font-size:.82rem!important;white-space:normal!important}
   [data-learn-page] .tile-fr{display:none!important}
   [data-learn-page] .learn-stage{
     flex-shrink:0;margin-bottom:0;padding:.4rem .35rem;outline-offset:2px;
@@ -1209,9 +1231,14 @@ html.learn-grid-on [data-learn-page] .learn-board-four .learn-scroll{
 html.learn-grid-on [data-learn-page] .learn-tile-noun{
   flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;
 }
+html.learn-grid-on [data-learn-page] .learn-tile-verb .tile-zh{font-size:clamp(1.4rem,5.8vw,1.75rem)!important}
+html.learn-grid-on [data-learn-page] .learn-tile-verb .tile-py{font-size:clamp(.88rem,3.6vw,1.05rem)!important}
+html.learn-grid-on [data-learn-page] .learn-tile-noun .tile-zh{font-size:clamp(1.05rem,4.5vw,1.35rem)!important}
+html.learn-grid-on [data-learn-page] .learn-tile-noun .tile-py{font-size:clamp(.78rem,3vw,.95rem)!important}
+html.learn-grid-on [data-learn-page] .learn-board-four .learn-tile-noun .tile-zh{font-size:clamp(.98rem,3.8vw,1.18rem)!important}
 html.learn-grid-on [data-learn-page] .learn-tile-noun .tile-img,
 html.learn-grid-on [data-learn-page] .learn-tile-noun .tile-svg{
-  width:clamp(20px,5.5vw,26px);height:clamp(20px,5.5vw,26px);margin:0;flex-shrink:0;
+  width:clamp(34px,9vw,44px);height:clamp(34px,9vw,44px);margin:0;flex-shrink:0;
 }
 html.learn-grid-on [data-learn-page] .learn-board-four .learn-scroll>.learn-tile,
 html.learn-grid-on [data-learn-page] .learn-scroll>.learn-tile{
@@ -1764,6 +1791,8 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
     return {zh:parts[0]||opt.value||'',fr:parts[1]||'',py:pickWordPy(opt,kind)};
   }
   function escPick(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+  function pickFullZh(opt){return (opt.getAttribute('data-zh')||'').trim();}
+  function pickFullFr(opt){return (opt.getAttribute('data-fr')||'').trim();}
   function pickTriggerHTML(opt,kind){
     if(!opt||!opt.value)return '<div class="pick-trigger-body pick-trigger-empty"><div class="pick-trigger-text"><span class="pick-tap-hint zh">👆 點此選詞</span><span class="pick-tap-hint-fr">Choisir un mot</span></div></div>';
     var p=pickParts(opt,kind);
@@ -1789,15 +1818,59 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
       +'<button type="button" class="btn-chip btn-fr" data-lang="fr" data-speak="'+escPick(p.fr)+'" title="Écouter le mot">mot 🔊</button>'
       +'</div></div></div>';
   }
+  function ensurePickSentenceBar(sel){
+    var row=sel.closest('.builder-row');
+    if(!row)return null;
+    var bar=row.querySelector('.pick-sentence-speak');
+    if(!bar){
+      bar=document.createElement('div');
+      bar.className='pick-sentence-speak';
+      bar.hidden=true;
+      bar.setAttribute('aria-hidden','true');
+      bar.innerHTML='<p class="pick-sentence-preview">'
+        +'<span class="zh" data-sentence-zh></span>'
+        +'<span class="fr-line" data-sentence-fr></span></p>'
+        +'<div class="pick-sentence-actions">'
+        +'<button type="button" class="btn-chip btn-zh" data-lang="zh" data-speak="" title="聽中文全句">全句 🔊</button>'
+        +'<button type="button" class="btn-chip btn-fr" data-lang="fr" data-speak="" title="Écouter la phrase complète">phrase 🔊</button>'
+        +'</div>';
+      row.appendChild(bar);
+    }
+    return bar;
+  }
+  function syncPickSentenceBar(sel,bar){
+    if(!bar)return;
+    var o=sel.selectedOptions[0];
+    var zhFull=o&&o.value?pickFullZh(o):'';
+    var frFull=o&&o.value?pickFullFr(o):'';
+    var show=!!zhFull;
+    bar.hidden=!show;
+    bar.setAttribute('aria-hidden',show?'false':'true');
+    if(!show)return;
+    var zhEl=bar.querySelector('[data-sentence-zh]');
+    var frEl=bar.querySelector('[data-sentence-fr]');
+    var btnZh=bar.querySelector('.pick-sentence-actions .btn-zh');
+    var btnFr=bar.querySelector('.pick-sentence-actions .btn-fr');
+    if(zhEl)zhEl.textContent=zhFull;
+    if(frEl)frEl.textContent=frFull;
+    if(btnZh)btnZh.setAttribute('data-speak',zhFull);
+    if(btnFr)btnFr.setAttribute('data-speak',frFull);
+  }
   function enhancePickSelect(sel){
     if(!sel)return;
     var existing=sel.closest('.pick-enhanced');
-    if(sel.dataset.pickUi==='6'&&existing)return;
+    if(sel.dataset.pickUi==='8'&&existing)return;
+    var row=sel.closest('.builder-row');
+    if(row){
+      var oldBar=row.querySelector('.pick-sentence-speak');
+      if(oldBar)oldBar.remove();
+    }
     if(existing){try{existing.remove();}catch(e){}}
-    sel.dataset.pickUi='6';
+    sel.dataset.pickUi='8';
     delete sel.dataset.pickEnhanced;
     sel.dataset.pickEnhanced='1';
     var kind=pickKindFromId(sel.id);
+    var sentenceBar=ensurePickSentenceBar(sel);
     var wrap=document.createElement('div');
     wrap.className='pick-enhanced';
     sel.parentNode.insertBefore(wrap,sel);
@@ -1827,6 +1900,7 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
     function syncTrigger(){
       var o=sel.selectedOptions[0];
       triggerInner.innerHTML=pickTriggerHTML(o,kind);
+      syncPickSentenceBar(sel,sentenceBar);
       menu.querySelectorAll('.pick-option').forEach(function(btn){
         btn.classList.toggle('is-selected',btn.dataset.value===(sel.value||''));
       });
@@ -1849,7 +1923,9 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
       e.stopPropagation();if(menu.hidden)openMenu();else closeMenu();
     });
     wrap.appendChild(trigger);wrap.appendChild(menu);
-    sel._syncPickTrigger=syncTrigger;syncTrigger();
+    sel._syncPickTrigger=syncTrigger;
+    sel._sentenceBar=sentenceBar;
+    syncTrigger();
   }
   document.addEventListener('click',function(e){
     if(!e.target.closest('.pick-enhanced'))document.querySelectorAll('.builder-711 .pick-menu').forEach(function(m){m.hidden=true;});
@@ -1861,13 +1937,18 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
     enhancePickSelect(sel);
     sel.addEventListener('change',function(){
       var o=this.selectedOptions[0];
-      if(!o||!o.dataset.zh){
+      if(!o||!o.value){
+        syncPickSentenceBar(this,this._sentenceBar);
         return;
       }
       ['pick-buy','pick-pay','pick-svc'].forEach(function(other){
         if(other!==id){
           var s=document.getElementById(other);
-          if(s){s.selectedIndex=0;if(s._syncPickTrigger)s._syncPickTrigger();}
+          if(s){
+            s.selectedIndex=0;
+            if(s._syncPickTrigger)s._syncPickTrigger();
+            if(s._sentenceBar)syncPickSentenceBar(s,s._sentenceBar);
+          }
         }
       });
     });
@@ -2431,7 +2512,7 @@ function isTouchUI(){
 <script>
 /* 不依賴 CSS / 媒體查詢：用手機偵測 + inline style 強制橫向網格 */
 (function forceMobileLearnGrid(){
-  var BADGE='v5';
+  var BADGE='v6';
   function isPhone(){
     return window.innerWidth<=900||navigator.maxTouchPoints>0||window.matchMedia('(hover:none) and (pointer:coarse)').matches;
   }

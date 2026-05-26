@@ -7,6 +7,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Nunito:wght@500;600;700&display=swap" rel="stylesheet"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Cours du jour — 今日課程</title>
+<!-- build: mobile-grid-2025-05-21 運動3欄·樂器2欄·動詞|名詞橫排 -->
+<script>
+(function(){
+  function syncLearnGridClass(){
+    var mobile=window.matchMedia('(max-width:768px),(hover:none) and (pointer:coarse)').matches;
+    document.documentElement.classList.toggle('learn-grid-on',mobile);
+  }
+  syncLearnGridClass();
+  window.addEventListener('resize',syncLearnGridClass);
+})();
+</script>
 <script>
 (function(){
   function getSiteBase(){
@@ -635,7 +646,13 @@ body:has(#theme1:target) #theme1-practice{display:none}
 
 
 .learn-board{display:grid;grid-template-columns:minmax(0,42%) minmax(0,58%);gap:.75rem;margin:0 0 1rem}
-@media(max-width:560px){.learn-board{grid-template-columns:1fr}}
+@media(max-width:560px){
+  [data-learn-page] .learn-board,
+  [data-learn-page] .learn-board.learn-board-four,
+  [data-learn-page] .learn-board.learn-board-games{
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  }
+}
 .learn-col{display:flex;flex-direction:column;border-radius:var(--radius);border:3px solid #fff;overflow:hidden;height:min(48vh,420px);min-height:280px;background:#fff;box-shadow:var(--shadow-soft)}
 .learn-verbs{border-color:#c4b5fd}
 .learn-nouns{border-color:#f9a8d4}
@@ -643,9 +660,69 @@ body:has(#theme1:target) #theme1-practice{display:none}
 .learn-verbs .col-head{background:linear-gradient(90deg,#ede9fe,#fff)}
 .learn-nouns .col-head{background:linear-gradient(90deg,#fce7f3,#fff)}
 .col-head .pinyin{display:inline;margin-left:.35rem;font-size:.78rem;font-weight:600;color:var(--muted)}
+/* 學習頁：手機優先橫向網格（桌面 ≥769px 再改回直向卡片） */
+[data-learn-page] .learn-board{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:.32rem;
+}
+[data-learn-page] .learn-col{
+  height:auto;min-height:0;max-height:none;
+  display:flex;flex-direction:column;overflow:hidden;
+}
+[data-learn-page] .learn-scroll,
+[data-learn-page] .learn-scroll.learn-scroll-grid{
+  flex:1 1 auto;min-height:0;overflow:hidden;
+  display:grid;
+  gap:.32rem;padding:.28rem .3rem;
+  align-content:start;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-rows:1fr;
+}
+#theme1-instruments-learn .learn-scroll,
+[data-learn-page] .learn-board-four .learn-scroll{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-rows:repeat(2,minmax(0,1fr));
+}
+[data-learn-page] .learn-scroll>.learn-tile,
+[data-learn-page] .learn-board-four .learn-scroll>.learn-tile{
+  flex:none;min-height:0;height:auto;
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:.28rem .15rem;gap:.08rem;
+}
+[data-learn-page] .learn-tile .btn-speak{display:none!important}
+[data-learn-page] .tile-fr{display:none!important}
+[data-learn-page] .tile-text{flex-direction:column;align-items:center;width:100%;gap:.04rem}
+[data-learn-page] .tile-zh{font-size:.9rem;line-height:1.12;white-space:normal}
+[data-learn-page] .tile-py{font-size:.6rem;white-space:normal}
+[data-learn-page] .tile-img{width:30px;height:30px;border-radius:8px;margin:0 auto}
+[data-learn-page] .tile-emoji{font-size:1.25rem}
+@media(min-width:769px){
+  [data-learn-page] .learn-board{
+    grid-template-columns:minmax(0,42%) minmax(0,58%);
+    gap:.75rem;
+  }
+  [data-learn-page] .learn-col{height:min(48vh,420px);min-height:280px}
+  [data-learn-page] .learn-board-four .learn-col{height:min(54vh,460px);min-height:300px}
+  [data-learn-page] .learn-scroll,
+  [data-learn-page] .learn-scroll.learn-scroll-grid{
+    display:flex;flex-direction:column;gap:.35rem;padding:.4rem .5rem;
+    grid-template-columns:unset;grid-template-rows:unset;
+  }
+  [data-learn-page] .learn-scroll>.learn-tile{
+    flex:1 1 0;min-height:0;
+    flex-direction:row;align-items:center;justify-content:flex-start;
+    text-align:left;padding:.45rem .55rem;gap:.4rem;
+  }
+  [data-learn-page] .learn-tile .btn-speak{display:inline-flex!important}
+  [data-learn-page] .tile-fr{display:inline!important}
+  [data-learn-page] .tile-text{flex-direction:row;flex-wrap:nowrap;align-items:center}
+  [data-learn-page] .tile-zh{font-size:1.7rem;white-space:nowrap}
+  [data-learn-page] .tile-py{font-size:.85rem;white-space:nowrap}
+}
 .learn-scroll{flex:1;min-height:0;overflow:hidden;padding:.4rem .5rem;display:flex;flex-direction:column;gap:.35rem}
 .learn-scroll>.learn-tile{flex:1 1 0;min-height:0}
-/* 樂器頁 4 張卡：均分框高、不捲動（與遊戲頁相同邏輯） */
+/* 樂器頁 4 張卡：均分框高、不捲動（桌面） */
 .learn-board-four .learn-col{height:min(54vh,460px);min-height:300px}
 .learn-board-four .learn-scroll{overflow:hidden}
 .learn-board-four .learn-scroll>.learn-tile{flex:1 1 0;min-height:0;overflow:hidden}
@@ -809,12 +886,14 @@ body:has(#theme1:target) #theme1-practice{display:none}
 #result-speak:disabled{opacity:.35;cursor:not-allowed}
 
 
+
 /* —— Mobile / touch —— */
 html{-webkit-text-size-adjust:100%}
 body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-area-inset-bottom))}
 .app{padding:1rem .85rem 1rem;max-width:720px}
 .btn-speak,.coco-card,.course-card,.sub-card{touch-action:manipulation}
-.drag-card,.bucket,.learn-tile,.stage-zone{touch-action:manipulation}
+.drag-card,.bucket,.stage-zone{touch-action:manipulation}
+.touch-learn .learn-tile,.touch-learn .learn-scroll,.touch-learn .learn-board{touch-action:none}
 @media(max-width:768px){
   .home-title-row{flex-direction:column;align-items:stretch;gap:.5rem}
   .home-title-fr{justify-content:flex-start}
@@ -860,15 +939,114 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
   .learn-board{gap:.65rem}
   .learn-col-tiles{gap:.45rem}
 
-  /* 學習頁手機：字卡全部顯示，靠頁面捲動（不改電腦版） */
-  .learn-col{height:auto!important;min-height:0!important;overflow:visible!important}
-  .learn-scroll{overflow:visible!important;flex:none!important;min-height:0!important;padding:.45rem .5rem .55rem}
-  .learn-scroll>.learn-tile{flex:0 0 auto!important;min-height:auto!important}
-  .learn-board-four .learn-col{height:auto!important}
-  .learn-board-four .learn-scroll{overflow:visible!important}
-  .learn-board-four .learn-scroll>.learn-tile{flex:0 0 auto!important;min-height:auto!important}
-  .learn-tile{padding:.5rem .55rem}
-  .learn-board{margin-bottom:.5rem}
+  /* 學習頁手機：鎖住整頁捲動，一屏內完成 */
+  body.learn-page-lock,
+  body:has(#theme1-games-learn:target),
+  body:has(#theme1-instruments-learn:target){
+    overflow:hidden!important;
+    position:fixed;
+    width:100%;
+    height:100dvh;
+    max-height:100dvh;
+    overscroll-behavior:none;
+    touch-action:none;
+  }
+  body.learn-page-lock .app,
+  body:has(#theme1-games-learn:target) .app,
+  body:has(#theme1-instruments-learn:target) .app{
+    overflow:hidden;
+    height:100%;
+    max-height:100dvh;
+    padding-top:.5rem;
+    padding-bottom:max(5.25rem,calc(env(safe-area-inset-bottom) + 4.75rem));
+    box-sizing:border-box;
+  }
+  [data-learn-page].page:target{
+    display:flex!important;flex-direction:column;
+    flex:1 1 auto;min-height:0;
+    height:100%;max-height:100%;
+    overflow:hidden;box-sizing:border-box;
+  }
+  [data-learn-page] .link-back{flex-shrink:0;font-size:.8rem;margin-bottom:.15rem;padding:.2rem 0}
+  [data-learn-page] .page-hero-compact{flex-shrink:0;padding:.3rem .5rem;margin-bottom:.25rem}
+  [data-learn-page] .page-hero-compact .zh-line{font-size:.92rem}
+  [data-learn-page] .page-hero-compact .pinyin{font-size:.75rem}
+  [data-learn-page] .learn-touch-hint{flex-shrink:0;margin:.08rem 0 .2rem;padding:.25rem .4rem;font-size:.7rem;line-height:1.3}
+  [data-learn-page] .learn-board,
+  [data-learn-page] .learn-board.learn-board-four,
+  [data-learn-page] .learn-board.learn-board-games{
+    flex:1 1 auto;min-height:0;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    grid-template-rows:1fr;
+    gap:.28rem;margin-bottom:.2rem;align-content:stretch;
+  }
+  [data-learn-page] .learn-col,
+  [data-learn-page] .learn-board-four .learn-col{
+    height:auto!important;min-height:0!important;max-height:100%;
+    overflow:hidden;display:flex;flex-direction:column;
+  }
+  [data-learn-page] .learn-board-four .learn-scroll>.learn-tile{
+    flex:none!important;min-height:0!important;
+  }
+  [data-learn-page] .col-head{padding:.3rem .4rem;font-size:.78rem;flex-shrink:0}
+  [data-learn-page] .col-head .pinyin{font-size:.65rem;margin-left:.2rem}
+  [data-learn-page] .learn-tile .btn-speak{display:none!important}
+  [data-learn-page] .learn-scroll{
+    flex:1 1 auto;min-height:0;overflow:hidden!important;
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:.32rem!important;padding:.28rem .3rem;align-content:start;
+  }
+  /* 運動 Jeux：一行 3 個 */
+  #theme1-games-learn .learn-scroll,
+  [data-learn-page] .learn-board:not(.learn-board-four) .learn-scroll{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+  /* 樂器 Instruments：一行 2 個 */
+  #theme1-instruments-learn .learn-scroll,
+  [data-learn-page] .learn-board.learn-board-four .learn-scroll{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  [data-learn-page] .learn-scroll>.learn-tile{
+    flex:none!important;min-height:0!important;height:auto!important;
+    flex-direction:column!important;align-items:center!important;
+    justify-content:center!important;text-align:center!important;
+    padding:.28rem .15rem!important;gap:.08rem!important;overflow:hidden;
+    -webkit-user-select:none!important;user-select:none!important;
+    -webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none!important;
+  }
+  #theme1-games-learn .learn-scroll{grid-template-rows:1fr!important}
+  #theme1-instruments-learn .learn-scroll{grid-template-rows:repeat(2,minmax(0,1fr))!important}
+  [data-learn-page] .tile-img{width:30px;height:30px;border-radius:8px;margin:0 auto}
+  [data-learn-page] .tile-emoji{font-size:1.25rem}
+  [data-learn-page] .tile-text{flex-direction:column!important;align-items:center!important;width:100%;gap:.04rem!important}
+  [data-learn-page] .tile-zh{font-size:.9rem!important;line-height:1.12;white-space:normal!important}
+  [data-learn-page] .tile-py{font-size:.6rem!important;white-space:normal!important}
+  [data-learn-page] .tile-fr{display:none!important}
+  [data-learn-page] .learn-stage{
+    flex-shrink:0;margin-bottom:0;padding:.4rem .35rem;outline-offset:2px;
+  }
+  [data-learn-page] .stage-row.stage-equation{gap:.12rem .18rem;padding:0;overflow:visible}
+  [data-learn-page] .stage-zone,[data-learn-page] .stage-feedback{
+    min-height:3.1rem;padding:.18rem .12rem;
+  }
+  [data-learn-page] .learn-stage,
+  [data-learn-page] .stage-row.stage-equation{
+    -webkit-user-select:none!important;user-select:none!important;
+  }
+  [data-learn-page] .zone-label{font-size:.58rem;margin-bottom:.06rem}
+  [data-learn-page] .zone-slot .placed-zh{font-size:1rem}
+  [data-learn-page] .zone-slot .placed-py{font-size:.58rem}
+  [data-learn-page] .stage-symbol{font-size:.85rem;min-width:.7rem;width:.7rem}
+  [data-learn-page] .stage-clear-bar{margin-top:.28rem;padding-top:0}
+  [data-learn-page] .btn-learn-clear-all{padding:.38rem .85rem;font-size:.8rem;min-height:38px}
+  .learn-board{margin-bottom:.3rem}
+  [data-learn-page],
+  [data-learn-page] *:not(input):not(textarea){
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+  }
+  [data-learn-page] ::selection{background:transparent}
 
   /* —— 手機易讀、易點 —— */
   .section-title{font-size:1.05rem;margin-bottom:.65rem}
@@ -919,11 +1097,7 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
   .coco-hint{font-size:.9rem;padding:.5rem .55rem}
   .coco-card-zh{font-size:1rem}
   .coco-card-fr{font-size:.8rem}
-  .learn-tile{padding:.65rem .7rem}
-  .tile-zh{font-size:1.15rem!important}
-  .tile-py{font-size:.88rem!important}
-  .tile-fr{font-size:.82rem!important}
-  .tile-text>.btn-speak{width:42px;height:42px}
+  .learn-tile{padding:.5rem .55rem}
   .btn-learn-clear-all{font-size:.95rem;padding:.65rem 1.35rem;min-height:48px}
   .link-back{font-size:.95rem;padding:.35rem 0;display:inline-block}
   .page-hero{padding:1rem 1.05rem}
@@ -951,11 +1125,55 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
 }
 .drag-ghost .zh{font-weight:700;font-size:1.2rem;color:var(--pink-deep)}
 .drag-ghost .pinyin{color:var(--muted);font-size:.85rem}
-body.touch-drag-active{-webkit-user-select:none;user-select:none}
+html.touch-drag-active,
+body.touch-drag-active,
+body.touch-drag-active *:not(input):not(textarea){
+  -webkit-user-select:none!important;
+  user-select:none!important;
+  -webkit-touch-callout:none!important;
+  -webkit-user-drag:none!important;
+}
+body.touch-drag-active ::selection{background:transparent}
+.touch-learn .learn-tile,.touch-learn .stage-zone,.touch-learn .learn-stage,
+.touch-practice .drag-card,.touch-practice .bucket,.touch-practice .drag-area{
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+}
+.touch-learn .learn-tile,.touch-learn .stage-zone,.touch-practice .drag-card,.touch-practice .bucket{touch-action:none}
+.touch-learn .btn-speak,.touch-practice .btn-speak{touch-action:manipulation}
 .touch-drag-active [data-drop-zone].over,.touch-drag-active .bucket.over{
   outline:3px solid var(--pink);outline-offset:3px;background:rgba(255,200,230,.25);
 }
 .learn-tile.is-pointer-dragging,.drag-card.is-pointer-dragging{opacity:.42}
+
+/* 強制橫向網格（html.learn-grid-on，不依賴 :has） */
+html.learn-grid-on [data-learn-page] .learn-board,
+html.learn-grid-on [data-learn-page] .learn-board.learn-board-four,
+html.learn-grid-on [data-learn-page] .learn-board.learn-board-games{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+}
+html.learn-grid-on [data-learn-page] .learn-scroll,
+html.learn-grid-on [data-learn-page] .learn-scroll.learn-scroll-grid{
+  display:grid!important;
+  flex-direction:unset!important;
+}
+html.learn-grid-on #theme1-games-learn .learn-scroll,
+html.learn-grid-on [data-learn-page] .learn-board-games .learn-scroll,
+html.learn-grid-on [data-learn-page] .learn-board:not(.learn-board-four) .learn-scroll{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  grid-template-rows:1fr!important;
+}
+html.learn-grid-on #theme1-instruments-learn .learn-scroll,
+html.learn-grid-on [data-learn-page] .learn-board-four .learn-scroll{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  grid-template-rows:repeat(2,minmax(0,1fr))!important;
+}
+html.learn-grid-on [data-learn-page] .learn-board-four .learn-scroll>.learn-tile,
+html.learn-grid-on [data-learn-page] .learn-scroll>.learn-tile{
+  flex:none!important;width:auto!important;max-width:none!important;
+}
+html.learn-grid-on [data-learn-page] .learn-tile .btn-speak{display:none!important}
+html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
 
 </style>
 </head>
@@ -1038,10 +1256,10 @@ body.touch-drag-active{-webkit-user-select:none;user-select:none}
 
 <section id="theme1-games-learn" class="page" data-learn-page>
 <a class="link-back" href="#theme1">← 返回主題一</a>
-<div class="learn-board">
+<div class="learn-board learn-board-games">
   <div class="learn-col learn-verbs">
     <h3 class="col-head zh">動詞<span class="pinyin">dòngcí</span></h3>
-    <div class="learn-scroll">
+    <div class="learn-scroll learn-scroll-grid">
   <div class="learn-tile learn-tile-verb tile-da" draggable="true" data-drag-type="verb" data-zh="打" data-py="dǎ" data-fr="jouer (au…)">
     <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="打">🔊</button><span class="tile-zh zh">打</span><span class="tile-py pinyin">dǎ</span><span class="tile-fr fr-line">jouer (au…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer (au…)">🔊</button></div>
   </div>
@@ -1055,7 +1273,7 @@ body.touch-drag-active{-webkit-user-select:none;user-select:none}
   </div>
   <div class="learn-col learn-nouns">
     <h3 class="col-head zh">名詞<span class="pinyin">míngcí</span></h3>
-    <div class="learn-scroll">
+    <div class="learn-scroll learn-scroll-grid">
   <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="籃球" data-py="lánqiú" data-full="打籃球" data-full-py="dǎ lánqiú" data-verb="打" data-fr="jouer au basket">
     <div class="tile-img"><span class="tile-emoji">🏀</span></div>
     <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="籃球">🔊</button><span class="tile-zh zh">籃球</span><span class="tile-py pinyin">lánqiú</span><span class="tile-fr fr-line">le basket</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer au basket">🔊</button></div>
@@ -1111,7 +1329,7 @@ body.touch-drag-active{-webkit-user-select:none;user-select:none}
 <div class="learn-board learn-board-four">
   <div class="learn-col learn-verbs">
     <h3 class="col-head zh">動詞<span class="pinyin">dòngcí</span></h3>
-    <div class="learn-scroll">
+    <div class="learn-scroll learn-scroll-grid">
   <div class="learn-tile learn-tile-verb tile-tan" draggable="true" data-drag-type="verb" data-zh="彈" data-py="tán" data-fr="jouer (du…)">
     <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="彈">🔊</button><span class="tile-zh zh">彈</span><span class="tile-py pinyin">tán</span><span class="tile-fr fr-line">jouer (du…)</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer (du…)">🔊</button></div>
   </div>
@@ -1128,7 +1346,7 @@ body.touch-drag-active{-webkit-user-select:none;user-select:none}
   </div>
   <div class="learn-col learn-nouns">
     <h3 class="col-head zh">名詞<span class="pinyin">míngcí</span></h3>
-    <div class="learn-scroll">
+    <div class="learn-scroll learn-scroll-grid">
   <div class="learn-tile learn-tile-noun" draggable="true" data-drag-type="noun" data-zh="鋼琴" data-py="gāngqín" data-full="彈鋼琴" data-full-py="tán gāngqín" data-verb="彈" data-fr="jouer du piano">
     <div class="tile-img"><span class="tile-emoji">🎹</span></div>
     <div class="tile-text"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="鋼琴">🔊</button><span class="tile-zh zh">鋼琴</span><span class="tile-py pinyin">gāngqín</span><span class="tile-fr fr-line">le piano</span><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="jouer du piano">🔊</button></div>
@@ -1668,13 +1886,35 @@ function isTouchUI(){
   }
   function setupPointerDrag(opts){
     var active=null,ghost=null,hlZone=null,TH=8;
+    var dragRoot=document.documentElement;
+    function setDragLock(on){
+      dragRoot.classList.toggle('touch-drag-active',on);
+      document.body.classList.toggle('touch-drag-active',on);
+    }
     function clearHL(){if(hlZone){hlZone.classList.remove('over');hlZone=null;}}
     function clearDrag(){
       if(ghost){ghost.remove();ghost=null;}
-      document.body.classList.remove('touch-drag-active');
+      setDragLock(false);
       if(active&&active.item)active.item.classList.remove('is-pointer-dragging');
+      try{
+        var sel=window.getSelection();
+        if(sel&&sel.removeAllRanges)sel.removeAllRanges();
+      }catch(err){}
       clearHL();active=null;
     }
+    function blockSelect(e){
+      if(!document.body.classList.contains('touch-drag-active'))return;
+      e.preventDefault();
+    }
+    function blockCopy(e){
+      if(!document.body.classList.contains('touch-drag-active'))return;
+      if(!opts.scope||!opts.scope.contains(e.target))return;
+      e.preventDefault();
+    }
+    document.addEventListener('selectstart',blockSelect,true);
+    document.addEventListener('contextmenu',blockSelect,true);
+    document.addEventListener('copy',blockCopy,true);
+    document.addEventListener('cut',blockCopy,true);
     function findZone(x,y){
       if(ghost)ghost.style.visibility='hidden';
       var el=document.elementFromPoint(x,y);
@@ -1698,7 +1938,7 @@ function isTouchUI(){
         active.item.classList.add('is-pointer-dragging');
         ghost=opts.makeGhost(active.item,active.payload);
         document.body.appendChild(ghost);
-        document.body.classList.add('touch-drag-active');
+        setDragLock(true);
       }
       ghost.style.left=x+'px';
       ghost.style.top=y+'px';
@@ -1706,16 +1946,17 @@ function isTouchUI(){
       if(z!==hlZone){clearHL();hlZone=z;if(z)z.classList.add('over');}
       return true;
     }
-    function end(x,y,prevent){
+    function end(x,y,prevent,evt){
       if(!active)return;
       var was=active;
       if(was.moved){
-        if(prevent)try{event.preventDefault();}catch(e){}
+        if(prevent&&evt)try{evt.preventDefault();}catch(e){}
         var z=findZone(x,y);
         if(z)opts.onDrop(z,was.payload,was.item);
         clearDrag();
         return 'dropped';
       }
+      setDragLock(false);
       if(opts.onTap)opts.onTap(was.item);
       active=null;
       return 'tap';
@@ -1725,9 +1966,19 @@ function isTouchUI(){
       if(!item||!opts.scope.contains(item))return;
       if(e.target.closest('.btn-speak,.btn-chip'))return;
       if(opts.canDrag&&!opts.canDrag(item))return;
+      setDragLock(true);
+      try{
+        var sel=window.getSelection();
+        if(sel&&sel.removeAllRanges)sel.removeAllRanges();
+      }catch(err){}
       var p=pt(e);
       start(item,p.x,p.y);
-    },{passive:true});
+      if(opts.blockTouchScroll!==false)e.preventDefault();
+    },{passive:false});
+    opts.scope.addEventListener('selectstart',function(e){
+      var item=e.target.closest(opts.itemSelector);
+      if(document.body.classList.contains('touch-drag-active')||(item&&opts.scope.contains(item)))e.preventDefault();
+    },{capture:true});
     opts.scope.addEventListener('touchmove',function(e){
       if(!active)return;
       var p=pt(e);
@@ -1736,7 +1987,7 @@ function isTouchUI(){
     opts.scope.addEventListener('touchend',function(e){
       if(!active)return;
       var p=pt(e);
-      var r=end(p.x,p.y,true);
+      var r=end(p.x,p.y,true,e);
       if(r==='dropped')e.preventDefault();
     },{passive:false});
     opts.scope.addEventListener('touchcancel',function(){clearDrag();},{passive:true});
@@ -2063,7 +2314,7 @@ function isTouchUI(){
       if(stage&&!root.querySelector('.learn-touch-hint')){
         var hint=document.createElement('p');
         hint.className='learn-touch-hint';
-        hint.textContent='按住詞語拖到空格（或先點詞語再點空格）· Glisse ou touche tuile puis zone';
+        hint.textContent='點一下選詞、再點空格；連點兩下聽中文 · Touche / double-touche';
         stage.parentNode.insertBefore(hint,stage);
       }
       var pickedTile=null;
@@ -2091,6 +2342,7 @@ function isTouchUI(){
         scope:root,itemSelector:'.learn-tile',zoneSelector:'[data-drop-zone]',
         getPayload:tilePayload,
         canDrag:function(){return true;},
+        blockTouchScroll:true,
         onTap:pickTile,
         makeGhost:function(tile){
           var g=document.createElement('div');
@@ -2119,6 +2371,15 @@ function isTouchUI(){
       hint.innerHTML='手機若無法發音：請用 Safari 開啟此頁的網址（https），不要直接用「檔案」預覽。<br>Pour la voix sur mobile : ouvrir via Safari (https), pas l’aperçu Fichiers.';
     }
   }
+  function syncLearnPageLock(){
+    var id=(location.hash||'').replace(/^#/,'');
+    var onLearn=id==='theme1-games-learn'||id==='theme1-instruments-learn';
+    var mobile=window.matchMedia('(max-width:768px)').matches;
+    document.body.classList.toggle('learn-page-lock',onLearn&&mobile);
+  }
+  window.addEventListener('hashchange',syncLearnPageLock);
+  window.addEventListener('resize',syncLearnPageLock);
+  syncLearnPageLock();
   setNavCurrent();
 })();
 </script>

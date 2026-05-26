@@ -10,7 +10,7 @@
 <meta http-equiv="Pragma" content="no-cache"/>
 <meta http-equiv="Expires" content="0"/>
 <title>Cours du jour — 今日課程</title>
-<!-- build: v4-js-force-grid 若手機左下角無綠色 v4 標籤 = 仍是舊檔或快取 -->
+<!-- build: v5-js-force-grid 若手機左下角無綠色 v5 標籤 = 仍是舊檔或快取 -->
 <script>
 (function(){
   function syncLearnGridClass(){
@@ -653,7 +653,8 @@ body:has(#theme1:target) #theme1-practice{display:none}
   [data-learn-page] .learn-board,
   [data-learn-page] .learn-board.learn-board-four,
   [data-learn-page] .learn-board.learn-board-games{
-    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:auto auto!important;
   }
 }
 .learn-col{display:flex;flex-direction:column;border-radius:var(--radius);border:3px solid #fff;overflow:hidden;height:min(48vh,420px);min-height:280px;background:#fff;box-shadow:var(--shadow-soft)}
@@ -666,7 +667,8 @@ body:has(#theme1:target) #theme1-practice{display:none}
 /* 學習頁：手機優先橫向網格（桌面 ≥769px 再改回直向卡片） */
 [data-learn-page] .learn-board{
   display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  grid-template-columns:minmax(0,1fr);
+  grid-template-rows:auto auto;
   gap:.32rem;
 }
 [data-learn-page] .learn-col{
@@ -718,6 +720,7 @@ body:has(#theme1:target) #theme1-practice{display:none}
 @media(min-width:769px){
   [data-learn-page] .learn-board{
     grid-template-columns:minmax(0,42%) minmax(0,58%);
+    grid-template-rows:1fr;
     gap:.75rem;
   }
   [data-learn-page] .learn-col{height:min(48vh,420px);min-height:280px}
@@ -993,10 +996,10 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
   [data-learn-page] .learn-board,
   [data-learn-page] .learn-board.learn-board-four,
   [data-learn-page] .learn-board.learn-board-games{
-    flex:1 1 auto;min-height:0;max-height:min(38dvh,260px);
+    flex:1 1 auto;min-height:0;max-height:min(46dvh,320px);
     display:grid!important;
-    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
-    grid-template-rows:1fr;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:auto auto!important;
     gap:.28rem;margin-bottom:.2rem;align-content:stretch;
   }
   [data-learn-page] .learn-col,
@@ -1042,19 +1045,21 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
     text-align:left!important;padding:.2rem .14rem!important;gap:.18rem!important;
   }
   [data-learn-page] .learn-tile-noun .tile-img{
-    width:clamp(20px,5.5vw,26px);height:clamp(20px,5.5vw,26px);margin:0;flex-shrink:0;
+    width:clamp(28px,7.5vw,36px);height:clamp(28px,7.5vw,36px);margin:0;flex-shrink:0;
   }
-  [data-learn-page] .learn-tile-noun .tile-svg{width:clamp(20px,5.5vw,26px);height:clamp(20px,5.5vw,26px)}
-  [data-learn-page] .learn-tile-noun .tile-emoji{font-size:clamp(.9rem,3vw,1.1rem)}
+  [data-learn-page] .learn-tile-noun .tile-svg{width:clamp(28px,7.5vw,36px);height:clamp(28px,7.5vw,36px)}
+  [data-learn-page] .learn-tile-noun .tile-emoji{font-size:clamp(1.1rem,4vw,1.35rem)}
   [data-learn-page] .learn-tile-noun .tile-text{align-items:flex-start!important;text-align:left!important}
-  [data-learn-page] .learn-tile-noun .tile-zh{font-size:clamp(.7rem,2.6vw,.86rem)!important;line-height:1.1}
-  [data-learn-page] .learn-tile-noun .tile-py{font-size:clamp(.5rem,2vw,.56rem)!important}
-  [data-learn-page] .learn-board-four .learn-tile-noun .tile-zh{font-size:clamp(.62rem,2.3vw,.76rem)!important}
+  [data-learn-page] .learn-tile-verb .tile-zh{font-size:clamp(1rem,4.2vw,1.2rem)!important;line-height:1.15}
+  [data-learn-page] .learn-tile-verb .tile-py{font-size:clamp(.68rem,2.8vw,.78rem)!important}
+  [data-learn-page] .learn-tile-noun .tile-zh{font-size:clamp(.88rem,3.6vw,1.05rem)!important;line-height:1.12}
+  [data-learn-page] .learn-tile-noun .tile-py{font-size:clamp(.62rem,2.4vw,.72rem)!important}
+  [data-learn-page] .learn-board-four .learn-tile-noun .tile-zh{font-size:clamp(.82rem,3.2vw,.98rem)!important}
   [data-learn-page] .tile-img{width:30px;height:30px;border-radius:8px;margin:0 auto}
   [data-learn-page] .tile-emoji{font-size:1.25rem}
   [data-learn-page] .tile-text{flex-direction:column!important;align-items:center!important;width:100%;gap:.04rem!important}
-  [data-learn-page] .tile-zh{font-size:.9rem!important;line-height:1.12;white-space:normal!important}
-  [data-learn-page] .tile-py{font-size:.6rem!important;white-space:normal!important}
+  [data-learn-page] .tile-zh{font-size:1rem!important;line-height:1.12;white-space:normal!important}
+  [data-learn-page] .tile-py{font-size:.68rem!important;white-space:normal!important}
   [data-learn-page] .tile-fr{display:none!important}
   [data-learn-page] .learn-stage{
     flex-shrink:0;margin-bottom:0;padding:.4rem .35rem;outline-offset:2px;
@@ -1182,7 +1187,8 @@ html.learn-grid-on [data-learn-page] .learn-board,
 html.learn-grid-on [data-learn-page] .learn-board.learn-board-four,
 html.learn-grid-on [data-learn-page] .learn-board.learn-board-games{
   display:grid!important;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto auto!important;
 }
 html.learn-grid-on [data-learn-page] .learn-scroll,
 html.learn-grid-on [data-learn-page] .learn-scroll.learn-scroll-grid{
@@ -2425,7 +2431,7 @@ function isTouchUI(){
 <script>
 /* 不依賴 CSS / 媒體查詢：用手機偵測 + inline style 強制橫向網格 */
 (function forceMobileLearnGrid(){
-  var BADGE='v4';
+  var BADGE='v5';
   function isPhone(){
     return window.innerWidth<=900||navigator.maxTouchPoints>0||window.matchMedia('(hover:none) and (pointer:coarse)').matches;
   }
@@ -2438,7 +2444,8 @@ function isTouchUI(){
     var board=page.querySelector('.learn-board');
     if(board){
       board.style.setProperty('display','grid','important');
-      board.style.setProperty('grid-template-columns','1fr 1fr','important');
+      board.style.setProperty('grid-template-columns','1fr','important');
+      board.style.setProperty('grid-template-rows','auto auto','important');
       board.style.setProperty('gap','0.28rem','important');
     }
     page.querySelectorAll('.learn-col').forEach(function(col){
@@ -2475,7 +2482,7 @@ function isTouchUI(){
       b.style.cssText='position:fixed;left:8px;bottom:max(78px,env(safe-area-inset-bottom));z-index:99999;font:700 11px/1.2 system-ui;padding:4px 8px;background:#16a34a;color:#fff;border-radius:8px;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.2)';
       document.body.appendChild(b);
     }
-    b.textContent=BADGE+' 橫向網格';
+    b.textContent=BADGE+' 上動下名';
   }
   apply();
   document.addEventListener('DOMContentLoaded',apply);

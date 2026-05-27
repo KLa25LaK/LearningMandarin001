@@ -481,8 +481,27 @@ details.review .inner{padding:0 1.1rem 1.15rem;border-top:2px solid var(--lav-so
     grid-column:1;flex-direction:row;gap:.4rem;
   }
   .stem-cell-pick .pick-trigger-audio .btn-chip{flex:1}
-  .pick-sentence-speak{flex-direction:column;align-items:stretch}
-  .pick-sentence-actions .btn-chip{flex:1}
+  /* 手機：完整句子列改為左右排，避免下方留白 */
+  .pick-sentence-speak{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;
+    gap:.35rem .45rem;
+    flex-wrap:unset;
+    padding:.45rem .5rem;
+  }
+  .pick-sentence-preview{flex:unset;min-width:0}
+  .pick-sentence-actions{
+    flex-direction:column;
+    gap:.35rem;
+    align-items:stretch;
+  }
+  .pick-sentence-actions .btn-chip{
+    flex:0 0 auto;
+    min-width:3.8rem;
+    width:auto;
+    padding:.35rem .6rem;
+  }
   .pick-opt-audio{flex-direction:column;gap:.35rem}
   .pick-opt-audio .btn-chip{min-width:3.6rem;width:auto}
 }

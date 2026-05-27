@@ -440,14 +440,25 @@ details.review .inner{padding:0 1.1rem 1.15rem;border-top:2px solid var(--lav-so
 .stem-cell-pick .pick-option:last-child{margin-bottom:0}
 .stem-cell-pick .pick-option:hover,.stem-cell-pick .pick-option:focus{background:var(--lav-soft)}
 .stem-cell-pick .pick-option.is-selected{background:linear-gradient(135deg,var(--pink-soft),#fff)}
-.pick-opt-card{width:100%}
-.pick-opt-text{padding:0 .08rem .3rem}
+.pick-opt-card{
+  width:100%;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:.35rem .45rem;
+}
+.pick-opt-text{padding:0;min-width:0}
 .pick-opt-zh{display:block;font-size:.95rem;font-weight:700;color:var(--ink)}
 .pick-opt-py{display:block;font-size:.8rem;color:var(--muted)}
 .pick-opt-fr{display:block;font-size:.76rem;color:var(--lav-deep);font-family:var(--font-fr);line-height:1.25}
 .pick-opt-audio{
-  display:grid;grid-template-columns:1fr 1fr;gap:.28rem;
-  padding-top:.28rem;border-top:1px dashed rgba(167,139,250,.22);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:.25rem;
+  padding-top:0;
+  border-top:none;
+  flex-shrink:0;
 }
 .pick-audio-zh,.pick-audio-fr{display:flex;justify-content:center}
 @media(max-width:768px){
@@ -472,7 +483,8 @@ details.review .inner{padding:0 1.1rem 1.15rem;border-top:2px solid var(--lav-so
   .stem-cell-pick .pick-trigger-audio .btn-chip{flex:1}
   .pick-sentence-speak{flex-direction:column;align-items:stretch}
   .pick-sentence-actions .btn-chip{flex:1}
-  .pick-opt-audio{grid-template-columns:1fr 1fr}
+  .pick-opt-audio{flex-direction:column;gap:.35rem}
+  .pick-opt-audio .btn-chip{min-width:3.6rem;width:auto}
 }
 /* —— COCO boissons —— */
 .coco-panel{
@@ -484,13 +496,22 @@ details.review .inner{padding:0 1.1rem 1.15rem;border-top:2px solid var(--lav-so
   margin:0 0 .85rem;font-size:clamp(1.05rem,4.2vw,1.25rem);font-weight:700;color:var(--ink);
   text-align:center;line-height:1.45;
 }
-.coco-formula .coco-brand{
-  display:inline-block;padding:.12rem .55rem;border-radius:8px;
-  background:linear-gradient(135deg,#fb923c,#f97316);color:#fff;font-family:var(--font-fr);
-  letter-spacing:.04em;
+.coco-stem-row{
+  margin:0 0 .55rem;padding:.5rem .55rem;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(251,146,60,.28);
+  box-shadow:0 2px 8px rgba(251,146,60,.1);
 }
-.coco-formula .coco-plus{color:var(--lav-deep);margin:0 .2em}
-.coco-pick-name{color:var(--pink-deep);min-width:2em;display:inline-block}
+.coco-stem-row .stem-cell-zh{border-color:rgba(251,146,60,.32)}
+.coco-stem-row .stem-cell-pick{border-color:rgba(251,146,60,.38)}
+.coco-stem-row .builder-stem{grid-template-columns:1fr 1fr}
+.coco-stem-row .pick-sentence-speak{margin-top:.45rem}
+.coco-stem-row .coco-brand{
+  display:inline-block;padding:.06rem .45rem;margin:0 .12rem;border-radius:8px;
+  background:linear-gradient(135deg,#fb923c,#f97316);color:#fff;font-family:var(--font-fr);
+  letter-spacing:.04em;font-size:.92em;vertical-align:baseline;
+}
+.coco-stem-row .coco-pick-name{color:var(--pink-deep);font-weight:700}
 .coco-hint{font-size:.78rem;color:var(--muted);text-align:center;margin:-.45rem 0 .75rem}
 .coco-grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,158px),1fr));
@@ -748,14 +769,30 @@ body:has(#theme1:target) #theme1-practice{display:none}
   [data-learn-page] .learn-board-four .learn-col{height:min(54vh,460px);min-height:300px}
   [data-learn-page] .learn-scroll,
   [data-learn-page] .learn-scroll.learn-scroll-grid{
-    display:flex;flex-direction:column;gap:.35rem;padding:.4rem .5rem;
+    display:flex;
+    flex-direction:column;
+    justify-content:stretch;
+    gap:.35rem;
+    padding:.4rem .5rem;
+    flex:1 1 auto;
+    min-height:0;
     grid-template-columns:unset;grid-template-rows:unset;
   }
-  [data-learn-page] .learn-scroll>.learn-tile{
-    flex:1 1 0;min-height:0;
-    flex-direction:row;align-items:center;justify-content:flex-start;
-    text-align:left;padding:.45rem .55rem;gap:.4rem;
+  [data-learn-page] .learn-scroll>.learn-tile,
+  [data-learn-page] .learn-board-four .learn-scroll>.learn-tile{
+    flex:1 1 0;
+    min-height:0;
+    height:auto;
+    flex-direction:row;
+    align-items:center;
+    justify-content:flex-start;
+    text-align:left;
+    padding:.45rem .55rem;
+    gap:.4rem;
+    overflow:hidden;
   }
+  [data-learn-page] .learn-tile-noun{align-items:center!important}
+  [data-learn-page] .learn-tile-noun .tile-text{align-items:center!important}
   [data-learn-page] .learn-tile .btn-speak{display:inline-flex!important}
   [data-learn-page] .tile-fr{display:inline!important}
   [data-learn-page] .tile-text{flex-direction:row;flex-wrap:nowrap;align-items:center}
@@ -1151,8 +1188,8 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
   .pick-opt-zh{font-size:1.08rem}
   .pick-opt-py{font-size:.9rem}
   .pick-opt-fr{font-size:.88rem}
-  .pick-opt-audio{gap:.4rem;padding-top:.4rem}
-  .pick-opt-audio .btn-chip{width:100%;min-height:46px;font-size:.82rem}
+  .pick-opt-audio{gap:.35rem;padding-top:0}
+  .pick-opt-audio .btn-chip{min-width:3.8rem;width:auto;min-height:40px;font-size:.82rem}
   .coco-hint{font-size:.9rem;padding:.5rem .55rem}
   .coco-card-zh{font-size:1rem}
   .coco-card-fr{font-size:.8rem}
@@ -1549,7 +1586,26 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
 </div>
 <p class="section-title">COCO · Choisis ta boisson<span class="pinyin zh">Xuǎn yǐnliào</span></p>
 <div class="coco-panel">
-  <p class="coco-formula zh">我要去 <span class="coco-brand">COCO</span> <span class="coco-plus">+</span> <span class="coco-buy">買</span> <span class="coco-plus">+</span> <span class="coco-pick-name" id="coco-pick-name">⋯</span></p>
+  <div class="builder-row coco-stem-row">
+    <div class="builder-stem">
+      <div class="stem-cell stem-cell-zh">
+        <div class="cell-layout">
+          <div class="cell-text stem-text">
+            <span class="zh-line zh">我要去<span class="coco-brand">COCO</span>買</span>
+            <span class="pinyin" id="coco-stem-py">Wǒ yào qù COCO mǎi</span>
+            <span class="fr-line stem-fr" id="coco-stem-fr">Je vais à CoCo acheter</span>
+          </div>
+          <div class="cell-actions stem-audio" id="coco-stem-audio">
+            <button type="button" class="btn-chip btn-zh" data-lang="zh" data-speak="我要去COCO買" title="聽句型">句型 🔊</button>
+            <button type="button" class="btn-chip btn-fr" data-lang="fr" data-speak="Je vais à CoCo acheter." title="Écouter le modèle">modèle 🔊</button>
+          </div>
+        </div>
+      </div>
+      <div class="stem-cell stem-cell-pick">
+        <select id="pick-coco"><option value="">—</option><option value="百香雙響炮" data-coco-id="shuangxiangpao" data-zh="我要去COCO買百香雙響炮。" data-fr="Je vais à CoCo acheter le Duo Passion." data-py="Wǒ yào qù COCO mǎi bǎixiāng shuāngxiǎngpào.">百香雙響炮</option><option value="奶茶三兄弟" data-coco-id="sanxiongdi" data-zh="我要去COCO買奶茶三兄弟。" data-fr="Je vais à CoCo acheter le milk tea aux trois garnitures." data-py="Wǒ yào qù COCO mǎi nǎichá sānxiōngdì.">奶茶三兄弟</option><option value="四季珍椰青" data-coco-id="sijizhenyeqing" data-zh="我要去COCO買四季珍椰青。" data-fr="Je vais à CoCo acheter le Siji Zhen Ye Qing." data-py="Wǒ yào qù COCO mǎi sìjì zhēn yē qīng.">四季珍椰青</option><option value="芋頭西谷米牛奶" data-coco-id="yutou" data-zh="我要去COCO買芋頭西谷米牛奶。" data-fr="Je vais à CoCo acheter le lait taro et sagou." data-py="Wǒ yào qù COCO mǎi yùtou xīgǔmǐ niúnǎi.">芋頭西谷米牛奶</option><option value="粉角檸檬冬瓜" data-coco-id="fenjiao" data-zh="我要去COCO買粉角檸檬冬瓜。" data-fr="Je vais à CoCo acheter la boisson citron et courge." data-py="Wǒ yào qù COCO mǎi fěnjiǎo níngméng dōngguā.">粉角檸檬冬瓜</option></select>
+      </div>
+    </div>
+  </div>
   <p class="coco-hint">點飲料選句子 · 點圖片看內容物（中法文）</p>
   <div class="coco-grid" id="coco-grid"><button type="button" class="coco-card" data-coco-id="shuangxiangpao" data-zh="我要去COCO買百香雙響炮。" data-fr="Je vais à CoCo acheter le Duo Passion." data-py="Wǒ yào qù COCO mǎi bǎixiāng shuāngxiǎngpào." data-name="百香雙響炮" data-img="coco-shuangxiangpao.png" data-ing-zh="內容物：百香果汁、綠茶、珍珠（黑色）、椰果（白色方塊）" data-ing-fr="Contenu : jus de fruit de la passion, thé vert, perles de tapioca noires, gelée de noix de coco.">
   <span class="coco-card-media"><img src="coco-shuangxiangpao.png" alt="百香雙響炮" width="400" height="300" loading="lazy"><span class="coco-zoom" aria-hidden="true">⤢</span></span>
@@ -1635,12 +1691,24 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
     if(!window.speechSynthesis)return;
     loadVoices();
     if(speechUnlocked)return;
-    speechUnlocked=true;
     try{
       var u=new SpeechSynthesisUtterance('\u200b');
       u.volume=0.01;u.rate=1;u.lang='zh-TW';
+      // iOS/Safari 有時需要先「解鎖」speechSynthesis；若立刻 cancel 可能中斷解鎖
+      var unlockTimer=null;
+      u.onend=function(){
+        if(unlockTimer)clearTimeout(unlockTimer);
+        try{speechSynthesis.cancel();}catch(e){}
+      };
+      u.onerror=function(){
+        if(unlockTimer)clearTimeout(unlockTimer);
+        try{speechSynthesis.cancel();}catch(e){}
+      };
       speechSynthesis.speak(u);
-      speechSynthesis.cancel();
+      speechUnlocked=true;
+      unlockTimer=setTimeout(function(){
+        try{speechSynthesis.cancel();}catch(e){}
+      },700);
     }catch(err){}
     if(window.speechSynthesis.paused)try{speechSynthesis.resume();}catch(e2){}
   }
@@ -1660,8 +1728,12 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
   }
   function findSpeakButton(e){
     var t=e.target;
-    if(!t||!t.closest)return null;
-    var b=t.closest('button.btn-speak,button.btn-chip,button.btn-sentence');
+    if(!t)return null;
+    // iOS Safari 可能讓 target 指到按鈕內的文字節點，沒有 closest()
+    var b=null;
+    if(t.closest)b=t.closest('button.btn-speak,button.btn-chip,button.btn-sentence');
+    else if(t.parentElement&&t.parentElement.closest)b=t.parentElement.closest('button.btn-speak,button.btn-chip,button.btn-sentence');
+    else if(t.parentNode&&t.parentNode.closest)b=t.parentNode.closest('button.btn-speak,button.btn-chip,button.btn-sentence');
     if(!b||b.disabled)return null;
     var text=(b.getAttribute('data-speak')||'').trim();
     if(!text&&b.hasAttribute('data-speak-zh'))text=(b.getAttribute('data-speak-zh')||'').trim();
@@ -1700,14 +1772,38 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
   function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
   function renderPickedPhrase(zh,fr,py){/* phrase shown in stem + pick; no duplicate block */}
 
-  function renderCocoPhrase(zh,fr,py){
-    var box=document.getElementById('coco-result');
-    if(!box)return;
-    if(!zh){box.innerHTML='';return;}
-    box.innerHTML='<div class="phrase"><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="'+escHtml(zh)+'" title="聽">🔊</button><div><span class="zh-line zh">'+escHtml(zh)+'</span><span class="pinyin">'+escHtml(py)+'</span></div></div><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="'+escHtml(fr)+'" title="Écouter">🔊</button><span class="fr-line">'+escHtml(fr)+'</span></div></div>';
+  function renderCocoStemPattern(){
+    var pyEl=document.getElementById('coco-stem-py');
+    var frEl=document.getElementById('coco-stem-fr');
+    var audio=document.getElementById('coco-stem-audio');
+    if(pyEl)pyEl.textContent='Wǒ yào qù COCO mǎi';
+    if(frEl)frEl.textContent='Je vais à CoCo acheter';
+    if(audio){
+      var btnZh=audio.querySelector('.btn-zh');
+      var btnFr=audio.querySelector('.btn-fr');
+      if(btnZh)btnZh.setAttribute('data-speak','我要去COCO買');
+      if(btnFr)btnFr.setAttribute('data-speak','Je vais à CoCo acheter.');
+    }
+  }
+  function resetCocoStem(){
+    applyCocoSelection({name:'',cocoId:''});
+  }
+  function applyCocoSelection(data){
+    data=data||{};
+    renderCocoStemPattern();
+    if(cocoGrid){
+      cocoGrid.querySelectorAll('.coco-card').forEach(function(c){
+        c.classList.toggle('is-selected',!!(data.cocoId&&c.getAttribute('data-coco-id')===data.cocoId));
+      });
+    }
+    var sel=document.getElementById('pick-coco');
+    if(sel){
+      sel.value=data.name||'';
+      if(sel._syncPickTrigger)sel._syncPickTrigger();
+      else if(sel._sentenceBar)syncPickSentenceBar(sel,sel._sentenceBar);
+    }
   }
   var cocoGrid=document.getElementById('coco-grid');
-  var cocoName=document.getElementById('coco-pick-name');
   var lightbox=document.getElementById('img-lightbox');
   var lightboxImg=document.getElementById('lightbox-img');
   
@@ -1769,20 +1865,24 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
       }
       cocoGrid.querySelectorAll('.coco-card').forEach(function(c){c.classList.remove('is-selected');});
       card.classList.add('is-selected');
-      if(cocoName)cocoName.textContent=card.getAttribute('data-name')||'⋯';
-      renderCocoPhrase(card.dataset.zh,card.dataset.fr,card.dataset.py||'');
+      applyCocoSelection({
+        name:card.getAttribute('data-name')||'',
+        cocoId:card.getAttribute('data-coco-id')||''
+      });
     });
   }
 
   function pickKindFromId(id){
     if(id==='pick-buy')return 'buy';
     if(id==='pick-pay')return 'pay';
+    if(id==='pick-coco')return 'coco';
     return 'svc';
   }
   function pickWordPy(opt,kind){
     var py=(opt.getAttribute('data-py')||'').replace(/\.$/,'');
     if(kind==='buy')return py.replace(/^Wǒ yào qù 7-11 mǎi\s*/,'');
     if(kind==='pay')return py.replace(/^Wǒ yào qù 7-11 jiǎo\s*/,'');
+    if(kind==='coco')return py.replace(/^Wǒ yào qù COCO mǎi\s*/,'');
     return py.replace(/^Wǒ yào qù 7-11\s*/,'');
   }
   function pickParts(opt,kind){
@@ -1795,6 +1895,14 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
   function pickFullFr(opt){return (opt.getAttribute('data-fr')||'').trim();}
   function pickTriggerHTML(opt,kind){
     if(!opt||!opt.value)return '<div class="pick-trigger-body pick-trigger-empty"><div class="pick-trigger-text"><span class="pick-tap-hint zh">👆 點此選詞</span><span class="pick-tap-hint-fr">Choisir un mot</span></div></div>';
+    if(kind==='coco'){
+      var zh=opt.value||'';
+      return '<div class="pick-trigger-body"><div class="pick-trigger-text">'
+        +'<span class="pick-opt-zh zh">'+escPick(zh)+'</span></div>'
+        +'<div class="pick-trigger-audio">'
+        +'<button type="button" class="btn-chip btn-zh" data-lang="zh" data-speak="'+escPick(zh)+'" title="聽詞語">詞 🔊</button>'
+        +'</div></div>';
+    }
     var p=pickParts(opt,kind);
     return '<div class="pick-trigger-body"><div class="pick-trigger-text">'
       +'<span class="pick-opt-zh zh">'+escPick(p.zh)+'</span>'
@@ -1807,6 +1915,14 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
   }
   function pickOptionHTML(opt,kind){
     if(!opt.value)return '<span class="pick-opt-zh">—</span>';
+    if(kind==='coco'){
+      var zh=opt.value||'';
+      return '<div class="pick-opt-card"><div class="pick-opt-text">'
+        +'<span class="pick-opt-zh zh">'+escPick(zh)+'</span></div>'
+        +'<div class="pick-opt-audio"><div class="pick-audio-zh">'
+        +'<button type="button" class="btn-chip btn-zh" data-lang="zh" data-speak="'+escPick(zh)+'" title="聽詞語">詞 🔊</button>'
+        +'</div></div></div>';
+    }
     var p=pickParts(opt,kind);
     return '<div class="pick-opt-card"><div class="pick-opt-text">'
       +'<span class="pick-opt-zh zh">'+escPick(p.zh)+'</span>'
@@ -1890,8 +2006,8 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
     menu.hidden=true;
     function closeMenu(){menu.hidden=true;trigger.classList.remove('is-open');trigger.setAttribute('aria-expanded','false');}
     function openMenu(){
-      document.querySelectorAll('.builder-711 .pick-menu').forEach(function(m){if(m!==menu)m.hidden=true;});
-      document.querySelectorAll('.builder-711 .pick-trigger').forEach(function(t){if(t!==trigger)t.classList.remove('is-open');});
+      document.querySelectorAll('.builder-711 .pick-menu,.coco-panel .pick-menu').forEach(function(m){if(m!==menu)m.hidden=true;});
+      document.querySelectorAll('.builder-711 .pick-trigger,.coco-panel .pick-trigger').forEach(function(t){if(t!==trigger)t.classList.remove('is-open');});
       menu.hidden=false;trigger.classList.add('is-open');trigger.setAttribute('aria-expanded','true');
       requestAnimationFrame(function(){
         menu.classList.toggle('has-more',menu.scrollHeight>menu.clientHeight+4);
@@ -1900,7 +2016,7 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
     function syncTrigger(){
       var o=sel.selectedOptions[0];
       triggerInner.innerHTML=pickTriggerHTML(o,kind);
-      syncPickSentenceBar(sel,sentenceBar);
+      if(sentenceBar)syncPickSentenceBar(sel,sentenceBar);
       menu.querySelectorAll('.pick-option').forEach(function(btn){
         btn.classList.toggle('is-selected',btn.dataset.value===(sel.value||''));
       });
@@ -1928,15 +2044,23 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
     syncTrigger();
   }
   document.addEventListener('click',function(e){
-    if(!e.target.closest('.pick-enhanced'))document.querySelectorAll('.builder-711 .pick-menu').forEach(function(m){m.hidden=true;});
-    if(!e.target.closest('.pick-trigger'))document.querySelectorAll('.builder-711 .pick-trigger').forEach(function(t){t.classList.remove('is-open');t.setAttribute('aria-expanded','false');});
+    if(!e.target.closest('.pick-enhanced'))document.querySelectorAll('.builder-711 .pick-menu,.coco-panel .pick-menu').forEach(function(m){m.hidden=true;});
+    if(!e.target.closest('.pick-trigger'))document.querySelectorAll('.builder-711 .pick-trigger,.coco-panel .pick-trigger').forEach(function(t){t.classList.remove('is-open');t.setAttribute('aria-expanded','false');});
   });
-  ['pick-buy','pick-pay','pick-svc'].forEach(function(id){
+  ['pick-buy','pick-pay','pick-svc','pick-coco'].forEach(function(id){
     var sel=document.getElementById(id);
     if(!sel)return;
     enhancePickSelect(sel);
     sel.addEventListener('change',function(){
       var o=this.selectedOptions[0];
+      if(id==='pick-coco'){
+        if(!o||!o.value){resetCocoStem();return;}
+        applyCocoSelection({
+          name:o.value,
+          cocoId:o.getAttribute('data-coco-id')||''
+        });
+        return;
+      }
       if(!o||!o.value){
         syncPickSentenceBar(this,this._sentenceBar);
         return;
@@ -2493,8 +2617,7 @@ function isTouchUI(){
   if(location.protocol==='file:'){
     var hint=document.getElementById('file-protocol-hint');
     if(hint){
-      hint.hidden=false;
-      hint.innerHTML='手機若無法發音：請用 Safari 開啟此頁的網址（https），不要直接用「檔案」預覽。<br>Pour la voix sur mobile : ouvrir via Safari (https), pas l’aperçu Fichiers.';
+      hint.hidden=true;
     }
   }
   function syncLearnPageLock(){

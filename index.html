@@ -209,7 +209,44 @@ a.course-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 8px 0 rg
 .verb-tag .pinyin{font-size:.72rem;display:block;font-weight:600;opacity:.85}
 
 /* —— Jeu drag & drop —— */
-.drag-area{margin:1rem 0;padding:1rem;background:rgba(255,255,255,.7);border-radius:var(--radius);border:2px dashed var(--lav)}
+.drag-area{position:relative;margin:1rem 0;padding:1rem;background:rgba(255,255,255,.7);border-radius:var(--radius);border:2px dashed var(--lav)}
+.drag-practice-board{position:relative}
+.practice-win-overlay{
+  position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:.35rem;
+  background:rgba(255,248,252,.88);border-radius:var(--radius-sm);
+  pointer-events:none;
+}
+.practice-win-overlay[hidden]{display:none!important}
+.practice-win-crown-wrap{
+  display:inline-block;line-height:1;position:relative;
+}
+.practice-win-crown{
+  display:block;font-size:clamp(4rem,20vw,7rem);line-height:1;
+  filter:drop-shadow(0 10px 28px rgba(245,158,11,.5));
+  opacity:0;transform:scale(.85);
+}
+.practice-win-overlay.is-active .practice-win-crown{
+  animation:practice-crown-pop .45s ease-out forwards,practice-crown-shine 1.1s ease-in-out .45s infinite;
+}
+.practice-win-text{margin:0;font-size:clamp(1.35rem,5.5vw,1.85rem);font-weight:800;color:var(--pink-deep)}
+.practice-win-text-fr{margin:0;font-size:clamp(1rem,4vw,1.25rem);font-family:var(--font-fr);font-weight:700;color:var(--lav-deep)}
+.practice-win-nav-hint{
+  margin:.15rem 0 0;font-size:clamp(.72rem,2.8vw,.82rem);color:var(--muted);text-align:center;
+}
+@keyframes practice-crown-pop{
+  to{opacity:1;transform:scale(1)}
+}
+@keyframes practice-crown-shine{
+  0%,100%{
+    filter:drop-shadow(0 10px 28px rgba(245,158,11,.45)) brightness(1);
+    transform:scale(1);
+  }
+  50%{
+    filter:drop-shadow(0 0 22px rgba(255,215,0,.95)) drop-shadow(0 0 36px rgba(255,180,50,.7)) brightness(1.35);
+    transform:scale(1.08);
+  }
+}
 .drag-label{margin:0 0 .4rem;font-size:.88rem;font-weight:700;color:var(--lav-deep);font-family:var(--font-fr)}
 .drag-label-verbs{margin-top:.15rem}
 .drag-cards{
@@ -592,13 +629,15 @@ footer.foot{
 .float-nav{
   position:fixed;right:max(.75rem,env(safe-area-inset-right));
   top:max(4.5rem,calc(env(safe-area-inset-top) + 3rem));bottom:auto;
-  z-index:9999;display:flex;flex-direction:column;gap:.45rem;align-items:flex-end;max-width:min(92vw,320px);
+  z-index:100000;display:flex;flex-direction:column;gap:.45rem;align-items:flex-end;max-width:min(92vw,320px);
+  pointer-events:auto;
 }
 .float-nav a{
   display:flex;flex-direction:column;align-items:flex-end;text-align:right;gap:.12rem;
   padding:.6rem 1rem;border-radius:20px;color:#fff;text-decoration:none;
   box-shadow:0 5px 0 rgba(0,0,0,.12),0 8px 18px rgba(200,160,220,.2);border:3px solid #fff;line-height:1.3;
   transition:transform .2s cubic-bezier(.34,1.4,.64,1),box-shadow .15s;
+  pointer-events:auto;position:relative;z-index:1;
 }
 .float-nav a:hover{transform:translateX(-3px) scale(1.02);box-shadow:0 8px 24px rgba(0,0,0,.2)}
 .float-nav a.fn-home{background:linear-gradient(145deg,#ddd6fe,var(--lav-deep))}
@@ -1010,12 +1049,14 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
   .float-nav{
     top:auto;bottom:0;left:0;right:0;
     max-width:none;width:100%;
+    z-index:100000;
     flex-direction:row;flex-wrap:nowrap;justify-content:stretch;align-items:stretch;
     gap:.35rem;padding:.45rem max(.5rem,env(safe-area-inset-left)) max(.55rem,env(safe-area-inset-bottom)) max(.5rem,env(safe-area-inset-right));
     background:linear-gradient(0deg,rgba(255,255,255,.97) 70%,rgba(255,255,255,0));
     backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
     border-top:1px solid rgba(212,196,255,.5);
     box-shadow:0 -4px 20px rgba(120,80,160,.12);
+    pointer-events:auto;
   }
   .float-nav a{
     flex:1 1 0;min-width:0;align-items:center;text-align:center;
@@ -1025,12 +1066,13 @@ body{-webkit-tap-highlight-color:transparent;padding-bottom:max(2rem,env(safe-ar
   .float-nav a .fn-zh{font-size:.74rem;line-height:1.25}
   .float-nav a .fn-fr{display:block}
   .float-nav a .fn-zh{display:block;margin-top:.08rem}
+  /* 手機：名詞上 3 下 4（橫排兩列） */
   .drag-cards{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    row-gap:.45rem;column-gap:.45rem;padding:.5rem;
+    grid-template-columns:repeat(12,minmax(0,1fr))!important;
+    row-gap:.35rem;column-gap:.32rem;padding:.4rem .35rem;
   }
-  .drag-cards .drag-card:nth-child(-n+3),
-  .drag-cards .drag-card:nth-child(n+4){grid-column:span 1!important}
+  .drag-cards .drag-card:nth-child(-n+3){grid-column:span 4!important}
+  .drag-cards .drag-card:nth-child(n+4){grid-column:span 3!important}
   .drag-card,.bucket{min-height:4.5rem;padding:.55rem .4rem}
   .drag-card{cursor:pointer}
   .buckets{grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem}
@@ -1531,10 +1573,17 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
 
 <section id="theme1-practice" class="page">
 <a class="link-back" href="#theme1">← Thème 1 / 返回主題一</a>
-<div class="explain explain-practice"><div class="fr-block"><button type="button" class="btn-speak btn-fr" data-lang="fr" data-speak="Glisse chaque mot vers le bon verbe." title="Écouter">🔊</button><span class="fr-line">Glisse chaque mot vers le bon verbe.</span></div><div class="zh-block"><button type="button" class="btn-speak btn-zh" data-lang="zh" data-speak="把名詞拖到教過的動詞。" title="聽">🔊</button><div><span class="zh-line zh">把名詞拖到教過的動詞。</span><span class="pinyin">Bǎ míngcí tuō dào jiàoguò de dòngcí.</span></div></div></div>
 <div class="drag-area" id="drag-game"><p class="drag-touch-hint" id="drag-touch-hint">按住名詞拖到動詞（或先點名詞再點動詞）· Glisse ou touche nom puis verbe</p>
+  <div class="drag-practice-board">
   <div class="drag-cards" id="drag-pool"><div class="drag-card" draggable="true" data-bucket="打"><span class="zh">籃球</span><span class="pinyin">lánqiú</span></div><div class="drag-card" draggable="true" data-bucket="踢"><span class="zh">足球</span><span class="pinyin">zúqiú</span></div><div class="drag-card" draggable="true" data-bucket="下"><span class="zh">圍棋</span><span class="pinyin">wéiqí</span></div><div class="drag-card" draggable="true" data-bucket="彈"><span class="zh">鋼琴</span><span class="pinyin">gāngqín</span></div><div class="drag-card" draggable="true" data-bucket="拉"><span class="zh">小提琴</span><span class="pinyin">xiǎotíqín</span></div><div class="drag-card" draggable="true" data-bucket="吹"><span class="zh">薩克斯風</span><span class="pinyin">sàkèsīfēng</span></div><div class="drag-card" draggable="true" data-bucket="打"><span class="zh">鼓</span><span class="pinyin">gǔ</span></div></div>
   <div class="buckets" id="drag-buckets"><div class="bucket" data-bucket="打"><h6 class="zh">打</h6><span class="pinyin">dǎ</span><div class="dropped"></div></div><div class="bucket" data-bucket="踢"><h6 class="zh">踢</h6><span class="pinyin">tī</span><div class="dropped"></div></div><div class="bucket" data-bucket="下"><h6 class="zh">下</h6><span class="pinyin">xià</span><div class="dropped"></div></div><div class="bucket" data-bucket="彈"><h6 class="zh">彈</h6><span class="pinyin">tán</span><div class="dropped"></div></div><div class="bucket" data-bucket="拉"><h6 class="zh">拉</h6><span class="pinyin">lā</span><div class="dropped"></div></div><div class="bucket" data-bucket="吹"><h6 class="zh">吹</h6><span class="pinyin">chuī</span><div class="dropped"></div></div></div>
+  <div class="practice-win-overlay" id="practice-win-overlay" hidden aria-hidden="true">
+    <span class="practice-win-crown-wrap" aria-hidden="true"><span class="practice-win-crown">👑</span></span>
+    <p class="practice-win-text zh">太棒了！全部答對！</p>
+    <p class="practice-win-text-fr">Bravo ! Tout est correct !</p>
+    <p class="practice-win-nav-hint zh">可點下方按鈕到其他單元 · Utilise les boutons en bas</p>
+  </div>
+  </div>
   <p id="drag-msg"></p>
 </div>
 </section>
@@ -2097,9 +2146,89 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
     });
   });
   var wrongResetTimer=null;
+  var practiceWinShown=false;
+  var practiceWinDismissTimer=null;
+  function hidePracticeWin(){
+    practiceWinShown=false;
+    if(practiceWinDismissTimer){clearTimeout(practiceWinDismissTimer);practiceWinDismissTimer=null;}
+    var ov=document.getElementById('practice-win-overlay');
+    if(!ov)return;
+    ov.classList.remove('is-active');
+    ov.hidden=true;
+    ov.setAttribute('aria-hidden','true');
+    var dragGame=document.getElementById('drag-game');
+    if(dragGame)dragGame.classList.remove('practice-won');
+  }
+  function playVictorySound(){
+    unlockAudio();
+    var Ctx=window.AudioContext||window.webkitAudioContext;
+    if(!Ctx)return;
+    var ctx=new Ctx();
+    var t0=ctx.currentTime;
+    var melody=[523.25,659.25,783.99,1046.5,1318.51];
+    melody.forEach(function(freq,i){
+      var o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='triangle';
+      o.frequency.value=freq;
+      o.connect(g);g.connect(ctx.destination);
+      var start=t0+i*0.11;
+      g.gain.setValueAtTime(0.0001,start);
+      g.gain.exponentialRampToValueAtTime(0.55,start+0.04);
+      g.gain.exponentialRampToValueAtTime(0.001,start+0.42);
+      o.start(start);o.stop(start+0.45);
+    });
+    [1046.5,1318.51,1567.98].forEach(function(freq,j){
+      var o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';
+      o.frequency.value=freq;
+      o.connect(g);g.connect(ctx.destination);
+      var start=t0+0.65+j*0.08;
+      g.gain.setValueAtTime(0.0001,start);
+      g.gain.exponentialRampToValueAtTime(0.45,start+0.05);
+      g.gain.exponentialRampToValueAtTime(0.001,start+0.55);
+      o.start(start);o.stop(start+0.58);
+    });
+    if(ctx.state==='suspended'){try{ctx.resume();}catch(e){}}
+    setTimeout(function(){try{ctx.close();}catch(e){}},1400);
+  }
+  function showPracticeWin(){
+    if(practiceWinShown)return;
+    var pool=document.getElementById('drag-pool');
+    if(!pool)return;
+    if(pool.querySelectorAll('.drag-card').length!==7)return;
+    if(pool.querySelectorAll('.drag-card.correct').length!==7)return;
+    practiceWinShown=true;
+    playVictorySound();
+    document.documentElement.classList.remove('touch-drag-active');
+    document.body.classList.remove('touch-drag-active');
+    var dragGame=document.getElementById('drag-game');
+    if(dragGame)dragGame.classList.add('practice-won');
+    var ov=document.getElementById('practice-win-overlay');
+    if(ov){
+      ov.hidden=false;
+      ov.setAttribute('aria-hidden','false');
+      ov.classList.remove('is-active');
+      void ov.offsetWidth;
+      ov.classList.add('is-active');
+    }
+    var msg=document.getElementById('drag-msg');
+    if(msg)msg.textContent='全部答對！Bravo, tout est correct !';
+    if(practiceWinDismissTimer)clearTimeout(practiceWinDismissTimer);
+    practiceWinDismissTimer=window.setTimeout(function(){
+      practiceWinDismissTimer=null;
+      hidePracticeWin();
+    },4500);
+  }
+  function checkPracticeWin(){
+    if(practiceWinShown)return;
+    var pool=document.getElementById('drag-pool');
+    if(!pool)return;
+    if(pool.querySelectorAll('.drag-card.correct').length===7)showPracticeWin();
+  }
   function resetPracticeUI(){
     var pool=document.getElementById('drag-pool');
     var buckets=document.getElementById('drag-buckets');
+    hidePracticeWin();
     if(!pool||!buckets)return;
     pool.querySelectorAll('.drag-card').forEach(function(c){
       c.classList.remove('correct','wrong','dragging','touch-pick');
@@ -2139,6 +2268,7 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
     }while(rowsAligned(sc,sb)&&tries<32);
     sc.forEach(function(el){pool.appendChild(el);});
     sb.forEach(function(el){buckets.appendChild(el);});
+    hidePracticeWin();
     cards.forEach(function(c){c.classList.remove('correct','wrong','dragging');});
     bucketEls.forEach(function(b){
       b.classList.remove('over');
@@ -2173,6 +2303,7 @@ function isTouchUI(){
     }
     function blockSelect(e){
       if(!document.body.classList.contains('touch-drag-active'))return;
+      if(e.target&&e.target.closest&&e.target.closest('.float-nav,.link-back'))return;
       e.preventDefault();
     }
     function blockCopy(e){
@@ -2293,6 +2424,7 @@ function isTouchUI(){
       card.classList.add('correct');
       if(droppedEl){droppedEl.classList.remove('wrong-x');droppedEl.textContent=label+' ✓';}
       document.getElementById('drag-msg').textContent='對了！Correct !';
+      checkPracticeWin();
     }else{
       card.classList.add('wrong');
       if(droppedEl){droppedEl.textContent='✗';droppedEl.classList.add('wrong-x');}
@@ -2386,7 +2518,12 @@ function isTouchUI(){
   }
   window.addEventListener('hashchange',function(){
     setNavCurrent();
+    hidePracticeWin();
     if((location.hash||'').slice(1)==='theme1-practice')shufflePracticeOrder();
+  });
+  document.querySelectorAll('.float-nav a,.link-back').forEach(function(link){
+    link.addEventListener('click',function(){hidePracticeWin();});
+    link.addEventListener('touchend',function(){hidePracticeWin();},{passive:true});
   });
 
 

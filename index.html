@@ -1762,37 +1762,32 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
     try{
       var u=new SpeechSynthesisUtterance('\u200b');
       u.volume=0.01;u.rate=1;u.lang='zh-TW';
-      // iOS/Safari 有時需要先「解鎖」speechSynthesis；若立刻 cancel 可能中斷解鎖
-      var unlockTimer=null;
-      u.onend=function(){
-        if(unlockTimer)clearTimeout(unlockTimer);
-        try{speechSynthesis.cancel();}catch(e){}
-      };
-      u.onerror=function(){
-        if(unlockTimer)clearTimeout(unlockTimer);
-        try{speechSynthesis.cancel();}catch(e){}
-      };
       speechSynthesis.speak(u);
       speechUnlocked=true;
-      unlockTimer=setTimeout(function(){
-        try{speechSynthesis.cancel();}catch(e){}
-      },700);
     }catch(err){}
     if(window.speechSynthesis.paused)try{speechSynthesis.resume();}catch(e2){}
   }
-  function speak(text,lang,btn){
+  function speak(text,lang,btn,opts){
     if(!text||!window.speechSynthesis)return;
+    opts=opts||{};
+    var wasUnlocked=speechUnlocked;
     unlockSpeech();
     loadVoices();
-    if(window.speechSynthesis.paused)try{speechSynthesis.resume();}catch(e){}
-    speechSynthesis.cancel();
-    var u=new SpeechSynthesisUtterance(text);
-    u.lang=lang==='fr'?'fr-FR':'zh-TW';
-    u.rate=0.85;
-    var voice=lang==='fr'?voices.fr:voices.zh;
-    if(voice)u.voice=voice;
-    if(btn){btn.classList.add('speaking');u.onend=u.onerror=function(){btn.classList.remove('speaking');};}
-    speechSynthesis.speak(u);
+    function doSpeak(){
+      if(window.speechSynthesis.paused)try{speechSynthesis.resume();}catch(e){}
+      if(opts.cancelPrevious!==false){
+        try{if(window.speechSynthesis.speaking)speechSynthesis.cancel();}catch(e2){}
+      }
+      var u=new SpeechSynthesisUtterance(text);
+      u.lang=lang==='fr'?'fr-FR':'zh-TW';
+      u.rate=0.85;
+      var voice=lang==='fr'?voices.fr:voices.zh;
+      if(voice)u.voice=voice;
+      if(btn){btn.classList.add('speaking');u.onend=u.onerror=function(){btn.classList.remove('speaking');};}
+      speechSynthesis.speak(u);
+    }
+    if(wasUnlocked)doSpeak();
+    else setTimeout(doSpeak,120);
   }
   function findSpeakButton(e){
     var t=e.target;
@@ -2577,8 +2572,30 @@ function isTouchUI(){
     setTimeout(function(){try{ctx.close();}catch(e){}},600);
     return true;
   }
+  function playCorrectSoundWeb(){
+    var Ctx=window.AudioContext||window.webkitAudioContext;
+    if(!Ctx)return false;
+    var ctx=new Ctx();
+    var t0=ctx.currentTime;
+    [[523.25,0],[659.25,.09],[783.99,.18],[1046.5,.28]].forEach(function(seg){
+      var o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';
+      o.frequency.value=seg[0];
+      o.connect(g);g.connect(ctx.destination);
+      g.gain.setValueAtTime(0.0001,t0+seg[1]);
+      g.gain.exponentialRampToValueAtTime(0.42,t0+seg[1]+0.04);
+      g.gain.exponentialRampToValueAtTime(0.001,t0+seg[1]+0.22);
+      o.start(t0+seg[1]);o.stop(t0+seg[1]+0.24);
+    });
+    if(ctx.state==='suspended'){try{ctx.resume();}catch(e){}}
+    setTimeout(function(){try{ctx.close();}catch(e){}},500);
+    return true;
+  }
+  function playCorrectSound(){
+    unlockAudio();
+    playCorrectSoundWeb();
+  }
   function playErrorSound(){
-    if(window.speechSynthesis)speechSynthesis.cancel();
     unlockAudio();
     try{
       if(!errorBeepAudio)errorBeepAudio=new Audio(buildErrorBeepUrl());
@@ -2636,7 +2653,8 @@ function isTouchUI(){
         var ck=state.verb.zh+"+"+state.noun.zh;
         if(ck!==lastCorrectKey){
           lastCorrectKey=ck;
-          speak(state.noun.full||wrongCombo,'zh',null);
+          playCorrectSound();
+          speak(state.noun.full||wrongCombo,'zh',null,{cancelPrevious:false});
         }
       }else{
         lastCorrectKey="";

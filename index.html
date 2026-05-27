@@ -1670,7 +1670,7 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
         </div>
       </div>
       <div class="stem-cell stem-cell-pick">
-        <select id="pick-coco"><option value="">—</option><option value="百香雙響炮" data-coco-id="shuangxiangpao" data-zh="我要去COCO買百香雙響炮。" data-fr="Je vais à CoCo acheter le Duo Passion." data-py="Wǒ yào qù COCO mǎi bǎixiāng shuāngxiǎngpào.">百香雙響炮</option><option value="奶茶三兄弟" data-coco-id="sanxiongdi" data-zh="我要去COCO買奶茶三兄弟。" data-fr="Je vais à CoCo acheter le milk tea aux trois garnitures." data-py="Wǒ yào qù COCO mǎi nǎichá sānxiōngdì.">奶茶三兄弟</option><option value="四季珍椰青" data-coco-id="sijizhenyeqing" data-zh="我要去COCO買四季珍椰青。" data-fr="Je vais à CoCo acheter le Siji Zhen Ye Qing." data-py="Wǒ yào qù COCO mǎi sìjì zhēn yē qīng.">四季珍椰青</option><option value="芋頭西谷米牛奶" data-coco-id="yutou" data-zh="我要去COCO買芋頭西谷米牛奶。" data-fr="Je vais à CoCo acheter le lait taro et sagou." data-py="Wǒ yào qù COCO mǎi yùtou xīgǔmǐ niúnǎi.">芋頭西谷米牛奶</option><option value="粉角檸檬冬瓜" data-coco-id="fenjiao" data-zh="我要去COCO買粉角檸檬冬瓜。" data-fr="Je vais à CoCo acheter la boisson citron et courge." data-py="Wǒ yào qù COCO mǎi fěnjiǎo níngméng dōngguā.">粉角檸檬冬瓜</option></select>
+        <select id="pick-coco"><option value="">—</option><option value="百香雙響炮" data-coco-id="shuangxiangpao" data-zh="我要去COCO買百香雙響炮。" data-fr="Je vais à CoCo acheter le Duo Passion." data-py="Wǒ yào qù COCO mǎi bǎixiāng shuāngxiǎngpào.">百香雙響炮 · Duo Passion</option><option value="奶茶三兄弟" data-coco-id="sanxiongdi" data-zh="我要去COCO買奶茶三兄弟。" data-fr="Je vais à CoCo acheter le milk tea aux trois garnitures." data-py="Wǒ yào qù COCO mǎi nǎichá sānxiōngdì.">奶茶三兄弟 · Milk tea aux trois garnitures</option><option value="四季珍椰青" data-coco-id="sijizhenyeqing" data-zh="我要去COCO買四季珍椰青。" data-fr="Je vais à CoCo acheter le Siji Zhen Ye Qing." data-py="Wǒ yào qù COCO mǎi sìjì zhēn yē qīng.">四季珍椰青 · Siji Zhen Ye Qing</option><option value="芋頭西谷米牛奶" data-coco-id="yutou" data-zh="我要去COCO買芋頭西谷米牛奶。" data-fr="Je vais à CoCo acheter le lait taro et sagou." data-py="Wǒ yào qù COCO mǎi yùtou xīgǔmǐ niúnǎi.">芋頭西谷米牛奶 · Lait taro et sagou</option><option value="粉角檸檬冬瓜" data-coco-id="fenjiao" data-zh="我要去COCO買粉角檸檬冬瓜。" data-fr="Je vais à CoCo acheter la boisson citron et courge." data-py="Wǒ yào qù COCO mǎi fěnjiǎo níngméng dōngguā.">粉角檸檬冬瓜 · Citron et courge</option></select>
       </div>
     </div>
   </div>
@@ -1958,14 +1958,6 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
   function pickFullFr(opt){return (opt.getAttribute('data-fr')||'').trim();}
   function pickTriggerHTML(opt,kind){
     if(!opt||!opt.value)return '<div class="pick-trigger-body pick-trigger-empty"><div class="pick-trigger-text"><span class="pick-tap-hint zh">👆 點此選詞</span><span class="pick-tap-hint-fr">Choisir un mot</span></div></div>';
-    if(kind==='coco'){
-      var zh=opt.value||'';
-      return '<div class="pick-trigger-body"><div class="pick-trigger-text">'
-        +'<span class="pick-opt-zh zh">'+escPick(zh)+'</span></div>'
-        +'<div class="pick-trigger-audio">'
-        +'<button type="button" class="btn-chip btn-zh" data-lang="zh" data-speak="'+escPick(zh)+'" title="聽詞語">詞 🔊</button>'
-        +'</div></div>';
-    }
     var p=pickParts(opt,kind);
     return '<div class="pick-trigger-body"><div class="pick-trigger-text">'
       +'<span class="pick-opt-zh zh">'+escPick(p.zh)+'</span>'
@@ -1978,14 +1970,6 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
   }
   function pickOptionHTML(opt,kind){
     if(!opt.value)return '<span class="pick-opt-zh">—</span>';
-    if(kind==='coco'){
-      var zh=opt.value||'';
-      return '<div class="pick-opt-card"><div class="pick-opt-text">'
-        +'<span class="pick-opt-zh zh">'+escPick(zh)+'</span></div>'
-        +'<div class="pick-opt-audio"><div class="pick-audio-zh">'
-        +'<button type="button" class="btn-chip btn-zh" data-lang="zh" data-speak="'+escPick(zh)+'" title="聽詞語">詞 🔊</button>'
-        +'</div></div></div>';
-    }
     var p=pickParts(opt,kind);
     return '<div class="pick-opt-card"><div class="pick-opt-text">'
       +'<span class="pick-opt-zh zh">'+escPick(p.zh)+'</span>'
@@ -2524,6 +2508,8 @@ function isTouchUI(){
 
   var errorBeepUrl=null;
   var errorBeepAudio=null;
+  var correctBeepUrl=null;
+  var correctBeepAudio=null;
   function buildErrorBeepUrl(){
     if(errorBeepUrl)return errorBeepUrl;
     var rate=8000,dur=0.4,n=Math.floor(rate*dur);
@@ -2542,14 +2528,39 @@ function isTouchUI(){
     errorBeepUrl=URL.createObjectURL(new Blob([buf],{type:'audio/wav'}));
     return errorBeepUrl;
   }
+  function buildCorrectBeepUrl(){
+    if(correctBeepUrl)return correctBeepUrl;
+    var rate=8000,dur=0.38,n=Math.floor(rate*dur);
+    var buf=new ArrayBuffer(44+n*2),v=new DataView(buf);
+    var w=function(o,s){for(var i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
+    w(0,'RIFF');v.setUint32(4,36+n*2,true);w(8,'WAVE');w(12,'fmt ');
+    v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+    v.setUint32(24,rate,true);v.setUint32(28,rate*2,true);v.setUint16(32,2,true);
+    v.setUint16(34,16,true);w(36,'data');v.setUint32(40,n*2,true);
+    for(var i=0;i<n;i++){
+      var t=i/rate;
+      var f=t<0.09?523.25:t<0.18?659.25:t<0.27?783.99:1046.5;
+      var env=t>dur-0.05?(dur-t)/0.05:1;
+      var s=Math.sin(2*Math.PI*f*t)*0.5*env;
+      v.setInt16(44+i*2,s*32767,true);
+    }
+    correctBeepUrl=URL.createObjectURL(new Blob([buf],{type:'audio/wav'}));
+    return correctBeepUrl;
+  }
   function unlockAudio(){
     unlockSpeech();
     buildErrorBeepUrl();
+    buildCorrectBeepUrl();
     if(!errorBeepAudio){
       errorBeepAudio=new Audio(buildErrorBeepUrl());
       errorBeepAudio.preload='auto';
     }
+    if(!correctBeepAudio){
+      correctBeepAudio=new Audio(buildCorrectBeepUrl());
+      correctBeepAudio.preload='auto';
+    }
     try{errorBeepAudio.load();}catch(e){}
+    try{correctBeepAudio.load();}catch(e){}
     unlockSpeech();
   }
   ['pointerdown','touchstart','click','dragstart','keydown'].forEach(function(ev){
@@ -2593,6 +2604,13 @@ function isTouchUI(){
   }
   function playCorrectSound(){
     unlockAudio();
+    try{
+      if(!correctBeepAudio)correctBeepAudio=new Audio(buildCorrectBeepUrl());
+      correctBeepAudio.currentTime=0;
+      var p=correctBeepAudio.play();
+      if(p&&p.then){p.catch(function(){playCorrectSoundWeb();});return;}
+      return;
+    }catch(e){}
     playCorrectSoundWeb();
   }
   function playErrorSound(){
@@ -2654,7 +2672,10 @@ function isTouchUI(){
         if(ck!==lastCorrectKey){
           lastCorrectKey=ck;
           playCorrectSound();
-          speak(state.noun.full||wrongCombo,'zh',null,{cancelPrevious:false});
+          var sayZh=state.noun.full||wrongCombo;
+          setTimeout(function(){
+            speak(sayZh,'zh',null,{cancelPrevious:false});
+          },180);
         }
       }else{
         lastCorrectKey="";
@@ -2680,6 +2701,7 @@ function isTouchUI(){
     }
     function applyLearnDrop(zone,data){
       if(data.type!==zone.dataset.dropZone)return;
+      unlockAudio();
       if(zone.dataset.dropZone==='verb'){state.verb=data;renderSlot(slotVerb,data);}
       else{state.noun=data;renderSlot(slotNoun,data);}
       updateResult();
@@ -2750,12 +2772,14 @@ function isTouchUI(){
       root.querySelectorAll('[data-drop-zone]').forEach(function(zone){
         zone.addEventListener('click',function(){
           if(!pickedTile)return;
+          unlockAudio();
           applyLearnDrop(zone,tilePayload(pickedTile));
           pickedTile=null;
           root.querySelectorAll('.learn-tile').forEach(function(t){t.classList.remove('touch-pick');});
         });
         zone.addEventListener('touchend',function(e){
           if(!pickedTile)return;
+          unlockAudio();
           applyLearnDrop(zone,tilePayload(pickedTile));
           pickedTile=null;
           root.querySelectorAll('.learn-tile').forEach(function(t){t.classList.remove('touch-pick');});
@@ -2774,7 +2798,10 @@ function isTouchUI(){
           g.innerHTML='<span class="zh">'+tile.dataset.zh+'</span><span class="pinyin">'+tile.dataset.py+'</span>';
           return g;
         },
-        onDrop:function(zone,payload){applyLearnDrop(zone,payload);}
+        onDrop:function(zone,payload){
+          unlockAudio();
+          applyLearnDrop(zone,payload);
+        }
       });
     }
     root.querySelectorAll('[data-stage-clear]').forEach(function(clearBtn){

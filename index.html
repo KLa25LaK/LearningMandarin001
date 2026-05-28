@@ -1778,6 +1778,28 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
       if(opts.cancelPrevious!==false){
         try{if(window.speechSynthesis.speaking)speechSynthesis.cancel();}catch(e2){}
       }
+      // 中文句子含 7-11 時，拆成多段：中文前段 → 英文 7-Eleven → 中文後段
+      if(lang==='zh'&&text.indexOf('7-11')>=0){
+        var parts=text.split('7-11');
+        var segments=[];
+        for(var i=0;i<parts.length;i++){
+          if(parts[i])segments.push({t:parts[i],l:'zh-TW',v:voices.zh});
+          if(i<parts.length-1)segments.push({t:'7-Eleven',l:'en-US',v:voices.zh});
+        }
+        if(btn)btn.classList.add('speaking');
+        function speakSegment(idx){
+          if(idx>=segments.length){if(btn)btn.classList.remove('speaking');return;}
+          var seg=segments[idx];
+          var u=new SpeechSynthesisUtterance(seg.t);
+          u.lang=seg.l;u.rate=0.85;
+          if(seg.v)u.voice=seg.v;
+          u.onend=function(){speakSegment(idx+1);};
+          u.onerror=function(){if(btn)btn.classList.remove('speaking');};
+          speechSynthesis.speak(u);
+        }
+        speakSegment(0);
+        return;
+      }
       var u=new SpeechSynthesisUtterance(text);
       u.lang=lang==='fr'?'fr-FR':'zh-TW';
       u.rate=0.85;
@@ -1826,12 +1848,7 @@ html.learn-grid-on [data-learn-page] .tile-fr{display:none!important}
     e.preventDefault();
     e.stopPropagation();
   },{capture:true,passive:false});
-  document.addEventListener('pointerup',function(e){
-    if(e.pointerType!=='touch')return;
-    if(!triggerSpeak(e))return;
-    e.preventDefault();
-    e.stopPropagation();
-  },{capture:true});
+
   function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
   function renderPickedPhrase(zh,fr,py){/* phrase shown in stem + pick; no duplicate block */}
 
